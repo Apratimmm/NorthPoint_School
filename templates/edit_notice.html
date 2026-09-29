@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Edit Notice - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'show_notices' %}" class="text-xl font-bold tracking-tight text-ink">Back to Notices</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Notice Details</h1>
+    </div>
+
+    {% if messages %}
+          <div class="mb-6 space-y-3">
+            {% for message in messages %}
+              <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+<div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+
+    <form method="post" enctype="multipart/form-data" action="/edit_notice/{{ notice.id }}/" class="space-y-6">
+        {% csrf_token %}
+
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Title</label><input required name="title"
+                                                                                            value="{{ submitted_title|default:notice.title }}"
+                                                                                            placeholder="e.g. Second term exam routine"
+                                                                                            class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+        </div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Date</label><input required name="date"
+                                                                                           value="{{ submitted_date|default:notice.date }}"
+                                                                                           placeholder="e.g. Baisakh 20, 2083"
+                                                                                           class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+        </div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Language</label><select name="language"
+                                                                                                class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+            <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+            <option value="ne" {% if language == 'ne' %}selected{% endif %}>Nepali</option>
+        </select></div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Body</label><textarea name="body" rows="5"
+                                                                                              class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ submitted_body|default:notice.body }}</textarea>
+        </div>
+
+    <div class="flex justify-end"><button type="submit" onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();" class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">Update</button></div>
+    </form></div>
+
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+          <h2 class="text-xl font-semibold mb-6 text-ink">Add Image(s)</h2>
+
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="add_images">
+
+           <div class="mb-6">
+              <input type="file" name="images" accept="image/*" multiple class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+            </div>
+
+            <div class="flex justify-end mb-2"><button type="submit"
+                    class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition"
+                    onclick="if(!confirm('Upload these image(s)?'))return false; this.textContent='Uploading...'; this.disabled=true; this.classList.add('opacity-75','cursor-not-allowed'); this.form.submit();">
+              Upload
+            </button></div>
+          </form>
+        </div>
+
+        <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
+          <h2 class="text-xl font-semibold mb-6 text-ink">Current Image(s)</h2>
+
+          {% if notice.images.all %}
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+              {% for img in notice.images.all %}
+                <div class="relative group">
+                  <img src="{{ img.image.url }}?f_auto,q_auto" alt="Gallery image"
+                       class="w-full h-48 object-cover rounded-xl shadow" loading="lazy">
+
+                  <form method="POST" class="absolute top-2 right-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="delete_image">
+                    <input type="hidden" name="image_id" value="{{ img.id }}">
+                    <button type="submit"
+                            class="js-delete-photo border-2 border-black bg-red-600 text-white hover:bg-red-700 text-xs font-semibold px-3 py-1 rounded-xl transition">
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-gray-500">No images uploaded yet.</p>
+          {% endif %}
+        </div>
+
+  </form>
+</main>
+</body>
+</html>
+
+{% block extra_js %}
+    <script>
+      document.querySelectorAll(".js-delete-photo").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          if (!confirm("Delete this image?")) {
+            e.preventDefault();
+            return;
+          }
+          this.textContent = "Deleting...";
+          this.disabled = true;
+          this.classList.add("opacity-100", "cursor-not-allowed");
+          this.closest("form").submit();
+        });
+      });
+    </script>
+
+{% endblock %}
+

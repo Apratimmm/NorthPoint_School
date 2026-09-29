@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Add Notice - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'show_notices' %}" class="text-xl font-bold tracking-tight text-ink">Back to Notices</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Notice Details</h1>
+    </div>
+
+{% if messages %}
+          <div class="mb-6 space-y-3">
+            {% for message in messages %}
+              <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+  <form method="post" enctype="multipart/form-data" action="/add_notice/" class="space-y-6">
+    {% csrf_token %}
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
+
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Title</label><input required name="title"
+                                                                                            value="{{ title|default:'' }}"
+                                                                                            placeholder="e.g. Second term exam routine"
+                                                                                            class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+        </div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Date</label><input required name="date"
+                                                                                           value="{{ date|default:'' }}"
+                                                                                           placeholder="e.g. Baisakh 20, 2083"
+                                                                                           class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+        </div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Language</label><select name="language"
+                                                                                                class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+            <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+            <option value="ne" {% if language == 'ne' %}selected{% endif %}>Nepali</option>
+        </select></div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Body</label><textarea name="body" rows="5"
+                                                                                              class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ body|default:'' }}</textarea>
+        </div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Images</label><input type="file"
+                                                                                             name="images"
+                                                                                             accept="image/*" multiple
+                                                                                             class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+        </div>
+    <div class="flex justify-end"><button type="submit" onclick="this.textContent='Creating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();" class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">Create</button></div>
+
+    </div>
+    </form>
+</main>
+</body>
+</html>
+

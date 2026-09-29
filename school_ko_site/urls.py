@@ -22,6 +22,10 @@ urlpatterns = [
     path('add_event/', add_event, name='add_event'),
     path('edit_event/<int:event_id>/', edit_event, name='edit_event'),
     path('delete_event/<int:event_id>/', delete_event, name='delete_event'),
+    path('show_notices/', show_notices, name='show_notices'),
+    path('add_notice/', add_notice, name='add_notice'),
+    path('edit_notice/<int:notice_id>/', edit_notice, name='edit_notice'),
+    path('delete_notice/<int:notice_id>/', delete_notice, name='delete_notice'),
     # path('month_data/<int:month_id>/', month_data, name='month_data'),
     # path('contact/', contact, name='contact'),
     # path('committee/', committee, name='committee'),
@@ -41,10 +45,8 @@ urlpatterns = [
     # path('add_committee_people/<int:committee_id>/', add_committee_people, name='add_committee_people'),
     # path('delete_committee_people/<int:person_id>/', delete_committee_people, name='delete_committee_people'),
     # path('delete_committee/<int:committee_id>/', delete_committee, name='delete_committee'),
-    # path('show_notices/', show_notices, name='show_notices'),
-    # path('add_notice/', add_notice, name='add_notice'),
-    # path('edit_notice/<int:notice_id>/', edit_notice, name='edit_notice'),
-    # path('delete_notice/<int:notice_id>/', delete_notice, name='delete_notice'),
+
+
     # path('edit_signature/', edit_signature, name='edit_signature'),
     # path('view_notice/<int:notice_id>/', view_notice, name='view_notice'),
 

@@ -116,6 +116,11 @@ def add_event(request):
         event_name = request.POST.get("event_name", "").strip()
         event_date = request.POST.get("event_date","").strip()
 
+        if not event_name or not event_date:
+                messages.error(request, "Title and date both are required.")
+                return render(request, "add_event.html", {
+                    "title": event_name, "date": event_date })
+
         event = GalleryEvent.objects.create(
             event_name=event_name,
             event_date=event_date,
@@ -186,6 +191,107 @@ def delete_event(request, event_id):
         pass
     messages.success(request, f'Event "{event_name}" deleted successfully!')
     return redirect("show_events")
+
+@login_required
+def show_notices(request):
+    notices = Notice.objects.all().only("id","title","date")
+    return render(request, "show_notices.html", {"notices": notices})
+
+@login_required
+def  add_notice(request):
+    if request.method == "POST":
+        title = request.POST.get("title", "").strip()
+        body = request.POST.get("body", "").strip()
+        date = request.POST.get("date", "").strip()
+        language = request.POST.get("language", "en").strip()
+
+        images = request.FILES.getlist("images")
+
+        if not title or not date or not images:
+                messages.error(request, "Title, date and at least one photo is required.")
+                return render(request, "add_notice.html", {
+                    "title": title, "body": body, "date": date,
+                    "language": language })
+
+        notice = Notice.objects.create(
+            title=title,
+            body=body,
+            date=date,
+            language=language
+        )
+
+        NoticeImage.objects.bulk_create(
+            [NoticeImage(notice=notice, image=img) for img in images]
+        )
+
+        messages.success(request, "Notice created successfully!")
+        return redirect("show_notices")
+
+    return render(request, "add_notice.html")
+
+@login_required
+def edit_notice(request, notice_id):
+    notice = get_object_or_404(Notice, id=notice_id)
+
+    if request.method == "POST":
+        form_type = request.POST.get("form_type", "update_details")
+
+        if form_type == "add_images":
+            images = request.FILES.getlist("images")
+            for img in images:
+                NoticeImage.objects.create(notice=notice, image=img)
+            messages.success(request, "Images uploaded successfully!")
+            return redirect("edit_notice", notice_id=notice.id)
+
+        if form_type == "delete_image":
+            image_id = request.POST.get("image_id")
+            img = get_object_or_404(NoticeImage, id=image_id, notice=notice)
+            img.image.delete(save=False)
+            img.delete()
+            messages.success(request, "Image deleted successfully!")
+            return redirect("edit_notice", notice_id=notice.id)
+
+        title = request.POST.get("title", "").strip()
+        body = request.POST.get("body", "").strip()
+        date = request.POST.get("date", "").strip()
+
+        if not title or not date:
+            messages.error(request, "Title and date are required.")
+            return render(request, "edit_notice.html", {
+                "notice": notice,
+                "submitted_title": title,
+                "submitted_body": body,
+                "submitted_date": date,
+            })
+
+        notice.title = title
+        notice.date = date
+        notice.save()
+        messages.success(request, "Notice updated successfully!")
+        return redirect("edit_notice", notice_id=notice.id)
+
+    return render(request, "edit_notice.html", {"notice": notice})
+
+@login_required
+def delete_notice(request, notice_id):
+    notice = get_object_or_404(Notice, id=notice_id)
+    notice_title = notice.title
+    prefix = f"notices/{notice.id}/"
+    try:
+        result = cloudinary.api.delete_resources_by_prefix(
+            prefix,
+            resource_type="image",
+            type="upload",
+            invalidate=True
+        )
+        cloudinary.api.delete_folder(f"notices/{notice.id}")
+
+    except Exception as e:
+        print(f"Cloudinary deletion error: {e}")
+
+    notice.delete()
+    messages.success(request, f'Notice "{notice_title}" deleted successfully!')
+    return redirect("show_notices")
 #
 # @login_required
 # def edit_about(request):
@@ -494,130 +600,7 @@ def delete_event(request, event_id):
 #     messages.success(request, f'Committee "{committee_name}" deleted successfully!')
 #     return redirect("show_committees")
 #
-# @login_required
-# def show_notices(request):
-#     notices = Notice.objects.all().only("id","title","date","notice_type")
-#     return render(request, "show_notices.html", {"notices": notices})
-#
-# @login_required
-# def add_notice(request):
-#     if request.method == "POST":
-#         title = request.POST.get("title", "").strip()
-#         body = request.POST.get("body", "").strip()
-#         date = request.POST.get("date", "").strip()
-#         language = request.POST.get("language", "en").strip()
-#         notice_type = request.POST.get("notice_type", "text").strip()
-#         if notice_type not in ("text", "photo"):
-#             notice_type = "text"
-#
-#         if language not in ("en", "ne"):
-#             language = "en"
-#
-#         images = request.FILES.getlist("notice_image")
-#
-#         if notice_type == "photo":
-#             if not title or not date or not images:
-#                 messages.error(request, "Title, date and at least one photo are required for photo notices.")
-#                 return render(request, "add_notice.html", {
-#                     "title": title, "body": body, "date": date,
-#                     "language": language, "notice_type": notice_type,
-#                 })
-#         else:
-#             if not title or not date or not body:
-#                 messages.error(request, "Title, date and body are required.")
-#                 return render(request, "add_notice.html", {
-#                     "title": title, "body": body, "date": date,
-#                     "language": language, "notice_type": notice_type,
-#                 })
-#
-#         notice = Notice.objects.create(
-#             title=title,
-#             body=body,
-#             date=date,
-#             language=language,
-#             notice_type=notice_type,
-#         )
-#         for img in images:
-#             NoticeImage.objects.create(notice=notice, image=img)
-#
-#         return redirect("show_notices")
-#
-#     return render(request, "add_notice.html", {"notice_type": "text"})
-#
-# @login_required
-# def edit_notice(request, notice_id):
-#     notice = get_object_or_404(Notice, id=notice_id)
-#
-#     if request.method == "POST":
-#         form_type = request.POST.get("form_type", "update_details")
-#
-#         if form_type == "add_images":
-#             images = request.FILES.getlist("images")
-#             for img in images:
-#                 NoticeImage.objects.create(notice=notice, image=img)
-#             messages.success(request, "Images uploaded successfully!")
-#             return redirect("edit_notice", notice_id=notice.id)
-#
-#         if form_type == "delete_image":
-#             image_id = request.POST.get("image_id")
-#             img = get_object_or_404(NoticeImage, id=image_id, notice=notice)
-#             img.image.delete(save=False)
-#             img.delete()
-#             messages.success(request, "Image deleted successfully!")
-#             return redirect("edit_notice", notice_id=notice.id)
-#
-#         title = request.POST.get("title", "").strip()
-#         body = request.POST.get("body", "").strip()
-#         date = request.POST.get("date", "").strip()
-#
-#         if not title or not date:
-#             messages.error(request, "Title and date are required.")
-#             return render(request, "edit_notice.html", {
-#                 "notice": notice,
-#                 "submitted_title": title,
-#                 "submitted_body": body,
-#                 "submitted_date": date,
-#             })
-#
-#         if notice.notice_type == "text" and not body:
-#             messages.error(request, "Body is required for text notices.")
-#             return render(request, "edit_notice.html", {
-#                 "notice": notice,
-#                 "submitted_title": title,
-#                 "submitted_body": body,
-#                 "submitted_date": date,
-#             })
-#
-#         notice.title = title
-#         notice.date = date
-#         if notice.notice_type == "text":
-#             notice.body = body
-#         notice.save()
-#         messages.success(request, "Notice updated successfully!")
-#         return redirect("edit_notice", notice_id=notice.id)
-#
-#     return render(request, "edit_notice.html", {"notice": notice})
-#
-# @login_required
-# def delete_notice(request, notice_id):
-#     notice = get_object_or_404(Notice, id=notice_id)
-#     notice_title = notice.title
-#     prefix = f"notices/{notice.id}/"
-#     try:
-#         result = cloudinary.api.delete_resources_by_prefix(
-#             prefix,
-#             resource_type="image",
-#             type="upload",
-#             invalidate=True
-#         )
-#         cloudinary.api.delete_folder(f"notices/{notice.id}")
-#
-#     except Exception as e:
-#         print(f"Cloudinary deletion error: {e}")
-#
-#     notice.delete()
-#     messages.success(request, f'Notice "{notice_title}" deleted successfully!')
-#     return redirect("show_notices")
+
 #
 # @login_required
 # def edit_signature(request):

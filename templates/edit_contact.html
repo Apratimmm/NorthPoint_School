@@ -33,8 +33,6 @@
         <form method="post" enctype="multipart/form-data" action="/edit_contact/" class="space-y-12">
           {% csrf_token %}
 
-
-
           {% if contact %}
           <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
             <h2 class="text-xl font-semibold mb-6 text-ink">Contact Details</h2>
@@ -80,17 +78,15 @@
                 </p>
               {% endif %}
             </div>
-
-          </div>
-          {% endif %}
-
-          <div class="flex justify-end">
+            <div class="flex justify-end">
             <button type="submit"
                     class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition"
                     onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();">
               Update
             </button>
           </div>
+          </div>
+          {% endif %}
 
         </form>
 </main>

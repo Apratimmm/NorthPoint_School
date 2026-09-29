@@ -311,15 +311,6 @@ class Notice(models.Model):
         ("en", "English"),
         ("ne", "Nepali"),
     ]
-    TYPE_CHOICES = [
-        ("text", "Text"),
-        ("photo", "Photo"),
-    ]
-    notice_type = models.CharField(
-        max_length=10,
-        choices=TYPE_CHOICES,
-        default="text",
-    )
     language = models.CharField(
         max_length=10,
         choices=LANGUAGE_CHOICES,
@@ -340,7 +331,6 @@ class Notice(models.Model):
         verbose_name_plural = "notices"
 
 import os
-from django.utils.text import slugify
 
 def notice_image_path(instance, filename):
     return os.path.join("notices", str(instance.notice.id), filename)
