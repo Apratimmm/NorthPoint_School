@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Edit Academics — North Point</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'dashboard' %}" class="text-xl font-bold tracking-tight text-ink">Back to Dashboard</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Contact Information</h1></div>
+
+        {% if messages %}
+          <div class="mb-6 space-y-3">
+            {% for message in messages %}
+              <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <p class="text-sm text-black-500 pb-5">
+            To change an image, first delete the current one.
+          </p>
+
+        <form method="post" enctype="multipart/form-data" action="/edit_academics/" class="space-y-12">
+          {% csrf_token %}
+
+
+          {% if primary %}
+          <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
+            <h2 class="text-xl font-semibold mb-6 text-ink">Primary School</h2>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Description</label>
+              <textarea required name="primary_description" rows="8"
+                        class="w-full border rounded-lg px-4 py-2">{{ primary.description }}</textarea>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Quote</label>
+              <textarea required name="primary_quote" rows="4"
+                        class="w-full border rounded-lg px-4 py-2">{{ primary.quote }}</textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Teacher Name</label>
+                <input required type="text" name="primary_teacher_name" value="{{ primary.teacher_name }}"
+                       class="w-full border rounded-lg px-4 py-2">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Teacher Designation</label>
+                <input required type="text" name="primary_teacher_designation" value="{{ primary.teacher_designation }}"
+                       class="w-full border rounded-lg px-4 py-2">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Image</label>
+              {% if primary.image %}
+                <img src="{{ primary.image.url }}?f_auto,q_auto" alt="Current image" class="h-32 mb-3 rounded" loading="lazy">
+                <button type="button"
+                        data-form-type="delete_primary_image"
+                        class="js-delete-image block bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg">
+                  Delete image
+                </button>
+              {% else %}
+                <input type="file" name="primary_image" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-green-100 hover:file:border-green-700 hover:file:text-green-800 cursor-pointer mb-3">
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if secondary %}
+          <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
+            <h2 class="text-xl font-semibold mb-6 text-ink">Secondary School</h2>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Description</label>
+              <textarea required name="secondary_description" rows="8"
+                        class="w-full border rounded-lg px-4 py-2">{{ secondary.description }}</textarea>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Quote</label>
+              <textarea required name="secondary_quote" rows="4"
+                        class="w-full border rounded-lg px-4 py-2">{{ secondary.quote }}</textarea>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Teacher Name</label>
+                <input required type="text" name="secondary_teacher_name" value="{{ secondary.teacher_name }}"
+                       class="w-full border rounded-lg px-4 py-2">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Teacher Designation</label>
+                <input required type="text" name="secondary_teacher_designation" value="{{ secondary.teacher_designation }}"
+                       class="w-full border rounded-lg px-4 py-2">
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Image</label>
+              {% if secondary.image %}
+                <img src="{{ secondary.image.url }}?f_auto,q_auto" alt="Current image" class="h-32 mb-3 rounded" loading="lazy">
+                <button type="button"
+                        data-form-type="delete_secondary_image"
+                        class="js-delete-image block bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2.5 rounded-lg">
+                  Delete image
+                </button>
+              {% else %}
+                <input type="file" name="secondary_image" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-green-100 hover:file:border-green-700 hover:file:text-green-800 cursor-pointer mb-3">
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="flex justify-end">
+            <button type="submit"
+                    class="bg-transparent border-2 border-ink text-ink hover:bg-green-100 hover:border-green-700 hover:text-green-800 font-semibold px-8 py-3 rounded-xl transition"
+                    onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();">
+              Update
+            </button>
+          </div>
+
+        </form>
+</main></body></html>
+
+{% block extra_js %}
+    <script>
+      const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+      document.querySelectorAll(".js-delete-image").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          if (!confirm("Delete this image?")) {
+            e.preventDefault();
+            return;
+          }
+          this.textContent = "Deleting...";
+          this.disabled = true;
+          this.classList.add("opacity-75", "cursor-not-allowed");
+
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "/edit_academics/";
+
+          const csrf = document.createElement("input");
+          csrf.type = "hidden";
+          csrf.name = "csrfmiddlewaretoken";
+          csrf.value = csrfToken;
+          form.appendChild(csrf);
+
+          const ft = document.createElement("input");
+          ft.type = "hidden";
+          ft.name = "form_type";
+          ft.value = this.dataset.formType;
+          form.appendChild(ft);
+
+          document.body.appendChild(form);
+          form.submit();
+        });
+      });
+    </script>
+
+{% endblock %}
+</script>

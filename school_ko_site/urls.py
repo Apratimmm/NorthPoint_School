@@ -17,13 +17,14 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('logout/', user_logout, name='logout'),
     path('edit_contact/', edit_contact, name='edit_contact'),
+    path('edit_academics/', edit_academics, name='edit_academics'),
     # path('month_data/<int:month_id>/', month_data, name='month_data'),
     # path('contact/', contact, name='contact'),
     # path('committee/', committee, name='committee'),
 
     # path('edit_school_video/', edit_school_video, name='edit_school_video'),
     # path('edit_about/', edit_about, name='edit_about'),
-    # path('edit_academics/', edit_academics, name='edit_academics'),
+
     # path('send_email/', send_email, name='send_mail'),
 
     # path('edit_results/', edit_results, name='edit_results'),

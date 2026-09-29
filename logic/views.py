@@ -30,13 +30,13 @@ def verify_user(request):
             messages.error(request, "Invalid username or password")
             return redirect("login")
 
-@login_required
-def dashboard(request):
-    return render(request, "dashboard.html")
-
 def user_logout(request):
     logout(request)
     return redirect("login")
+
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
 
 def _delete_image_field(instance, field_name, request, success_message):
 
@@ -74,6 +74,36 @@ def edit_contact(request):
     }
     return render(request, "edit_contact.html", context)
 
+@login_required
+def edit_academics(request):
+    sections = [
+        ("primary",   Academic.objects.get_or_create(school="primary")[0],
+            ["description", "quote", "teacher_name", "teacher_designation"], "image", "Primary school image deleted."),
+        ("secondary", Academic.objects.get_or_create(school="secondary")[0],
+            ["description", "quote", "teacher_name", "teacher_designation"], "image", "Secondary school image deleted."),
+    ]
+
+    if request.method == "POST":
+        form_type = request.POST.get("form_type")
+
+        if form_type and form_type.startswith("delete_"):
+            for key, instance, _text_fields, image_field, delete_msg in sections:
+                if image_field and form_type == f"delete_{key}_{image_field}":
+                    _delete_image_field(instance, image_field, request, delete_msg)
+                    return redirect("edit_academics")
+
+        for section_key, instance, text_fields, image_field, _delete_msg in sections:
+            for field in text_fields:
+                setattr(instance, field, request.POST.get(f"{section_key}_{field}", ""))
+            if image_field and request.FILES.get(f"{section_key}_{image_field}"):
+                setattr(instance, image_field, request.FILES[f"{section_key}_{image_field}"])
+            instance.save()
+
+        messages.success(request, "Academics content updated successfully!")
+        return redirect("edit_academics")
+
+    context = {key: instance for key, instance, *_ in sections}
+    return render(request, "edit_academics.html", context)
 #
 # @login_required
 # def edit_about(request):
@@ -108,36 +138,7 @@ def edit_contact(request):
 #     context = {key: instance for key, instance, *_ in sections}
 #     return render(request, "edit_about.html", context)
 #
-# @login_required
-# def edit_academics(request):
-#     sections = [
-#         ("primary",   Academic.objects.get_or_create(school="primary")[0],
-#             ["description", "quote", "teacher_name", "teacher_designation"], "image", "Primary school image deleted."),
-#         ("secondary", Academic.objects.get_or_create(school="secondary")[0],
-#             ["description", "quote", "teacher_name", "teacher_designation"], "image", "Secondary school image deleted."),
-#     ]
-#
-#     if request.method == "POST":
-#         form_type = request.POST.get("form_type")
-#
-#         if form_type and form_type.startswith("delete_"):
-#             for key, instance, _text_fields, image_field, delete_msg in sections:
-#                 if image_field and form_type == f"delete_{key}_{image_field}":
-#                     _delete_image_field(instance, image_field, request, delete_msg)
-#                     return redirect("edit_academics")
-#
-#         for section_key, instance, text_fields, image_field, _delete_msg in sections:
-#             for field in text_fields:
-#                 setattr(instance, field, request.POST.get(f"{section_key}_{field}", ""))
-#             if image_field and request.FILES.get(f"{section_key}_{image_field}"):
-#                 setattr(instance, image_field, request.FILES[f"{section_key}_{image_field}"])
-#             instance.save()
-#
-#         messages.success(request, "Academics content updated successfully!")
-#         return redirect("edit_academics")
-#
-#     context = {key: instance for key, instance, *_ in sections}
-#     return render(request, "edit_academics.html", context)
+
 #
 # @require_POST
 # def send_email(request):
