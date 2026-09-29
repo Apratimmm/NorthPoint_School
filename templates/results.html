@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results - North Point</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-lime-cream: #f7fce8;
+    --color-lime-cream-dark: #eef7d3;
+    --color-canary: #fde047;
+    --color-canary-dark: #facc15;
+    --color-ink: #0f172a;
+    --color-ink-light: #334155;
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  }
+</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+{% include 'header.html' %}
+<main class="px-4 py-12">
+  <div class="mx-auto max-w-5xl text-center mb-14">
+    <h1 class="text-5xl font-bold text-ink tracking-tight">Results</h1>
+    <p class="mt-4 text-xl text-ink-light">Academic achievements and examination outcomes.</p>
+  </div>
+
+  <!-- Overall Section -->
+  <section class="mx-auto max-w-4xl bg-white rounded-3xl border-2 border-black p-10 shadow-xl mb-10">
+    <h2 class="text-3xl font-bold text-ink mb-2">SEE 2025 </h2>
+    <span class="font-semibold uppercase tracking-wide text-ink-light">Last Year at a Glance</span>
+    <div class="w-full h-0.5 bg-black/20 my-6"></div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">312</p><p class="text-ink-light">Candidate Count</p></div>
+      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">94%</p><p class="text-ink-light">Pass Rate</p></div>
+      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">3.42</p><p class="text-ink-light">Average GPA</p></div>
+    </div>
+  </section>
+
+  <!-- Toppers Section -->
+  <section class="mx-auto max-w-5xl">
+    <h2 class="text-3xl font-bold text-ink mb-6">Top 5 Toppers - SEE 2025</h2>
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+      <!-- Row 1: 3 cards -->
+      <div class="md:col-span-2 bg-white rounded-3xl border-2 border-black p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink">Anuj Sharma</h3>
+        <span class="text-canary font-bold text-xl">3.85 GPA</span>
+        <div class="w-full h-0.5 bg-black/20 my-4"></div>
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800" class="rounded-2xl border-2 border-black w-full h-56 object-cover" alt="Topper 1">
+      </div>
+      <div class="md:col-span-2 bg-white rounded-3xl border-2 border-black p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink">Priya Neupane</h3>
+        <span class="text-canary font-bold text-xl">3.82 GPA</span>
+        <div class="w-full h-0.5 bg-black/20 my-4"></div>
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800" class="rounded-2xl border-2 border-black w-full h-56 object-cover" alt="Topper 2">
+      </div>
+      <div class="md:col-span-2 bg-white rounded-3xl border-2 border-black p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink">Ramesh Adhikari</h3>
+        <span class="text-canary font-bold text-xl">3.79 GPA</span>
+        <div class="w-full h-0.5 bg-black/20 my-4"></div>
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=800" class="rounded-2xl border-2 border-black w-full h-56 object-cover" alt="Topper 3">
+      </div>
+
+      <!-- Row 2: 2 cards centered -->
+      <div class="md:col-span-2 md:col-start-2 bg-white rounded-3xl border-2 border-black p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink">Sita Devi</h3>
+        <span class="text-canary font-bold text-xl">3.75 GPA</span>
+        <div class="w-full h-0.5 bg-black/20 my-4"></div>
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=800" class="rounded-2xl border-2 border-black w-full h-56 object-cover" alt="Topper 4">
+      </div>
+      <div class="md:col-span-2 bg-white rounded-3xl border-2 border-black p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink">Rohan Thapa</h3>
+        <span class="text-canary font-bold text-xl">3.72 GPA</span>
+        <div class="w-full h-0.5 bg-black/20 my-4"></div>
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800" class="rounded-2xl border-2 border-black w-full h-56 object-cover" alt="Topper 5">
+      </div>
+    </div>
+  </section>
+</main>
+{% include 'footer.html' %}
+</body>

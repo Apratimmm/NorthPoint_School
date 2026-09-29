@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - North Point</title>
+    <meta name="description" content="Sign in to the North Point English Boarding School administration dashboard.">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-lime-cream: #f7fce8;
+        --color-lime-cream-dark: #eef7d3;
+        --color-canary: #fde047;
+        --color-canary-dark: #facc15;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+      }
+      html { scroll-behavior: smooth; }
+      summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-lime-cream text-ink antialiased flex flex-col min-h-screen">
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+      <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+        <div class="flex items-center gap-3 group">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-lime-cream border-2 border-black transition-colors group-hover:bg-canary/20">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="h-7 w-7 text-ink" aria-hidden="true">
+                <path d="M20 4L6 32h28L20 4z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"></path>
+                <circle cx="30" cy="12" r="5" fill="currentColor"></circle>
+                <path d="M20 15l-6 10h12l-6-10z" fill="currentColor"></path>
+              </svg>
+            </div>
+          <div class="leading-tight">
+            <span class="block text-lg font-bold tracking-tight text-ink">North Point</span>
+            <span class="block text-xs font-medium uppercase tracking-wider text-ink-light">English Boarding School</span>
+          </div>
+        </div>
+          <a href="{% url 'home' %}"><span class="text-xl font-bold tracking-tight text-ink">Home</span></a>
+      </div>
+    </header>
+    <main class="flex-grow flex flex-col items-center px-4 pt-8 pb-16 lg:pt-12 lg:pb-24">
+
+        <div class="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 border-2 border-black">
+            <h1 class="text-3xl font-bold text-ink tracking-tight text-center">Welcome back</h1>
+            <p class="mt-2 text-base text-ink-light text-center">Please enter your details to sign in.</p>
+
+            <form action="{% url 'verify_user' %}" method="POST" class="mt-8 space-y-5" autocomplete="off">
+                {% csrf_token %}
+                <div>
+                    <label for="name" class="block text-sm font-semibold text-ink mb-2">Username</label>
+                    <input type="text" name="name" id="name" autocomplete="off" required class="w-full rounded-xl border-2 border-black bg-lime-cream px-4 py-3 text-sm text-ink outline-none focus:border-canary focus:bg-white transition-all shadow-sm" placeholder="Enter username">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-semibold text-ink mb-2">Password</label>
+                    <input type="password" name="password" id="password" autocomplete="new-password" required class="w-full rounded-xl border-2 border-black bg-lime-cream px-4 py-3 text-sm text-ink outline-none focus:border-canary focus:bg-white transition-all shadow-sm" placeholder="Enter password">
+                </div>
+                <button id="signInBtn" type="submit" class="mt-6 w-full rounded-full bg-canary hover:bg-canary-dark text-ink py-3.5 px-6 font-bold text-base shadow-md border-2 border-black transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
+                    Sign In
+                </button>
+            </form>
+            <script>
+              const btn = document.getElementById('signInBtn');
+              btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                btn.textContent = 'Signing...';
+                btn.disabled = true;
+                btn.style.cursor = 'not-allowed';
+                btn.form.submit();
+              });
+            </script>
+        </div>
+
+        {% if messages %}
+        <div class="w-full max-w-md mt-12 space-y-2">
+            {% for message in messages %}
+            <div class="rounded-2xl p-4 text-sm font-medium border-2 text-center shadow-sm {% if message.tags == 'error' %}bg-red-50 text-red-700 border-red-200{% else %}bg-lime-cream text-ink border-black/10{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

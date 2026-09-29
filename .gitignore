@@ -1,0 +1,21 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+
+/staticfiles/
+/media/
+
+.virenv/
+
+node_modules/
+
+.idea/
+.vscode/
+
+.env
+.env.local
+
+/logic/migrations/
+/logic/admin.py

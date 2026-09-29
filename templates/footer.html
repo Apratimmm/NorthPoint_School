@@ -1,0 +1,38 @@
+<footer class="border-t-2 border-black bg-white px-6 py-12" id="contact">
+  <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
+    <div class="flex flex-col sm:flex-row gap-6">
+          <div class="flex-shrink-0">
+              <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-lime-cream border border-black/20 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="h-8 w-8 text-ink" aria-hidden="true">
+                  <path d="M20 4L6 32h28L20 4z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"></path>
+                  <circle cx="30" cy="12" r="5" fill="currentColor"></circle>
+                  <path d="M20 15l-6 10h12l-6-10z" fill="currentColor"></path>
+                </svg>
+              </div>
+          </div>
+          <div class="flex flex-col gap-2 text-sm text-ink-light">
+            <span class="text-xl font-bold text-ink">North Point English Boarding School</span>
+              <p>Itahari-1, Halgada, Itahari, Nepal</p>
+              <p>985-2087286</p>
+              <p>northpoint222@gmail.com</p>
+              <p>Facebook: <a href="https://www.facebook.com/npointschool" target="_blank" rel="noopener noreferrer">npointschool</a></p>
+          </div>
+        </div>
+
+    <div class="flex flex-col md:items-end">
+      <ul class="grid grid-cols-2 gap-3 text-sm font-medium text-ink-light md:items-start">
+        <li><a href="{% url 'about_us' %}" class="hover:text-ink transition-colors">About us</a></li>
+        <li><a href="{% url 'academics' %}" class="hover:text-ink transition-colors">Academics</a></li>
+          <li><a href="{% url 'calendar' %}" class="hover:text-ink transition-colors">Calender</a></li>
+          <li><a href="{% url 'faculty' %}" class="hover:text-ink transition-colors">Faculty</a></li>
+        <li><a href="{% url 'gallery' %}" class="hover:text-ink transition-colors">Gallery</a></li>
+        <li><a href="{% url 'notices' %}" class="hover:text-ink transition-colors">Notices</a></li>
+        <li><a href="{% url 'results' %}" class="hover:text-ink transition-colors">Results</a></li>
+        <li><a href="{% url 'contact' %}" class="hover:text-ink transition-colors">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mx-auto max-w-6xl mt-12 pt-8 border-t border-black text-center text-sm text-ink-light">
+    <p>© {% now "Y" %} North Point English Boarding School. All rights reserved.</p>
+  </div>
+</footer>

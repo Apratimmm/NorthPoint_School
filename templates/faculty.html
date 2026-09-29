@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty - North Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+@theme { --color-lime-cream:#f7fce8; --color-canary:#fde047; --color-ink:#0f172a; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }
+</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+{% include 'header.html' %}
+<main class="px-4 py-12">
+  <div class="mx-auto max-w-5xl text-center mb-14">
+     <h1 class="text-5xl font-bold text-ink tracking-tight">The people who teach</h1>
+    <p class="mt-4 text-xl text-ink-light">Our leadership team and the subject teachers who guide students from grade one to the SEE — qualified, experienced, and always approachable.</p>
+  </div>
+
+  <!-- Leadership -->
+  <section class="mx-auto max-w-5xl mb-14">
+    <h2 class="text-xl font-bold tracking-widest uppercase text-ink mb-6">School Leadership</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink mb-1">Mrs. Sunita Gurung</h3>
+        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">Principal</p>
+        <div class="w-full h-0.5 bg-black/20 my-6"></div>
+        <img src="https://ui-avatars.com/api/?name=Sunita+Gurung&background=fde047&color=0f172a&size=256" alt="Sunita Gurung" class="rounded-3xl border-2 border-black w-full aspect-square object-cover">
+      </article>
+      <article class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink mb-1">Mr. Bishnu Adhikari</h3>
+        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">Vice Principal</p>
+        <div class="w-full h-0.5 bg-black/20 my-6"></div>
+        <img src="https://ui-avatars.com/api/?name=Bishnu+Adhikari&background=fde047&color=0f172a&size=256" alt="Bishnu Adhikari" class="rounded-3xl border-2 border-black w-full aspect-square object-cover">
+      </article>
+      <article class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink mb-1">Ms. Nisha Karki</h3>
+        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">Academic Coordinator</p>
+        <div class="w-full h-0.5 bg-black/20 my-6"></div>
+        <img src="https://ui-avatars.com/api/?name=Nisha+Karki&background=fde047&color=0f172a&size=256" alt="Nisha Karki" class="rounded-3xl border-2 border-black w-full aspect-square object-cover">
+      </article>
+    </div>
+  </section>
+
+  <!-- Teaching Faculty -->
+  <section class="mx-auto max-w-5xl mb-14">
+    <h2 class="text-xl font-bold tracking-widest uppercase text-ink mb-6">Teaching Faculty</h2>
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="border-b-2 border-black">
+          <th class="py-3 font-bold text-ink">Name</th>
+          <th class="py-3 font-bold text-ink">Designation</th>
+          <th class="py-3 font-bold text-ink">Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Deepak Shrestha</td><td class="py-3 text-sm text-ink-light">Head of Department</td><td class="py-3 text-sm text-ink-light">English</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Pooja Thapa</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">English Literature</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Anil Gurung</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">History & Social Studies</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Sabina Lama</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Nepali & Literature</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mrs. Kamala Bhattarai</td><td class="py-3 text-sm text-ink-light">Head of Department</td><td class="py-3 text-sm text-ink-light">Mathematics</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Sujan Maharjan</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Physics</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Reecha Poudel</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Chemistry</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Kiran Yadav</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Biology</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Anita Bhandari</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Computer Science</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Prakash Rai</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Physical Education</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Tashi Sherpa</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Fine Arts & Music</td></tr>
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Manoj Tamang</td><td class="py-3 text-sm text-ink-light">Coordinator</td><td class="py-3 text-sm text-ink-light">Primary Stage</td></tr>
+        <tr><td class="py-3 font-bold">Ms. Gita Poudel</td><td class="py-3 text-sm text-ink-light">Librarian</td><td class="py-3 text-sm text-ink-light">Library & Research</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="mx-auto max-w-5xl bg-[#fdfce5] rounded-3xl border-2 border-black p-8 lg:p-10 shadow-sm mb-12">
+    <p class="text-ink text-lg leading-relaxed">Every teacher at North Point holds at least a bachelor’s degree with a teaching qualification, and each department meets twice a term to review student progress together.</p>
+  </section>
+</main>
+{% include 'footer.html' %}
+</body>
+</html>

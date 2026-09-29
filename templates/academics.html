@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academics - North Point</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --color-lime-cream: #f7fce8;
+    --color-lime-cream-dark: #eef7d3;
+    --color-canary: #fde047;
+    --color-canary-dark: #facc15;
+    --color-ink: #0f172a;
+    --color-ink-light: #334155;
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  }
+</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+{% include 'header.html' %}
+<main class="px-4 py-12">
+  <div class="mx-auto max-w-5xl text-center mb-14">
+    <h1 class="text-5xl font-bold text-ink tracking-tight">Academics</h1>
+    <p class="mt-4 text-xl text-ink-light">Primary foundations and secondary mastery — guided by values, inspired to lead.</p>
+  </div>
+
+  <!-- Primary -->
+  <section class="mx-auto max-w-[92rem] mb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <!-- Left Card: Primary School Info Card (Secondary Card Style) -->
+      <div class="lg:col-span-7 xl:col-span-8 relative overflow-hidden rounded-[2.5rem] border-2 border-black bg-white text-ink shadow-xl p-8 lg:p-12 flex flex-col justify-between">
+        <div class="relative z-10 flex flex-col xl:flex-row gap-8 lg:gap-10 items-center h-full justify-between">
+          <div class="xl:w-1/2">
+            <span class="inline-block rounded-full bg-ink text-white px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4">Grades 1 – 5</span>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4">Primary School</h2>
+            <p class="text-ink-light text-base lg:text-lg leading-relaxed">We build curiosity in the early years through play, exploration, and structured literacy. Students develop reading, numeracy, and social skills in a nurturing residential environment. Small classes ensure every child is heard, and teachers follow each learner’s progress closely from the first day of boarding through graduation.</p>
+          </div>
+          <div class="xl:w-1/2 w-full">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover" alt="Primary learning">
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Card: Quote Card (Smaller Width) -->
+      <div class="lg:col-span-5 xl:col-span-4 relative overflow-hidden rounded-[2.5rem] border-2 border-black bg-canary text-ink shadow-xl p-8 lg:p-12 flex flex-col justify-between">
+        <div class="my-auto">
+          <span class="text-5xl lg:text-6xl font-black text-ink block mb-0 font-serif leading-none">“</span>
+          <blockquote class="text-2xl lg:text-3xl font-medium text-ink leading-snug">Small classes ensure every child is heard. We follow each learner’s progress closely — from the first day of boarding to graduation.</blockquote>
+          <span class="text-5xl lg:text-6xl font-black text-ink block text-right mt-4 mb-2 font-serif leading-none">”</span>
+            <p class="font-bold text-ink text-lg">— Ms. Anjali Gurung, <span class="font-normal text-ink-light">Primary Head</span></p>
+         </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Secondary -->
+  <section class="mx-auto max-w-[92rem] mb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+        <!-- Left Card: Quote Card (Smaller Width) -->
+      <div class="lg:col-span-5 xl:col-span-4 relative overflow-hidden rounded-[2.5rem] border-2 border-black bg-canary text-ink shadow-xl p-8 lg:p-12 flex flex-col justify-between">
+        <div class="my-auto">
+          <span class="text-5xl lg:text-6xl font-black text-ink block mb-0 font-serif leading-none">“</span>
+          <blockquote class="text-2xl lg:text-3xl font-medium text-ink leading-snug">Small classes ensure every child is heard. We follow each learner’s progress closely — from the first day of boarding to graduation.</blockquote>
+          <span class="text-5xl lg:text-6xl font-black text-ink block text-right mt-4 mb-2 font-serif leading-none">”</span>
+            <p class="font-bold text-ink text-lg">— Ms. Anjali Gurung, <span class="font-normal text-ink-light">Primary Head</span></p>
+         </div>
+      </div>
+
+      <!-- Right Card: Secondary School Info Card (Secondary Card Style) -->
+      <div class="lg:col-span-7 xl:col-span-8 relative overflow-hidden rounded-[2.5rem] border-2 border-black bg-white text-ink shadow-xl p-8 lg:p-12 flex flex-col justify-between">
+        <div class="relative z-10 flex flex-col xl:flex-row gap-8 lg:gap-10 items-center h-full justify-between">
+          <div class="xl:w-1/2 w-full">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover" alt="Primary learning">
+          </div>
+            <div class="xl:w-1/2">
+            <span class="inline-block rounded-full bg-ink text-white px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4">Grades 6 – 12</span>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4">Secondary School</h2>
+            <p class="text-ink-light text-base lg:text-lg leading-relaxed">Rigorous academics meet real-world application. From science labs to debate, students prepare for global universities with a values-led foundation. The secondary curriculum blends examination excellence with creativity, critical thinking, and leadership — so graduates leave ready for the next stage and inspired to contribute to society.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+{% include 'footer.html' %}
+</body>
+</html>

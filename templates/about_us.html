@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - North Point</title>
+    <meta name="description" content="Learn about our history, vision, mission, goals, and messages from our Chairperson and Principal at North Point English Boarding School.">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-lime-cream: #f7fce8;
+        --color-lime-cream-dark: #eef7d3;
+        --color-canary: #fde047;
+        --color-canary-dark: #facc15;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+    </style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+
+    <!-- Header / Navbar -->
+    {% include 'header.html' %}
+
+    <main class="divide-y divide-black/10">
+
+      <!-- SECTION 1: OUR HISTORY -->
+      <section class="bg-lime-cream px-6 py-16 lg:py-20" id="history">
+        <div class="mx-auto max-w-5xl">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+              <!-- Book / History Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+              </svg>
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl uppercase">OUR HISTORY</h1>
+          </div>
+
+          <div class="bg-white rounded-2xl border-2 border-black p-8 lg:p-10 shadow-sm space-y-6">
+            {% if history and history.text %}
+              <div class="prose max-w-none text-ink-light text-base lg:text-lg leading-relaxed space-y-4">
+                {{ history.text|linebreaks }}
+              </div>
+            {% else %}
+              <p class="text-ink-light text-base lg:text-lg leading-relaxed">
+                North Point English Boarding School opened in 1998 with forty-one students, six teachers and a single primary building. Today, more than nine hundred boys and girls from nursery to grade twelve study on one green, gated campus.
+              </p>
+              <p class="text-ink-light text-base lg:text-lg leading-relaxed">
+                The classrooms, science and computer laboratories, library, canteen and sports grounds all sit within the same walls, so boarders move between lessons, games and prep hours without leaving the gates. Day scholars join us from the surrounding neighbourhoods, and both groups learn and play together every day.
+              </p>
+              <p class="text-ink-light text-base lg:text-lg leading-relaxed">
+                We are proud of our examination results, but we judge the young citizen index by how scholars treat one another in draft and spoken side-by-side: Martin, the one who rushes to lend a notebook, and the one who finally tells science a favourite subject.
+              </p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: OUR VISION -->
+      <section class="bg-lime-cream px-6 py-16 lg:py-20" id="vision">
+        <div class="mx-auto max-w-5xl">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+              <!-- Eye / Vision Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </div>
+            <h2 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl uppercase">OUR VISION</h2>
+          </div>
+
+          <div class="bg-white rounded-2xl border-2 border-black p-8 lg:p-10 shadow-sm">
+            <p class="text-ink text-lg lg:text-xl font-medium leading-relaxed">
+              To be a school where curiosity is respected, character is taught on purpose, and every child leaves ready to lead the life in front of them.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: OUR MISSION -->
+      <section class="bg-lime-cream px-6 py-16 lg:py-20" id="mission">
+        <div class="mx-auto max-w-5xl">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+              <!-- Flag / Mission Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"></path>
+              </svg>
+            </div>
+            <h2 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl uppercase">OUR MISSION</h2>
+          </div>
+
+          <div class="bg-white rounded-2xl border-2 border-black p-8 lg:p-10 shadow-sm">
+            <p class="text-ink text-lg lg:text-xl font-medium leading-relaxed">
+              To teach simply and thoroughly — in small classes, to know every student by name, and to give boarders and day scholars alike the same attention, the same structured support, and the same freedom to try.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: OUR GOAL -->
+      <section class="bg-lime-cream px-6 py-16 lg:py-20" id="goal">
+        <div class="mx-auto max-w-5xl">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+              <!-- Star / Goal Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+              </svg>
+            </div>
+            <h2 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl uppercase">OUR GOAL</h2>
+          </div>
+
+          <div class="bg-white rounded-2xl border-2 border-black p-8 lg:p-10 shadow-sm">
+            <p class="text-ink text-lg lg:text-xl font-medium leading-relaxed">
+              That every student who leaves North Point is academically prepared for the next stage of their education, physically active, respectful of the culture they come from, and willing to keep learning long after the school bell.
+            </p>
+          </div>
+        </div>
+      </section>
+
+          <!-- SECTION 5: MESSAGES -->
+    <section class="bg-lime-cream px-6 py-16 lg:py-20 border-b-0" id="messages">
+      <div class="mx-auto max-w-5xl">
+      <div class="flex items-center gap-4 mb-8">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+              <!-- Chat / Quote Message Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+              </svg>
+            </div>
+            <h2 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-5xl uppercase">
+              MESSAGES FROM OUR LEADERSHIP
+            </h2>
+          </div>
+        <!-- Row 1: Chairperson -->
+        <div class="flex flex-col md:flex-row gap-6 mb-6 items-stretch">
+          <div class="flex-1 bg-white rounded-2xl border-2 border-black p-8 shadow-sm">
+            <h4 class="font-bold text-ink text-base mb-2">{% if chairperson and chairperson.heading %}{{ chairperson.heading }}{% else %}A school is a promise{% endif %}</h4>
+            <p class="text-sm text-ink-light leading-relaxed">{% if chairperson and chairperson.text %}{{ chairperson.text }}{% else %}When we founded North Point, we made one promise to the families who trusted us: that no child who enters these gates would be treated as average.{% endif %}</p>
+            <div class="mt-6 pt-4 border-t border-black/10 text-right">
+              <h3 class="font-bold text-ink text-xl">{% if chairperson and chairperson.person_name %}{{ chairperson.person_name }}{% else %}Mr. Ramesh Thapa{% endif %}</h3>
+              <span class="text-xs font-semibold text-ink-light uppercase tracking-wider">{% if chairperson and chairperson.person_title %}{{ chairperson.person_title }}{% else %}Chairperson{% endif %}</span>
+            </div>
+          </div>
+          <div class="flex-1 bg-white rounded-2xl border-2 border-black overflow-hidden shadow-sm flex items-center justify-center">
+            <img src="{% if chairperson and chairperson.image %}{{ chairperson.image.url }}{% else %}https://ui-avatars.com/api/?name=Ramesh+Thapa&background=fde047&color=0f172a&size=256{% endif %}" alt="Chairperson" class="w-full h-64 object-cover">
+          </div>
+        </div>
+
+        <!-- Row 2: Principal -->
+        <div class="flex flex-col md:flex-row gap-6 items-stretch">
+          <div class="flex-1 bg-white rounded-2xl border-2 border-black p-8 shadow-sm">
+            <h4 class="font-bold text-ink text-base mb-2">{% if principal and principal.heading %}{{ principal.heading }}{% else %}Learning that lasts{% endif %}</h4>
+            <p class="text-sm text-ink-light leading-relaxed">{% if principal and principal.text %}{{ principal.text }}{% else %}Our schedule is full, but our days are not crowded. Students have time to read, to play and to ask a second question.{% endif %}</p>
+            <div class="mt-6 pt-4 border-t border-black/10 text-right">
+              <h3 class="font-bold text-ink text-xl">{% if principal and principal.person_name %}{{ principal.person_name }}{% else %}Mrs. Sunita Gurung{% endif %}</h3>
+              <span class="text-xs font-semibold text-ink-light uppercase tracking-wider">{% if principal and principal.person_title %}{{ principal.person_title }}{% else %}Principal{% endif %}</span>
+            </div>
+          </div>
+          <div class="flex-1 bg-white rounded-2xl border-2 border-black overflow-hidden shadow-sm flex items-center justify-center">
+            <img src="{% if principal and principal.image %}{{ principal.image.url }}{% else %}https://ui-avatars.com/api/?name=Sunita+Gurung&background=fde047&color=0f172a&size=256{% endif %}" alt="Principal" class="w-full h-64 object-cover">
+          </div>
+        </div>
+      </div>
+
+    </section>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>
+
+

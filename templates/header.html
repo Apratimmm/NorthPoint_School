@@ -1,0 +1,49 @@
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+      <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+        <a href="{% url 'home' %}" class="flex items-center gap-3 group">
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-lime-cream border border-black transition-colors group-hover:bg-canary/20">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="h-7 w-7 text-ink" aria-hidden="true">
+                <path d="M20 4L6 32h28L20 4z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"></path>
+                <circle cx="30" cy="12" r="5" fill="currentColor"></circle>
+                <path d="M20 15l-6 10h12l-6-10z" fill="currentColor"></path>
+              </svg>
+            </div>
+          <div class="leading-tight">
+            <span class="block text-lg font-bold tracking-tight text-ink">North Point</span>
+            <span class="block text-xs font-medium uppercase tracking-wider text-ink-light">English Boarding School</span>
+          </div>
+        </a>
+
+        <div class="flex items-center gap-8">
+          <nav class="hidden items-center gap-8 text-sm font-medium text-ink-light md:flex">
+            <a href="{% url 'about_us' %}" class="transition-colors {% if "/about" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">About us</a>
+            <a href="{% url 'academics' %}" class="transition-colors {% if "/academics" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Academics</a>
+            <a href="{% url 'calendar' %}" class="transition-colors {% if "/calendar" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Calendar</a>
+            <a href="{% url 'faculty' %}" class="transition-colors {% if "/faculty" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Faculty</a>
+              <a href="{% url 'gallery' %}" class="transition-colors {% if "/gallery" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Gallery</a>
+            <a href="{% url 'notices' %}" class="transition-colors {% if "/notices" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Notices</a>
+            <a href="{% url 'results' %}" class="transition-colors {% if "/results" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Results</a>
+
+            <a href="{% url 'contact' %}" class="transition-colors {% if "/contact" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Contact</a>
+          </nav>
+
+          <details class="relative md:hidden">
+            <summary class="inline-flex cursor-pointer items-center justify-center rounded-lg p-2 text-ink" aria-label="Open menu">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </summary>
+            <nav class="absolute right-0 top-12 flex w-44 flex-col rounded-lg border border-black bg-white p-2 text-sm font-medium text-ink shadow-lg">
+              <a href="{% url 'about_us' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">About us</a>
+              <a href="{% url 'academics' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">Academics</a>
+              <a href="{% url 'calendar' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">Calendar</a>
+                <a href="{% url 'faculty' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">Faculty</a>
+              <a href="{% url 'gallery' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">Gallery</a>
+              <a href="{% url 'notices' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">Notices</a>
+              <a href="{% url 'results' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">Results</a>
+              <a href="{% url 'contact' %}" class="rounded-md px-3 py-2 hover:bg-lime-cream">Contact</a>
+            </nav>
+          </details>
+        </div>
+      </div>
+    </header>

@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - North Point</title>
+    <meta name="description" content="North Point English Boarding School — where curious minds grow, guided by values and inspired to lead.">
+    <meta property="og:title" content="North Point English Boarding School">
+    <meta property="og:description" content="Where curious minds grow, guided by values and inspired to lead.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-lime-cream: #f7fce8;
+        --color-lime-cream-dark: #eef7d3;
+        --color-canary: #fde047;
+        --color-canary-dark: #facc15;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+    </style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+
+    <!-- Header / Navbar -->
+    {% include 'header.html' %}
+
+    <main>
+      <!-- Hero Section -->
+      <section class="relative overflow-hidden px-2 pt-4 pb-12 lg:pt-6 lg:pb-16 bg-gradient-to-b from-lime-cream-dark/50 to-transparent">
+        <div class="mx-auto max-w-[85rem] mb-12">
+          <div class="relative w-full aspect-video rounded-3xl border-2 border-black overflow-hidden shadow-xl bg-ink flex items-center justify-center">
+            <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover" aria-label="School video">
+              <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="mx-auto max-w-4xl text-center">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ink-light shadow-sm border border-black/10">
+            Est. 1998
+          </span>
+          <h1 class="mt-6 text-4xl font-bold leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            Where curious minds grow
+          </h1>
+          <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-light">
+            A welcoming community dedicated to academic excellence, character, and the joy of learning — from the first day of boarding to graduation.
+          </p>
+        </div>
+      </section>
+
+      <!-- Welcome to North Point / About Us Section -->
+      <section class="px-6 py-12" id="about-us">
+        <div class="mx-auto max-w-5xl">
+          <h2 class="text-3xl font-bold text-ink sm:text-4xl mb-8">
+            Welcome to <span class="underline decoration-canary decoration-4 underline-offset-4">North Point</span>
+          </h2>
+
+          <div>
+            <!-- Main Content Area (Left 3 columns) -->
+            <div class="space-y-10">
+
+              <!-- Image Gallery Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2 overflow-hidden rounded-2xl border-2 border-black shadow-md h-64 md:h-80">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" alt="Students in Classroom" class="w-full h-full object-cover">
+                </div>
+                <div class="overflow-hidden rounded-2xl border-2 border-black shadow-md h-48">
+                  <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop" alt="Sports Ground" class="w-full h-full object-cover">
+                </div>
+                <div class="overflow-hidden rounded-2xl border-2 border-black shadow-md h-48">
+                  <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop" alt="Library Study" class="w-full h-full object-cover">
+                </div>
+              </div>
+
+              <!-- Who we are Text -->
+              <div>
+                  <p class="text-ink-light leading-relaxed text-base">
+                    Since its humble beginning at Sanepa, GEMS school today stands at the forefront of school education in Nepal, through the hard work, dedication, and due foresight of its visionary founders and the diligence of its staff. We now stand as a top-rated school in the country, offering schooling from class one right up to high school [NEB], as well as the Cambridge A Level course. </p>
+                  <p class="mt-4 text-ink-light leading-relaxed text-base">
+                    We are the recipient of numerous National and Regional Awards and accolades for our SEE results, as well as attainment of World Rankings by our A Level students in the CAIE examinations.
+                    </p>
+                  <p class="mt-4 text-ink-light leading-relaxed text-base">
+                    We warmly welcome you to go through our website. </p>
+              </div>
+
+              </path>
+
+
+              <!-- Feature Highlights / Cards -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">
+                <div class="rounded-2xl bg-white border-2 border-black p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl shadow-sm">
+                  <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                    </svg>
+                  </div>
+                  <h4 class="text-base font-bold text-ink">Academic Excellence</h4>
+                  <p class="mt-2 text-base text-ink-light leading-relaxed">Rigorous, thoughtful curriculum taught by educators who care about every student's progress.</p>
+                </div>
+
+                <div class="rounded-2xl bg-white border-2 border-black p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl shadow-sm">
+                  <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                  </div>
+                  <h4 class="text-base font-bold text-ink">Caring Community</h4>
+                  <p class="mt-2 text-base text-ink-light leading-relaxed">A safe, supportive boarding environment where students build lifelong friendships and values.</p>
+                </div>
+
+                <div class="rounded-2xl bg-white border-2 border-black p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl shadow-sm">
+                  <div class="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-canary text-ink border border-black/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <h4 class="text-base font-bold text-ink">Growth Beyond Class</h4>
+                  <p class="mt-2 text-base text-ink-light leading-relaxed">Sports, arts, and leadership opportunities that help students discover their strengths.</p>
+                </div>
+              </div>
+
+            </div>
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ready to join CTA Section -->
+      <section class="px-6 py-16" id="admissions">
+        <div class="mx-auto max-w-4xl rounded-2xl bg-canary border border-black px-8 py-14 text-center shadow-md sm:px-16">
+          <h2 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">Ready to join North Point?</h2>
+          <p class="mx-auto mt-4 max-w-xl text-base sm:text-lg text-ink font-medium">
+            Applications for the 2027 academic year are now open. Visit us and see why families choose North Point.
+          </p>
+          <a href="{% url 'contact' %}" class="mt-8 inline-flex items-center justify-center rounded-full bg-ink px-8 py-3.5 text-base font-semibold text-white shadow-md transition-all hover:scale-105 hover:bg-ink-light">
+            Start your journey
+          </a>
+        </div>
+      </section>
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html>
