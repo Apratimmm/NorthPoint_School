@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Edit Contact — North Point</title>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Edit Contact - Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style type="text/tailwindcss">@theme { --color-lime-cream:#f7fce8; --color-ink:#0f172a; --color-ink-light:#334155; --color-canary:#fde047; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }</style>
 </head>
@@ -64,11 +64,11 @@
                 <img src="{{ contact.logo.url }}?f_auto,q_auto" alt="Current logo" class="h-32 mb-3 rounded" loading="lazy">
                 <button type="button"
                         data-form-type="delete_logo"
-                        class="js-delete-image block bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg">
+                        class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-800 text-sm font-semibold px-4 py-2 rounded-xl transition">
                   Delete image
                 </button>
               {% else %}
-                <input type="file" name="logo" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-green-100 hover:file:border-green-700 hover:file:text-green-800 cursor-pointer mb-3">
+                <input type="file" name="logo" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
                   <p class="text-l text-gray-600 mb-6">
                     Upload a <strong>PNG</strong> with a
                     transparent background for the best result.
@@ -86,7 +86,7 @@
 
           <div class="flex justify-end">
             <button type="submit"
-                    class="bg-transparent border-2 border-ink text-ink hover:bg-green-100 hover:border-green-700 hover:text-green-800 font-semibold px-8 py-3 rounded-xl transition"
+                    class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition"
                     onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();">
               Update
             </button>

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Add Event - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black"><div class="flex w-full items-center justify-between px-6 py-4 lg:px-12"><a href="{% url 'show_events' %}" class="text-xl font-bold tracking-tight text-ink">Back to Events</a><a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a></div></header><main class="max-w-3xl mx-auto px-6 py-12"><div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Add Event</h1></div>
+
+        <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="create_event">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-sm font-medium mb-1">Event Name</label>
+                <input type="text" name="event_name" required
+                       class="w-full border rounded-lg px-4 py-2" placeholder="e.g. Annual Sports Day">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-1">Date (eg. Baisakh, 2083 OR 23 Baisakh, 2083)</label>
+                <input type="text" name="event_date" required
+                       class="w-full border rounded-lg px-4 py-2">
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block text-sm font-medium mb-1">Images (you can select multiple)</label>
+              <input type="file" name="images" accept="image/*" multiple class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+            </div>
+
+            <button type="submit"
+                    onclick="this.textContent='Creating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
+                    class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+              Create Event
+            </button>
+          </form>
+        </div>
+</main></body></html>

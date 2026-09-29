@@ -104,6 +104,88 @@ def edit_academics(request):
 
     context = {key: instance for key, instance, *_ in sections}
     return render(request, "edit_academics.html", context)
+
+@login_required
+def show_events(request):
+    events = GalleryEvent.objects.all().only("id", "event_name", "event_date")
+    return render(request, "show_events.html", {"events": events})
+
+@login_required
+def add_event(request):
+    if request.method == "POST":
+        event_name = request.POST.get("event_name", "").strip()
+        event_date = request.POST.get("event_date","").strip()
+
+        event = GalleryEvent.objects.create(
+            event_name=event_name,
+            event_date=event_date,
+            first_name=event_name
+        )
+
+        images = request.FILES.getlist("images")
+        GalleryImage.objects.bulk_create(
+            [GalleryImage(event=event, image=img) for img in images]
+        )
+
+        messages.success(request, "Event created successfully!")
+        return redirect("show_events")
+
+    return render(request,"add_event.html")
+
+@login_required
+def edit_event(request, event_id):
+    event = get_object_or_404(GalleryEvent.objects.prefetch_related("images"), id=event_id)
+
+    if request.method == "POST":
+        form_type = request.POST.get("form_type")
+
+        if form_type == "update_details":
+            event_name = request.POST.get("event_name", "").strip()
+            event_date = request.POST.get("event_date", "").strip()
+
+            if event_name and event_date:
+                event.event_name = event_name
+                event.event_date = event_date
+                event.save()
+                messages.success(request, "Event name and/or date updated successfully!")
+            else:
+                messages.error(request, "Event name and date are required.")
+
+            return redirect("edit_event", event_id=event.id)
+
+        elif form_type == "add_images":
+            images = request.FILES.getlist("images")
+            GalleryImage.objects.bulk_create(
+                [GalleryImage(event=event, image=img) for img in images]
+            )
+
+            messages.success(request, "Images added successfully!")
+            return redirect("edit_event", event_id=event.id)
+
+        elif form_type == "delete_image":
+            image_id = request.POST.get("image_id")
+            image = get_object_or_404(GalleryImage, id=image_id, event=event)
+            image.delete()
+            messages.success(request, "Image deleted successfully!")
+            return redirect("edit_event", event_id=event.id)
+
+    context = {
+        "event": event,
+    }
+    return render(request, "edit_event.html", context)
+
+@login_required
+def delete_event(request, event_id):
+    event = get_object_or_404(GalleryEvent, id=event_id)
+    first_name = event.first_name
+    event_name = event.event_name
+    event.delete()
+    try:
+        cloudinary.api.delete_folder(f"gallery/{first_name}")
+    except Exception:
+        pass
+    messages.success(request, f'Event "{event_name}" deleted successfully!')
+    return redirect("show_events")
 #
 # @login_required
 # def edit_about(request):
@@ -245,82 +327,7 @@ def edit_academics(request):
 #     }
 #     return render(request, "edit_results.html", context)
 #
-# @login_required
-# def show_events(request):
-#     events = GalleryEvent.objects.all().only("id", "event_name", "event_date")
-#     return render(request, "show_events.html", {"events": events})
-#
-# @login_required
-# def add_event(request):
-#     if request.method == "POST":
-#         event_name = request.POST.get("event_name", "").strip()
-#         event_date = request.POST.get("event_date","").strip()
-#
-#         event = GalleryEvent.objects.create(
-#             event_name=event_name,
-#             event_date=event_date
-#         )
-#
-#         images = request.FILES.getlist("images")
-#         GalleryImage.objects.bulk_create(
-#             [GalleryImage(event=event, image=img) for img in images]
-#         )
-#
-#         messages.success(request, "Event created successfully!")
-#         return redirect("show_events")
-#
-#     return render(request,"add_event.html")
-#
-# @login_required
-# def edit_event(request, event_id):
-#     event = get_object_or_404(GalleryEvent.objects.prefetch_related("images"), id=event_id)
-#
-#     if request.method == "POST":
-#         form_type = request.POST.get("form_type")
-#
-#         if form_type == "update_details":
-#             event_name = request.POST.get("event_name", "").strip()
-#             event_date = request.POST.get("event_date", "").strip()
-#
-#             if event_name and event_date:
-#                 event.event_name = event_name
-#                 event.event_date = event_date
-#                 event.save()
-#                 messages.success(request, "Event name and/or date updated successfully!")
-#             else:
-#                 messages.error(request, "Event name and date are required.")
-#
-#             return redirect("edit_event", event_id=event.id)
-#
-#         elif form_type == "add_images":
-#             images = request.FILES.getlist("images")
-#             GalleryImage.objects.bulk_create(
-#                 [GalleryImage(event=event, image=img) for img in images]
-#             )
-#
-#             messages.success(request, "Images added successfully!")
-#             return redirect("edit_event", event_id=event.id)
-#
-#         elif form_type == "delete_image":
-#             image_id = request.POST.get("image_id")
-#             image = get_object_or_404(GalleryImage, id=image_id, event=event)
-#             image.delete()
-#             messages.success(request, "Image deleted successfully!")
-#             return redirect("edit_event", event_id=event.id)
-#
-#     context = {
-#         "event": event,
-#     }
-#     return render(request, "edit_event.html", context)
-#
-# @login_required
-# def delete_event(request, event_id):
-#     event = get_object_or_404(GalleryEvent, id=event_id)
-#     event_name = event.event_name
-#     event.delete()
-#     cloudinary.api.delete_folder(f"gallery/{event_name}")
-#     messages.success(request, f'Event "{event_name}" deleted successfully!')
-#     return redirect("show_events")
+
 #
 # @login_required
 # def show_calenders(request):

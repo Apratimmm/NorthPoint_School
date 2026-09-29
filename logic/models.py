@@ -202,6 +202,7 @@ class Topper(models.Model):
 class GalleryEvent(models.Model):
     event_name = models.CharField(max_length=200)
     event_date = models.CharField()
+    first_name = models.CharField(default=event_name)
 
     class Meta:
         ordering = ["-id"]
