@@ -56,13 +56,13 @@
                 {{ history.text|linebreaks }}
               </div>
             {% else %}
-              <p class="text-ink-light text-base lg:text-lg leading-relaxed">
+              <p class="text-ink text-lg lg:text-xl font-medium leading-relaxed">
                 North Point English Boarding School opened in 1998 with forty-one students, six teachers and a single primary building. Today, more than nine hundred boys and girls from nursery to grade twelve study on one green, gated campus.
               </p>
-              <p class="text-ink-light text-base lg:text-lg leading-relaxed">
+              <p class="text-ink text-lg lg:text-xl font-medium leading-relaxed">
                 The classrooms, science and computer laboratories, library, canteen and sports grounds all sit within the same walls, so boarders move between lessons, games and prep hours without leaving the gates. Day scholars join us from the surrounding neighbourhoods, and both groups learn and play together every day.
               </p>
-              <p class="text-ink-light text-base lg:text-lg leading-relaxed">
+              <p class="text-ink text-lg lg:text-xl font-medium leading-relaxed">
                 We are proud of our examination results, but we judge the young citizen index by how scholars treat one another in draft and spoken side-by-side: Martin, the one who rushes to lend a notebook, and the one who finally tells science a favourite subject.
               </p>
             {% endif %}
@@ -150,31 +150,31 @@
           </div>
         <!-- Row 1: Chairperson -->
         <div class="flex flex-col md:flex-row gap-6 mb-6 items-stretch">
-          <div class="flex-1 bg-white rounded-2xl border-2 border-black p-8 shadow-sm">
+          <div class="flex-[2] bg-white rounded-2xl border-2 border-black p-8 shadow-sm">
             <h4 class="font-bold text-ink text-base mb-2">{% if chairperson and chairperson.heading %}{{ chairperson.heading }}{% else %}A school is a promise{% endif %}</h4>
-            <p class="text-sm text-ink-light leading-relaxed">{% if chairperson and chairperson.text %}{{ chairperson.text }}{% else %}When we founded North Point, we made one promise to the families who trusted us: that no child who enters these gates would be treated as average.{% endif %}</p>
+            <p class="text-sm text-ink-light leading-relaxed">{% if chairperson and chairperson.text %}{{ chairperson.text }}{% else %}When we founded North Point, we made one promise to the families who trusted us: that no child who enters these gates would be treated as average. We build every policy, every timetable, and every conversation around that belief — because average is not a destination we accept for any student under our care. {% endif %}</p>
             <div class="mt-6 pt-4 border-t border-black/10 text-right">
               <h3 class="font-bold text-ink text-xl">{% if chairperson and chairperson.person_name %}{{ chairperson.person_name }}{% else %}Mr. Ramesh Thapa{% endif %}</h3>
               <span class="text-xs font-semibold text-ink-light uppercase tracking-wider">{% if chairperson and chairperson.person_title %}{{ chairperson.person_title }}{% else %}Chairperson{% endif %}</span>
             </div>
           </div>
           <div class="flex-1 bg-white rounded-2xl border-2 border-black overflow-hidden shadow-sm flex items-center justify-center">
-            <img src="{% if chairperson and chairperson.image %}{{ chairperson.image.url }}{% else %}https://ui-avatars.com/api/?name=Ramesh+Thapa&background=fde047&color=0f172a&size=256{% endif %}" alt="Chairperson" class="w-full h-64 object-cover">
+            <img src="{% if chairperson and chairperson.image %}{{ chairperson.image.url }}{% else %}https://ui-avatars.com/api/?name=Ramesh+Thapa&background=fde047&color=0f172a&size=256{% endif %}" alt="Chairperson" class="w-full aspect-square object-cover">
           </div>
         </div>
 
         <!-- Row 2: Principal -->
         <div class="flex flex-col md:flex-row gap-6 items-stretch">
-          <div class="flex-1 bg-white rounded-2xl border-2 border-black p-8 shadow-sm">
+          <div class="flex-[2] bg-white rounded-2xl border-2 border-black p-8 shadow-sm">
             <h4 class="font-bold text-ink text-base mb-2">{% if principal and principal.heading %}{{ principal.heading }}{% else %}Learning that lasts{% endif %}</h4>
-            <p class="text-sm text-ink-light leading-relaxed">{% if principal and principal.text %}{{ principal.text }}{% else %}Our schedule is full, but our days are not crowded. Students have time to read, to play and to ask a second question.{% endif %}</p>
+            <p class="text-sm text-ink-light leading-relaxed">{% if principal and principal.text %}{{ principal.text }}{% else %}Our schedule is full, but our days are not crowded. Students have time to read, to play, to ask a second question, and to discover what they enjoy. We protect those margins deliberately — because learning that lasts comes from curiosity, not just coverage.{% endif %}</p>
             <div class="mt-6 pt-4 border-t border-black/10 text-right">
               <h3 class="font-bold text-ink text-xl">{% if principal and principal.person_name %}{{ principal.person_name }}{% else %}Mrs. Sunita Gurung{% endif %}</h3>
               <span class="text-xs font-semibold text-ink-light uppercase tracking-wider">{% if principal and principal.person_title %}{{ principal.person_title }}{% else %}Principal{% endif %}</span>
             </div>
           </div>
           <div class="flex-1 bg-white rounded-2xl border-2 border-black overflow-hidden shadow-sm flex items-center justify-center">
-            <img src="{% if principal and principal.image %}{{ principal.image.url }}{% else %}https://ui-avatars.com/api/?name=Sunita+Gurung&background=fde047&color=0f172a&size=256{% endif %}" alt="Principal" class="w-full h-64 object-cover">
+            <img src="{% if principal and principal.image %}{{ principal.image.url }}{% else %}https://ui-avatars.com/api/?name=Sunita+Gurung&background=fde047&color=0f172a&size=256{% endif %}" alt="Principal" class="w-full aspect-square object-cover">
           </div>
         </div>
       </div>

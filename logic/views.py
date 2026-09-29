@@ -30,22 +30,50 @@ def verify_user(request):
             messages.error(request, "Invalid username or password")
             return redirect("login")
 
-# def logoutt(request):
-#     logout(request)
-#     return redirect("login")
-#
-# @login_required
-# def dashboard(request):
-#     return render(request, "dashboard.html")
-#
-# def _delete_image_field(instance, field_name, request, success_message):
-#
-#     image = getattr(instance, field_name, None)
-#     if image:
-#         image.delete(save=False)
-#         setattr(instance, field_name, None)
-#         instance.save()
-#         messages.success(request, success_message)
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+def user_logout(request):
+    logout(request)
+    return redirect("login")
+
+def _delete_image_field(instance, field_name, request, success_message):
+
+    image = getattr(instance, field_name, None)
+    if image:
+        image.delete(save=False)
+        setattr(instance, field_name, None)
+        instance.save()
+        messages.success(request, success_message)
+
+@login_required
+def edit_contact(request):
+    contact, _ = ContactInfo.objects.get_or_create(id=1)
+    if request.method == "POST":
+        form_type = request.POST.get("form_type")
+
+        if form_type == "delete_logo":
+            _delete_image_field(contact, "logo", request, "Logo deleted.")
+            cache.delete(CACHE_KEY)
+            return redirect("edit_contact")
+
+        contact.telephone = request.POST.get("telephone", "")
+        contact.email = request.POST.get("email", "")
+        contact.facebook_link = request.POST.get("facebook_link", "")
+        if request.FILES.get("logo"):
+            contact.logo = request.FILES["logo"]
+        contact.save()
+        cache.delete(CACHE_KEY)
+
+        messages.success(request, "Contact information updated successfully!")
+        return redirect("edit_contact")
+
+    context = {
+        "contact": contact,
+    }
+    return render(request, "edit_contact.html", context)
+
 #
 # @login_required
 # def edit_about(request):
@@ -143,32 +171,7 @@ def verify_user(request):
 #             "message": "Sorry, something went wrong. Please try again later."
 #         }, status=500)
 #
-# @login_required
-# def edit_contact(request):
-#     contact, _ = ContactInfo.objects.get_or_create(id=1)
-#     if request.method == "POST":
-#         form_type = request.POST.get("form_type")
-#
-#         if form_type == "delete_logo":
-#             _delete_image_field(contact, "logo", request, "Logo deleted.")
-#             cache.delete(CACHE_KEY)
-#             return redirect("edit_contact")
-#
-#         contact.telephone = request.POST.get("telephone", "")
-#         contact.email = request.POST.get("email", "")
-#         contact.facebook_link = request.POST.get("facebook_link", "")
-#         if request.FILES.get("logo"):
-#             contact.logo = request.FILES["logo"]
-#         contact.save()
-#         cache.delete(CACHE_KEY)
-#
-#         messages.success(request, "Contact information updated successfully!")
-#         return redirect("edit_contact")
-#
-#     context = {
-#         "contact": contact,
-#     }
-#     return render(request, "edit_contact.html", context)
+
 #
 # @login_required
 # def edit_results(request):

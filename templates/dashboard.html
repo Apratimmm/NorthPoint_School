@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - North Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+@theme { --color-lime-cream:#f7fce8; --color-ink:#0f172a; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }
+</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+      <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+        <span class="text-xl font-bold tracking-tight text-ink"></span>
+        <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+      </div>
+    </header>
+<main class="max-w-6xl mx-auto px-6 py-12">
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-4xl font-bold tracking-tight">Welcome to your Dashboard</h1>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <a href="#" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">About Us</h3><p class="text-sm text-ink-light leading-relaxed">Edit your history and the messages from principal and chairperson.</p></a>
+    <a href="#" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">Academics</h3><p class="text-sm text-ink-light leading-relaxed">Edit your primary and secondary school information.</p></a>
+    <a href="#" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">Notices</h3><p class="text-sm text-ink-light leading-relaxed">Create and edit the official notices of your school.</p></a>
+    <a href="#" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">Gallery</h3><p class="text-sm text-ink-light leading-relaxed">Create and edit the events information in your gallery section.</p></a>
+    <a href="#" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">Calendar</h3><p class="text-sm text-ink-light leading-relaxed">Edit the academic calendar of your school.</p></a>
+    <a href="#" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">Committees</h3><p class="text-sm text-ink-light leading-relaxed">Create and edit your student committees and their office bearers.</p></a>
+    <a href="#" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">Results</h3><p class="text-sm text-ink-light leading-relaxed">Edit your SEE records and topper's information.</p></a>
+    <a href="{% url 'edit_contact' %}" class="block text-ink antialiased rounded-2xl border-2 border-ink bg-white p-6 shadow-none hover:shadow-lg hover:bg-canary/10 transition transition"><h3 class="text-xl font-bold text-ink mb-2">Contact Us</h3><p class="text-sm text-ink-light leading-relaxed">Edit your contact information.</p></a>
+  </div>
+</main>
+</body>
+</html>

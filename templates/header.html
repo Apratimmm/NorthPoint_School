@@ -26,6 +26,7 @@
 
             <a href="{% url 'contact' %}" class="transition-colors {% if "/contact" in request.path %}text-ink font-semibold border-b-2 border-canary pb-1{% else %}hover:text-ink{% endif %}">Contact</a>
           </nav>
+          <a href="{% url 'login' %}" class="rounded-full bg-ink text-white px-4 py-1.5 text-xs font-bold shadow hover:scale-105 hover:bg-ink-light transition">Login</a>
 
           <details class="relative md:hidden">
             <summary class="inline-flex cursor-pointer items-center justify-center rounded-lg p-2 text-ink" aria-label="Open menu">
@@ -46,4 +47,5 @@
           </details>
         </div>
       </div>
+
     </header>

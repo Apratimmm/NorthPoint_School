@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Edit Contact — North Point</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">@theme { --color-lime-cream:#f7fce8; --color-ink:#0f172a; --color-ink-light:#334155; --color-canary:#fde047; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'dashboard' %}" class="text-xl font-bold tracking-tight text-ink">Back to Dashboard</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+  <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Contact Information</h1></div>
+
+        {% if messages %}
+          <div class="mb-6 space-y-3">
+            {% for message in messages %}
+              <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <p class="text-sm text-black-500 pb-5">
+            To change the logo, first delete the current one.
+          </p>
+
+
+        <form method="post" enctype="multipart/form-data" action="/edit_contact/" class="space-y-12">
+          {% csrf_token %}
+
+
+
+          {% if contact %}
+          <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
+            <h2 class="text-xl font-semibold mb-6 text-ink">Contact Details</h2>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Telephone</label>
+              <textarea required name="telephone" rows="2"
+                        class="w-full border rounded-lg px-4 py-2">{{ contact.telephone }}</textarea>
+              <p class="mt-1 text-xs text-ink-light">Separate multiple numbers with a comma or new line.</p>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Email</label>
+              <input required type="email" name="email" value="{{ contact.email }}"
+                     class="w-full border rounded-lg px-4 py-2">
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Facebook Link</label>
+              <input required type="url" name="facebook_link" value="{{ contact.facebook_link }}"
+                     class="w-full border rounded-lg px-4 py-2">
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1">Logo</label>
+              {% if contact.logo %}
+                <img src="{{ contact.logo.url }}?f_auto,q_auto" alt="Current logo" class="h-32 mb-3 rounded" loading="lazy">
+                <button type="button"
+                        data-form-type="delete_logo"
+                        class="js-delete-image block bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg">
+                  Delete image
+                </button>
+              {% else %}
+                <input type="file" name="logo" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+                  <p class="text-l text-gray-600 mb-6">
+                    Upload a <strong>PNG</strong> with a
+                    transparent background for the best result.
+                </p>
+
+                <p class="text-l text-gray-600 mb-6">
+                    You can visit <strong><a class="text-ink underline" href="https://www.remove.bg/" target="_blank">this_link</a></strong>
+                    if you want to remove background from your logo.
+                </p>
+              {% endif %}
+            </div>
+
+          </div>
+          {% endif %}
+
+          <div class="flex justify-end">
+            <button type="submit"
+                    class="bg-transparent border-2 border-ink text-ink hover:bg-green-100 hover:border-green-700 hover:text-green-800 font-semibold px-8 py-3 rounded-xl transition"
+                    onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();">
+              Update
+            </button>
+          </div>
+
+        </form>
+</main>
+</body>
+</html>
+
+
+{% block extra_js %}
+    <script>
+      const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+      document.querySelectorAll(".js-delete-image").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          if (!confirm("Delete this image?")) {
+            e.preventDefault();
+            return;
+          }
+          this.textContent = "Deleting...";
+          this.disabled = true;
+          this.classList.add("opacity-75", "cursor-not-allowed");
+
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "/edit_contact/";
+
+          const csrf = document.createElement("input");
+          csrf.type = "hidden";
+          csrf.name = "csrfmiddlewaretoken";
+          csrf.value = csrfToken;
+          form.appendChild(csrf);
+
+          const ft = document.createElement("input");
+          ft.type = "hidden";
+          ft.name = "form_type";
+          ft.value = this.dataset.formType;
+          form.appendChild(ft);
+
+          document.body.appendChild(form);
+          form.submit();
+        });
+      });
+    </script>
+
+{% endblock %}
+</script>
