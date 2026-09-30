@@ -42,28 +42,52 @@
       </div>
     </div>
     <!-- Right form -->
-    <div class="lg:col-span-2 bg-[#fdfce5] rounded-3xl border-2 border-black p-8 lg:p-10 shadow-xl">
-      <form onsubmit="event.preventDefault(); this.innerHTML='<p class=\'text-xl font-bold\'>Message sent!</p>';" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label for="name" class="block font-bold mb-2">Name</label>
-          <input id="name" type="text" placeholder="Your full name" class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary">
-        </div>
-        <div>
-          <label for="email" class="block font-bold mb-2">Email</label>
-          <input id="email" type="email" placeholder="you@example.com" class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary">
-        </div>
-        <div class="md:col-span-2">
-          <label for="phone" class="block font-bold mb-2">Phone <span class="font-normal text-ink-light">(optional)</span></label>
-          <input id="phone" type="text" placeholder="+977 ..." class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary">
-        </div>
-        <div class="md:col-span-2">
-          <label for="message" class="block font-bold mb-2">Message</label>
-          <textarea id="message" rows="6" placeholder="Tell us what you would like to know" class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary resize-y"></textarea>
-        </div>
-        <div class="md:col-span-2 flex items-center justify-between gap-4 flex-wrap">
-          <button type="submit" class="bg-ink text-white rounded-full px-8 py-3 font-bold shadow-xl hover:bg-ink-light transition">Send message</button>
-        </div>
-      </form>
+    <div class="lg:col-span-2 bg-[#fdfce5] rounded-3xl border-2 border-black p-8 lg:p-10 shadow-xl relative">
+            <form id="contact-form" class="mt-2 space-y-5">
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label for="name" class="block font-bold mb-2">Full name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary"
+                  />
+                </div>
+                <div>
+                  <label for="email" class="block font-bold mb-2">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary"/>
+                </div>
+              </div>
+              <div>
+                <label for="subject" class="block font-bold mb-2">Subject</label>
+                <input
+                  id="subject"
+                  name="subject"
+                  required
+                  class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary"/>
+              </div>
+              <div>
+                <label for="message" class="block font-bold mb-2">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  class="w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary resize-y"
+                ></textarea>
+              </div>
+              <div class="md:col-span-2 flex items-center justify-between gap-4 flex-wrap">
+                <button id="submit-btn" type="submit" class="bg-ink text-white rounded-full px-8 py-3 font-bold shadow-xl hover:scale-105 hover:bg-ink-light transition">Send message</button>
+                <div id="form-message" class="hidden shrink-0 rounded-lg border-2 border-green-600 bg-green-50 px-4 py-3 text-sm font-medium text-green-800 shadow-sm max-w-xs" role="alert" aria-live="polite"></div>
+              </div>
+            </form>
+
     </div>
   </div>
 
@@ -75,5 +99,69 @@
   </div>
 </main>
 {% include 'footer.html' %}
+
+<script>
+  const form = document.getElementById("contact-form");
+  const submitBtn = document.getElementById("submit-btn");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("/send_email/", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      });
+
+      const data = await response.json();
+
+      showMessage(data.message, data.success);
+
+      if (data.success) {
+        form.reset();
+      }
+    } catch (error) {
+      showMessage("Network error. Please try again.", false);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send message";
+    }
+  });
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  const formMessage = document.getElementById("form-message");
+
+  function showMessage(message, isSuccess) {
+    formMessage.textContent = message;
+    formMessage.classList.remove("hidden");
+    if (!isSuccess) {
+      formMessage.className = "shrink-0 rounded-lg border-2 border-red-600 bg-red-50 px-4 py-3 text-sm font-medium text-red-800 shadow-sm max-w-xs";
+    } else {
+      formMessage.className = "shrink-0 rounded-lg border-2 border-green-600 bg-green-50 px-4 py-3 text-sm font-medium text-green-800 shadow-sm max-w-xs";
+    }
+  }
+</script>
+
 </body>
 </html>

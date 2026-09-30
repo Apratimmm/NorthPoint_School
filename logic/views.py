@@ -399,75 +399,38 @@ def edit_homepage(request):
     }
     return render(request, 'edit_homepage.html', context)
 
-# @login_required
-# def edit_about(request):
-#     sections = [
-#         ("history",     AboutSection.objects.get_or_create(section="history")[0],
-#             ["heading", "text"], "image", "History image deleted."),
-#         ("principal",   AboutSection.objects.get_or_create(section="principal")[0],
-#             ["heading", "text", "person_name", "person_title"], "image", "Principal photo deleted."),
-#         ("chairperson", AboutSection.objects.get_or_create(section="chairperson")[0],
-#             ["heading", "text", "person_name", "person_title"], "image", "Chairperson photo deleted."),
-#     ]
-#
-#     if request.method == "POST":
-#         form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
-#
-#         if form_type and form_type.startswith("delete_"):
-#             for key, instance, _text_fields, image_field, delete_msg in sections:
-#                 if image_field and form_type == f"delete_{key}_{image_field}":
-#                     _delete_image_field(instance, image_field, request, delete_msg)
-#                     return redirect("edit_about")
-#
-#         for section_key, instance, text_fields, image_field, _delete_msg in sections:
-#             for field in text_fields:
-#                 setattr(instance, field, request.POST.get(f"{section_key}_{field}", ""))
-#             if image_field and request.FILES.get(f"{section_key}_{image_field}"):
-#                 setattr(instance, image_field, request.FILES[f"{section_key}_{image_field}"])
-#             instance.save()
-#
-#         messages.success(request, "About Us content updated successfully!")
-#         return redirect("edit_about")
-#
-#     context = {key: instance for key, instance, *_ in sections}
-#     return render(request, "edit_about.html", context)
-#
+@require_POST
+def send_email(request):
+    name    = request.POST.get("name", "").strip()
+    email   = request.POST.get("email", "").strip()
+    subject = request.POST.get("subject", "").strip()
+    message = request.POST.get("message", "").strip()
+    actual_message = f"""
+    <p><strong>Name:</strong> {name}</p>
+    <p><strong>Email:</strong> {email}</p>
+    <p><strong>Subject:</strong> {subject}</p>
+    <hr>
+    <p>{message}</p> """
 
-#
-# @require_POST
-# def send_email(request):
-#     name    = request.POST.get("name", "").strip()
-#     email   = request.POST.get("email", "").strip()
-#     subject = request.POST.get("subject", "").strip()
-#     message = request.POST.get("message", "").strip()
-#     actual_message = f"""
-#     <p><strong>Name:</strong> {name}</p>
-#     <p><strong>Email:</strong> {email}</p>
-#     <p><strong>Subject:</strong> {subject}</p>
-#     <hr>
-#     <p>{message}</p> """
-#
-#     try:
-#         resend.Emails.send({
-#             "from": "onboarding@resend.dev",
-#             "to": "englishshantinagar@gmail.com",
-#             "reply_to": email,
-#             "subject": f"Mail received from the school's website",
-#             "html": actual_message})
-#
-#         return JsonResponse({
-#             "success": True,
-#             "message": "Thank you! Your message has been sent successfully."
-#         })
-#
-#     except Exception:
-#             return JsonResponse({
-#             "success": False,
-#             "message": "Sorry, something went wrong. Please try again later."
-#         }, status=500)
-#
+    try:
+        resend.Emails.send({
+            "from": "onboarding@resend.dev",
+            "to": "apratimkhadkaaa99@gmail.com",
+            "reply_to": email,
+            "subject": f"Mail received from the school's website",
+            "html": actual_message})
 
-#
+        return JsonResponse({
+            "success": True,
+            "message": "Sent!"
+        })
+
+    except Exception:
+            return JsonResponse({
+            "success": False,
+            "message": "Failed - please retry."
+        }, status=500)
+
 # @login_required
 # def edit_results(request):
 #     yearly_results = YearlyResult.objects.all()[:3]
@@ -603,131 +566,7 @@ def edit_homepage(request):
 #         {"success": True, "message": "Calendar has been updated !   !"}
 #     )
 #
-# @login_required
-# def show_committees(request):
-#     committees = Committee.objects.all().only("id", "committee_name")
-#     return render(request, "show_committees.html", {"committees": committees})
-#
-# @login_required
-# def add_committee(request):
-#     if request.method == "POST":
-#         committee_name = request.POST.get("committee_name", "").strip()
-#         if not committee_name:
-#             messages.error(request, "Committee name is required.")
-#             return render(
-#                 request,
-#                 "add_committee.html",
-#                 {
-#                     "committee": Committee(
-#                         committee_name=committee_name,
-#                         description=request.POST.get("description", ""),
-#                     ),
-#                 },
-#             )
-#
-#         committee = Committee(
-#             committee_name=committee_name,
-#             description=request.POST.get("description", ""),
-#         )
-#         committee.save()
-#
-#         messages.success(request, "Committee created. Add the office bearers now.")
-#         return redirect("add_committee_people", committee_id=committee.id)
-#
-#     return render(
-#         request,
-#         "add_committee.html",
-#         {"committee": Committee(committee_name="")},
-#     )
-#
-# @login_required
-# def add_committee_people(request, committee_id):
-#     committee = get_object_or_404(Committee, id=committee_id)
-#
-#     if request.method == "POST":
-#         saved = 0
-#         i = 0
-#         while i < 100:
-#             name = request.POST.get(f"name_{i}", "").strip()
-#             post = request.POST.get(f"post_{i}", "")
-#             file = request.FILES.get(f"image_{i}")
-#             if not name:
-#                 i += 1
-#                 continue
-#
-#             person, _ = CommitteePeople.objects.get_or_create(
-#                 committee=committee,
-#                 post=post,
-#                 name=name,
-#             )
-#             if file:
-#                 person.image = file
-#                 person.save()
-#             saved += 1
-#             i += 1
-#
-#         if saved:
-#             messages.success(request, f"New office bearer(s) were added.")
-#         else:
-#             messages.info(request, "No new office bearer(s) were added.")
-#         return redirect("show_committees")
-#
-#     return render(
-#         request,
-#         "add_committee_people.html",
-#         {"committee": committee},
-#     )
-#
-# @login_required
-# def delete_committee_people(request, person_id):
-#     person = get_object_or_404(CommitteePeople, id=person_id)
-#     committee_id = person.committee_id
-#     name = person.name
-#
-#     if person.image:
-#         person.image.delete(save=False)
-#     person.delete()
-#
-#     messages.success(request, f'Removed the office bearer from committee.')
-#     return redirect("add_committee_people", committee_id=committee_id)
-#
-# @login_required
-# def delete_committee(request, committee_id):
-#     committee = get_object_or_404(Committee, id=committee_id)
-#     committee_name = committee.committee_name
-#
-#     for person in list(committee.people.all()):
-#         if person.image:
-#             person.image.delete(save=False)
-#         person.delete()
-#
-#     committee.delete()
-#     cloudinary.api.delete_folder(f"committee/{committee_name}")
-#     messages.success(request, f'Committee "{committee_name}" deleted successfully!')
-#     return redirect("show_committees")
-#
 
-#
-# @login_required
-# def edit_signature(request):
-#     signature, _ = PrincipalSignature.objects.get_or_create(id=1)
-#
-#     if request.method == "POST":
-#         form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
-#
-#         if form_type == "delete_signature":
-#             _delete_image_field(signature, "image", request, "Signature deleted.")
-#             return redirect("edit_signature")
-#
-#         signature.name = request.POST.get("name", "").strip()
-#         if request.FILES.get("person_image"):
-#             signature.image = request.FILES["image"]
-#         signature.save()
-#         messages.success(request, "Principal details updated successfully!")
-#         return redirect("edit_signature")
-#
-#     return render(request, "edit_signature.html", {"signature": signature})
-#
 
 
 
