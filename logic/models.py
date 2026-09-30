@@ -45,9 +45,10 @@ class User(AbstractBaseUser):
 
 class AboutSection(models.Model):
     SECTION_CHOICES = [
-        ("history", "Our History"),
-        ("principal", "Message from the Principal"),
-        ("chairperson", "Message from the Chairperson"),
+        ("history", "History"),
+        ("vision", "Vision"),
+        ("mission", "Mission"),
+        ("goal", "Goal"),
     ]
 
     section = models.CharField(
@@ -57,32 +58,29 @@ class AboutSection(models.Model):
         help_text="Which section this content belongs to"
     )
 
-    heading = models.CharField(
-        max_length=255,
-        blank=True,
-        help_text="Main heading or the quote"
-    )
-
     text = models.TextField(
         help_text="The main body text / paragraphs"
     )
-
-    image = models.ImageField(
-        upload_to="about/",
-        blank=True,
-        null=True,
-        help_text="Optional image for this section"
-    )
-
-    person_name = models.CharField(max_length=100, blank=True)
-    person_title = models.CharField(max_length=100, blank=True)
 
     class Meta:
         verbose_name = "about-section"
         verbose_name_plural = "about-sections"
 
-    def __str__(self):
-        return self.get_section_display()
+class Messages(models.Model):
+    person_name = models.CharField(max_length=100, blank=True)
+    person_position = models.CharField(max_length=100, blank=True)
+    message_title = models.TextField(
+        help_text="The title"
+    )
+    message_body = models.TextField(
+        help_text="The body"
+    )
+    person_image = models.ImageField(
+        upload_to="message/",
+        blank=True,
+        null=True,
+        help_text="Optional image for this section"
+    )
 
 class Academic(models.Model):
     SCHOOL_CHOICES = [

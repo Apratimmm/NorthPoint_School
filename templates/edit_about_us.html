@@ -1,0 +1,242 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Edit About Us - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'dashboard' %}" class="text-xl font-bold tracking-tight text-ink">Back to Dashboard</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit About Us</h1>
+    </div>
+
+        {% if messages %}
+          <div class="mb-6 space-y-3">
+            {% for message in messages %}
+              <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+    <!-- Section 1: history / vision / mission / goal -->
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+        <form method="post" action="/edit_about_us/" class="space-y-4">
+            {% csrf_token %}
+            <div><label class="block text-sm font-medium mb-1">History</label><textarea name="history" rows="3"
+                                                                                        class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ sections.history.text|default:'' }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" name="about" value="history"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                    Update History
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+        <form method="post" action="/edit_about_us/" class="space-y-4">
+            {% csrf_token %}
+           <div><label class="block text-sm font-medium mb-1">Vision</label><textarea name="vision" rows="3"
+                                                                                       class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ sections.vision.text|default:'' }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" name="about" value="vision"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                    Update Vision
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+        <form method="post" action="/edit_about_us/" class="space-y-4">
+            {% csrf_token %}
+            <div><label class="block text-sm font-medium mb-1">Mission</label><textarea name="mission" rows="3"
+                                                                                        class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ sections.mission.text|default:'' }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" name="about" value="mission"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                    Update Mission
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+        <form method="post" action="/edit_about_us/" class="space-y-4">
+            {% csrf_token %}
+             <div><label class="block text-sm font-medium mb-1">Goal</label><textarea name="goal" rows="3"
+                                                                                     class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ sections.goal.text|default:'' }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" name="about" value="goal"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                    Update Goal
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Section 2: two messages -->
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+        <h2 class="text-xl font-bold mb-6">Message 1</h2>
+        {% with msg=messagess.0 %}
+            <form method="post" action="/edit_about_us/" class="space-y-4 border-ink pb-1" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="message_id" value="{{ msg.id|default:'1' }}">
+                <div class="space-y-4">
+                    <div><label class="block text-sm font-medium mb-1">Message Title</label><input name="message_title"
+                                                                                                   rows="1"
+                                                                                                   value="{{ msg.message_title }}"
+                                                                                                   class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+                    </div>
+                    <div><label class="block text-sm font-medium mb-1">Message Body</label><textarea name="message_body"
+                                                                                                     rows="3"
+                                                                                                     class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ msg.message_body }}</textarea>
+                    </div>
+                    <div><label class="block text-sm font-medium mb-1">Person's Name</label><input name="person_name"
+                                                                                                 value="{{ msg.person_name }}"
+                                                                                                 class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+                    </div>
+                    <div><label class="block text-sm font-medium mb-1">Person's Position</label><input name="person_position"
+                                                                                                     value="{{ msg.person_position }}"
+                                                                                                     class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Person's Photo</label>
+                        {% if msg.person_image %}
+                            <img src="{{ msg.person_image.url }}?f_auto,q_auto" alt="Person photo" class="h-32 mb-3 rounded" loading="lazy">
+                            <button type="button"
+                                    data-form-type="delete_message_image"
+                                    class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-800 text-sm font-semibold px-4 py-2 rounded-xl transition">
+                              Delete image
+                            </button>
+                        {% else %}
+                            <input type="file" name="person_image" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+                        {% endif %}
+                    </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" name="about" value="message"
+                            class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                        Update Message
+                    </button>
+                </div>
+                </div>
+            </form>
+        {% endwith %}
+    </div>
+
+<div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+        <h2 class="text-xl font-bold mb-6">Message 2</h2>
+        {% with msg=messagess.1 %}
+            <form method="post" action="/edit_about_us/" class="space-y-4 border-ink pb-1" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="message_id" value="{{ msg.id|default:'2' }}">
+                <div class="space-y-4">
+                     <div><label class="block text-sm font-medium mb-1">Message Title</label><input name="message_title"
+                                                                                                   rows="1"
+                                                                                                   value="{{ msg.message_title }}"
+                                                                                                   class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+                    </div>
+                    <div><label class="block text-sm font-medium mb-1">Message Body</label><textarea name="message_body"
+                                                                                                     rows="3"
+                                                                                                     class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ msg.message_body }}</textarea>
+                    </div>
+                    <div><label class="block text-sm font-medium mb-1">Person's Name</label><input name="person_name"
+                                                                                                 value="{{ msg.person_name }}"
+                                                                                                 class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+                    </div>
+                    <div><label class="block text-sm font-medium mb-1">Person's Position</label><input name="person_position"
+                                                                                                     value="{{ msg.person_position }}"
+                                                                                                     class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Person's Photo</label>
+                        {% if msg.person_image %}
+                            <img src="{{ msg.person_image.url }}?f_auto,q_auto" alt="Person photo" class="h-32 mb-3 rounded" loading="lazy">
+                            <button type="button"
+                                    data-form-type="delete_message_image"
+                                    class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-800 text-sm font-semibold px-4 py-2 rounded-xl transition">
+                              Delete image
+                            </button>
+                        {% else %}
+                            <input type="file" name="person_image" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" name="about" value="message"
+                            class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                        Update Message
+                    </button>
+                </div>
+            </form>
+        {% endwith %}
+    </div>
+</main>
+<script>
+  const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+  document.querySelectorAll(".js-delete-image").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      if (!confirm("Delete this image?")) {
+        e.preventDefault();
+        return;
+      }
+      this.textContent = "Deleting...";
+      this.disabled = true;
+      this.classList.add("opacity-75", "cursor-not-allowed");
+
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/edit_about_us/";
+
+      const csrf = document.createElement("input");
+      csrf.type = "hidden";
+      csrf.name = "csrfmiddlewaretoken";
+      csrf.value = csrfToken;
+      form.appendChild(csrf);
+
+      const ft = document.createElement("input");
+      ft.type = "hidden";
+      ft.name = "form_type";
+      ft.value = this.dataset.formType;
+      form.appendChild(ft);
+
+      const mid = this.closest("form").querySelector('input[name="message_id"]');
+      if (mid) {
+        const midInput = document.createElement("input");
+        midInput.type = "hidden";
+        midInput.name = "message_id";
+        midInput.value = mid.value;
+        form.appendChild(midInput);
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+    });
+  });
+</script>
+</body>
+</html>

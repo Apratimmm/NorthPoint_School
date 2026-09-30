@@ -1,3 +1,5 @@
+import pprint
+
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -51,7 +53,7 @@ def _delete_image_field(instance, field_name, request, success_message):
 def edit_contact(request):
     contact, _ = ContactInfo.objects.get_or_create(id=1)
     if request.method == "POST":
-        form_type = request.POST.get("form_type")
+        form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
 
         if form_type == "delete_logo":
             _delete_image_field(contact, "logo", request, "Logo deleted.")
@@ -84,7 +86,7 @@ def edit_academics(request):
     ]
 
     if request.method == "POST":
-        form_type = request.POST.get("form_type")
+        form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
 
         if form_type and form_type.startswith("delete_"):
             for key, instance, _text_fields, image_field, delete_msg in sections:
@@ -142,7 +144,7 @@ def edit_event(request, event_id):
     event = get_object_or_404(GalleryEvent.objects.prefetch_related("images"), id=event_id)
 
     if request.method == "POST":
-        form_type = request.POST.get("form_type")
+        form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
 
         if form_type == "update_details":
             event_name = request.POST.get("event_name", "").strip()
@@ -292,7 +294,68 @@ def delete_notice(request, notice_id):
     notice.delete()
     messages.success(request, f'Notice "{notice_title}" deleted successfully!')
     return redirect("show_notices")
-#
+
+@login_required
+def edit_about_us(request):
+    if request.method == "POST":
+        form_type = request.POST.get("form_type") or request.POST.get("about")
+
+        if form_type == "delete_message_image":
+            message_id = request.POST.get("message_id")
+            msg = Messages.objects.filter(id=message_id).first() if message_id else None
+            if msg and msg.person_image:
+                msg.person_image.delete(save=False)
+                msg.person_image = None
+                msg.save()
+                messages.success(request, "Person's photo deleted.")
+            return redirect("edit_about_us")
+
+        if form_type == "message":
+            message_id = request.POST.get("message_id")
+            msg = Messages.objects.filter(id=message_id).first() if message_id else None
+            if msg:
+                msg.message_title = request.POST.get("message_title", "")
+                msg.message_body = request.POST.get("message_body", "")
+                msg.person_name = request.POST.get("person_name", "")
+                msg.person_position = request.POST.get("person_position", "")
+                if request.FILES.get("person_image"):
+                    msg.person_image = request.FILES["person_image"]
+                msg.save()
+                messages.success(request, "Message updated successfully!")
+            return redirect("edit_about_us")
+
+        if form_type == "history":
+            s, _ = AboutSection.objects.get_or_create(section="history")
+            s.text = request.POST.get("history", "")
+            s.save()
+            messages.success(request, "History updated successfully!")
+
+        elif form_type == "vision":
+            s, _ = AboutSection.objects.get_or_create(section="vision")
+            s.text = request.POST.get("vision", "")
+            s.save()
+            messages.success(request, "Vision updated successfully!")
+
+        elif form_type == "mission":
+            s, _ = AboutSection.objects.get_or_create(section="mission")
+            s.text = request.POST.get("mission", "")
+            s.save()
+            messages.success(request, "Mission updated successfully!")
+
+        elif form_type == "goal":
+            s, _ = AboutSection.objects.get_or_create(section="goal")
+            s.text = request.POST.get("goal", "")
+            s.save()
+            messages.success(request, "Goal updated successfully!")
+
+    sections_qs = AboutSection.objects.all()
+    sections = {s.section: s for s in sections_qs}
+    messagess = list(Messages.objects.all()[:2])
+    return render(request, "edit_about_us.html", {
+        "sections": sections,
+        "messagess": messagess,
+    })
+
 # @login_required
 # def edit_about(request):
 #     sections = [
@@ -305,7 +368,7 @@ def delete_notice(request, notice_id):
 #     ]
 #
 #     if request.method == "POST":
-#         form_type = request.POST.get("form_type")
+#         form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
 #
 #         if form_type and form_type.startswith("delete_"):
 #             for key, instance, _text_fields, image_field, delete_msg in sections:
@@ -368,7 +431,7 @@ def delete_notice(request, notice_id):
 #     toppers = Topper.objects.all()[:5]
 #
 #     if request.method == "POST":
-#         form_type = request.POST.get("form_type")
+#         form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
 #
 #         if form_type == "yearly":
 #             for i in range(3):
@@ -607,14 +670,14 @@ def delete_notice(request, notice_id):
 #     signature, _ = PrincipalSignature.objects.get_or_create(id=1)
 #
 #     if request.method == "POST":
-#         form_type = request.POST.get("form_type")
+#         form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
 #
 #         if form_type == "delete_signature":
 #             _delete_image_field(signature, "image", request, "Signature deleted.")
 #             return redirect("edit_signature")
 #
 #         signature.name = request.POST.get("name", "").strip()
-#         if request.FILES.get("image"):
+#         if request.FILES.get("person_image"):
 #             signature.image = request.FILES["image"]
 #         signature.save()
 #         messages.success(request, "Principal details updated successfully!")
@@ -625,3 +688,5 @@ def delete_notice(request, notice_id):
 # @login_required
 # def edit_school_video(request):
 #     return render(request, 'edit_school_video.html')
+
+
