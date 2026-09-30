@@ -27,11 +27,12 @@ urlpatterns = [
     path('edit_notice/<int:notice_id>/', edit_notice, name='edit_notice'),
     path('delete_notice/<int:notice_id>/', delete_notice, name='delete_notice'),
     path('edit_about_us/', edit_about_us, name='edit_about_us'),
+    path('edit_school_video/', edit_school_video, name='edit_school_video'),
     # path('month_data/<int:month_id>/', month_data, name='month_data'),
     # path('contact/', contact, name='contact'),
     # path('committee/', committee, name='committee'),
 
-    # path('edit_school_video/', edit_school_video, name='edit_school_video'),
+
 
 
     # path('send_email/', send_email, name='send_mail'),

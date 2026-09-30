@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Edit School Video - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'dashboard' %}" class="text-xl font-bold tracking-tight text-ink">Back to Dashboard.</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Steps to
+        follow</h1>
+    </div>
+
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
+        <p class="text-l text-gray-600 mb-6">
+            Visit <strong><a class="text-ink underline"
+                                     href="https://console.cloudinary.com/app/c-d2b5d87956094ba2490482a1176c50/assets/media_library/folders/d078cbce43092a3fcfa80465615029d7bf?view_mode=list"
+                                     target="_blank">this link to the cloud folder.
+        </a></strong></p>
+
+        <p class="text-l text-gray-600 mb-6">
+            Delete the current video.
+        </p>
+
+        <p class="text-l text-gray-600">
+            Upload your new video.
+        </p>
+
+    </div>
+</main>

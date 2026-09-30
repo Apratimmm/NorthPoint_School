@@ -356,6 +356,9 @@ def edit_about_us(request):
         "messagess": messagess,
     })
 
+@login_required
+def edit_school_video(request):
+    return render(request, 'edit_school_video.html')
 # @login_required
 # def edit_about(request):
 #     sections = [
@@ -685,8 +688,6 @@ def edit_about_us(request):
 #
 #     return render(request, "edit_signature.html", {"signature": signature})
 #
-# @login_required
-# def edit_school_video(request):
-#     return render(request, 'edit_school_video.html')
+
 
 
