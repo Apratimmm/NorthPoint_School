@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Edit Homepage - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'dashboard' %}" class="text-xl font-bold tracking-tight text-ink">Back to Dashboard</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Homepage</h1>
+    </div>
+
+    {% if messages %}
+      <div class="mb-6 space-y-3">
+        {% for message in messages %}
+          <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Section 1: Welcome Message -->
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-10">
+        <form method="post" action="/edit_homepage/" class="space-y-4" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="welcome_message">
+            <div><label class="block text-sm font-medium mb-1">Welcome Message</label><textarea name="welcome_message" rows="6"
+                                                                                        class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ welcome.welcome_message|default:'' }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Section 2: Homepage Images -->
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb">
+        <h2 class="text-xl font-bold mb-6">Homepage Images</h2>
+
+        {% if images|length < 3 %}
+        <form method="post" action="/edit_homepage/" class="space-y-4" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="add_image">
+            <div><label class="block text-sm font-medium mb-1">Add Image</label><input type="file" name="home_image" accept="image/*" multiple
+                                                                                                    id="homeImgInput"
+                                                                                                    onchange="if(this.files.length>3){alert('Max 3 images');this.value='';}"
+                                                                                                    class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3"></div>
+            <div class="flex justify-end">
+                <button type="submit" onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                    Update
+                </button>
+            </div>
+        </form>
+        {% endif %}
+
+        <div class="mt-8 space-y-4">
+            {% if images %}
+                {% for img in images %}
+                <div class="flex items-center gap-4 rounded-xl border-2 border-ink p-4">
+                    <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="h-20 w-20 object-cover rounded-lg" loading="lazy">
+                    <form method="post" action="/edit_homepage/" class="inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="delete_home_image">
+                        <input type="hidden" name="image_id" value="{{ img.id }}">
+                        <button type="button"
+                                data-form-type="delete_home_image"
+                                class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-800 text-sm font-semibold px-4 py-2 rounded-xl transition">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-sm text-ink-light">No images yet. Add one above.</p>
+            {% endif %}
+        </div>
+    </div>
+</main>
+<div class="flex justify-center mb-6">
+        <a href="{% url 'edit_school_video' %}"
+           class="bg-transparent border-2 border-ink hover:bg-green-50 font-semibold px-8 py-3 rounded-xl transition">
+            Edit School Video →
+        </a>
+</div>
+<script>
+  const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+  document.querySelectorAll(".js-delete-image").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      if (!confirm("Delete this image?")) {
+        e.preventDefault();
+        return;
+      }
+      this.textContent = "Deleting...";
+      this.disabled = true;
+      this.classList.add("opacity-75", "cursor-not-allowed");
+
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/edit_homepage/";
+
+      const csrf = document.createElement("input");
+      csrf.type = "hidden";
+      csrf.name = "csrfmiddlewaretoken";
+      csrf.value = csrfToken;
+      form.appendChild(csrf);
+
+      const ft = document.createElement("input");
+      ft.type = "hidden";
+      ft.name = "form_type";
+      ft.value = this.dataset.formType;
+      form.appendChild(ft);
+
+      const id = this.closest("form").querySelector('input[name="image_id"]');
+      if (id) {
+        const idInput = document.createElement("input");
+        idInput.type = "hidden";
+        idInput.name = "image_id";
+        idInput.value = id.value;
+        form.appendChild(idInput);
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+    });
+  });
+</script>
+</body>
+</html>

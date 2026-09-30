@@ -359,6 +359,46 @@ def edit_about_us(request):
 @login_required
 def edit_school_video(request):
     return render(request, 'edit_school_video.html')
+
+@login_required
+def edit_homepage(request):
+    if request.method == "POST":
+        form_type = request.POST.get("form_type")
+
+        if form_type == "delete_home_image":
+            image_id = request.POST.get("image_id")
+            img = HomePage.objects.filter(id=image_id, section="image").first()
+            if img:
+                img.home_image.delete(save=False)
+                img.delete()
+                messages.success(request, "Image deleted successfully!")
+            return redirect("edit_homepage")
+
+        if form_type == "add_image":
+            images = request.FILES.getlist("home_image")
+            if len(images) > 3:
+                messages.error(request, "You can upload a maximum of 3 images.")
+                return redirect("edit_homepage")
+            if images:
+                HomePage.objects.bulk_create([
+                    HomePage(section="image", home_image=img) for img in images
+                ])
+                messages.success(request, f"{len(images)} homepage image(s) added successfully!")
+            return redirect("edit_homepage")
+
+        if form_type == "welcome_message":
+            welcome, _ = HomePage.objects.get_or_create(section="text")
+            welcome.welcome_message = request.POST.get("welcome_message", "")
+            welcome.save()
+            messages.success(request, "Welcome message updated successfully!")
+            return redirect("edit_homepage")
+
+    context = {
+        "welcome": HomePage.objects.filter(section="text").first(),
+        "images": HomePage.objects.filter(section="image"),
+    }
+    return render(request, 'edit_homepage.html', context)
+
 # @login_required
 # def edit_about(request):
 #     sections = [

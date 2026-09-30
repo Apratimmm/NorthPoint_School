@@ -28,28 +28,14 @@ urlpatterns = [
     path('delete_notice/<int:notice_id>/', delete_notice, name='delete_notice'),
     path('edit_about_us/', edit_about_us, name='edit_about_us'),
     path('edit_school_video/', edit_school_video, name='edit_school_video'),
+    path('edit_homepage/',edit_homepage, name='edit_homepage'),
     # path('month_data/<int:month_id>/', month_data, name='month_data'),
-    # path('contact/', contact, name='contact'),
-    # path('committee/', committee, name='committee'),
-
-
-
-
     # path('send_email/', send_email, name='send_mail'),
-
     # path('edit_results/', edit_results, name='edit_results'),
-
     # path('edit_calender/', show_calenders, name='show_calenders'),
     # path('show_calender/<int:month_id>', show_calender, name='show_calender'),
     # path('update_month/', update_month, name='update_month'),
-    # path('show_committees/', show_committees, name='show_committees'),
-    # path('add_committee/', add_committee, name='add_committee'),
-    # path('add_committee_people/<int:committee_id>/', add_committee_people, name='add_committee_people'),
-    # path('delete_committee_people/<int:person_id>/', delete_committee_people, name='delete_committee_people'),
-    # path('delete_committee/<int:committee_id>/', delete_committee, name='delete_committee'),
 
 
-    # path('edit_signature/', edit_signature, name='edit_signature'),
-    # path('view_notice/<int:notice_id>/', view_notice, name='view_notice'),
 
 ]

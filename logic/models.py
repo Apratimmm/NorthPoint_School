@@ -91,7 +91,6 @@ class Academic(models.Model):
     school = models.CharField(
         max_length=20,
         choices=SCHOOL_CHOICES,
-        unique=True,
         help_text="Primary or Secondary"
     )
 
@@ -383,7 +382,6 @@ class Committee(models.Model):
 
     committee_name = models.CharField(
         max_length=150,
-        unique=True,
         help_text="Committee name, e.g. 'Student Council 2083/84'",
     )
 
@@ -457,3 +455,23 @@ class CommitteePeople(models.Model):
     @property
     def first_name(self):
         return self.name.split(maxsplit=1)[0] if self.name else ""
+
+class HomePage(models.Model):
+    SECTION_CHOICES = [
+        ("text", "Text"),
+        ("image", "Image"),
+    ]
+    section = models.CharField(
+        max_length=20,
+        choices=SECTION_CHOICES,
+        help_text="Which section this content belongs to"
+    )
+    welcome_message = models.TextField(
+        help_text="The text for homepage"
+    )
+    home_image=models.ImageField(
+        upload_to="homepage/",
+        blank=True,
+        null=True,
+        help_text="Image for the homepage"
+    )
