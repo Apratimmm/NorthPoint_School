@@ -80,29 +80,29 @@ def edit_contact(request):
 def edit_academics(request):
     sections = [
         ("primary",   Academic.objects.get_or_create(school="primary")[0],
-            ["description", "quote", "teacher_name", "teacher_designation"], "image", "Primary school image deleted."),
+            ["description", "quote", "teacher_name", "teacher_designation"], "image", "Primary school image deleted.", "primary"),
         ("secondary", Academic.objects.get_or_create(school="secondary")[0],
-            ["description", "quote", "teacher_name", "teacher_designation"], "image", "Secondary school image deleted."),
+            ["description", "quote", "teacher_name", "teacher_designation"], "image", "Secondary school image deleted.", "secondary"),
     ]
 
     if request.method == "POST":
-        form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
+        form_type = request.POST.get("form_type") or request.POST.get("about")
 
         if form_type and form_type.startswith("delete_"):
-            for key, instance, _text_fields, image_field, delete_msg in sections:
+            for key, instance, _text_fields, image_field, delete_msg, _section_key in sections:
                 if image_field and form_type == f"delete_{key}_{image_field}":
                     _delete_image_field(instance, image_field, request, delete_msg)
                     return redirect("edit_academics")
 
-        for section_key, instance, text_fields, image_field, _delete_msg in sections:
-            for field in text_fields:
-                setattr(instance, field, request.POST.get(f"{section_key}_{field}", ""))
-            if image_field and request.FILES.get(f"{section_key}_{image_field}"):
-                setattr(instance, image_field, request.FILES[f"{section_key}_{image_field}"])
-            instance.save()
-
-        messages.success(request, "Academics content updated successfully!")
-        return redirect("edit_academics")
+        for key, instance, text_fields, image_field, _delete_msg, section_key in sections:
+            if form_type == section_key:
+                for field in text_fields:
+                    setattr(instance, field, request.POST.get(f"{section_key}_{field}", ""))
+                if image_field and request.FILES.get(f"{section_key}_{image_field}"):
+                    setattr(instance, image_field, request.FILES[f"{section_key}_{image_field}"])
+                instance.save()
+                messages.success(request, f"{key.capitalize()} school content updated successfully!")
+                return redirect("edit_academics")
 
     context = {key: instance for key, instance, *_ in sections}
     return render(request, "edit_academics.html", context)
