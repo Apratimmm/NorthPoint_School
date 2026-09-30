@@ -399,6 +399,43 @@ def edit_homepage(request):
     }
     return render(request, 'edit_homepage.html', context)
 
+@login_required
+def edit_results(request):
+    toppers = list(Topper.objects.all()[:5])
+
+    for i in range(5):
+        if i >= len(toppers):
+            toppers.append(Topper.objects.create(score=0))
+
+    if request.method == "POST":
+        form_type = request.POST.get("form_type") or request.POST.get("about")
+
+        if form_type == "delete_topper_image":
+            topper_id = request.POST.get("topper_id")
+            topper = Topper.objects.filter(id=topper_id).first()
+            if topper and topper.image:
+                topper.image.delete(save=False)
+                topper.image = None
+                topper.save()
+                messages.success(request, "Image deleted.")
+            return redirect("edit_results")
+
+        if form_type == "topper":
+            topper_id = request.POST.get("topper_id")
+            topper = Topper.objects.filter(id=topper_id).first()
+            if topper:
+                topper.name = request.POST.get("name", "").strip()
+                try:
+                    topper.score = float(request.POST.get("score", 0) or 0)
+                except:
+                    topper.score = 0
+                if request.FILES.get("image"):
+                    topper.image = request.FILES["image"]
+                topper.save()
+                messages.success(request, "Topper updated!")
+            return redirect("edit_results")
+    return render(request, "edit_results.html", {"toppers": toppers})
+
 @require_POST
 def send_email(request):
     name    = request.POST.get("name", "").strip()
@@ -430,143 +467,4 @@ def send_email(request):
             "success": False,
             "message": "Failed - please retry."
         }, status=500)
-
-# @login_required
-# def edit_results(request):
-#     yearly_results = YearlyResult.objects.all()[:3]
-#     toppers = Topper.objects.all()[:5]
-#
-#     if request.method == "POST":
-#         form_type = request.POST.get("form_type") or request.POST.get("about") or request.POST.get("about")
-#
-#         if form_type == "yearly":
-#             for i in range(3):
-#                 result_id = request.POST.get(f"result_id_{i}")
-#                 year = request.POST.get(f"year_{i}")
-#
-#                 if not year:
-#                     continue
-#
-#                 if result_id:
-#                     result = get_object_or_404(YearlyResult, id=result_id)
-#                 else:
-#                     result = YearlyResult()
-#
-#                 result.year = year
-#                 result.candidates = request.POST.get(f"candidates_{i}") or 0
-#                 result.pass_rate = request.POST.get(f"pass_rate_{i}") or 0
-#                 result.highest = request.POST.get(f"highest_{i}") or 0
-#                 result.highest_scorer_name = request.POST.get(f"highest_scorer_name_{i}") or ""
-#                 if request.FILES.get(f"highest_scorer_image_{i}"):
-#                     result.highest_scorer_image = request.FILES[f"highest_scorer_image_{i}"]
-#                 result.save()
-#
-#             messages.success(request, "Yearly results saved successfully!")
-#
-#         elif form_type == "delete_yearly_image":
-#             result = get_object_or_404(YearlyResult, id=request.POST.get("result_id"))
-#             _delete_image_field(result, "highest_scorer_image", request, "Top scorer photo deleted.")
-#
-#         elif form_type == "delete_topper_image":
-#             topper = get_object_or_404(Topper, id=request.POST.get("topper_id"))
-#             _delete_image_field(topper, "image", request, "Topper photo deleted.")
-#
-#         elif form_type == "topper":
-#             for i in range(5):
-#                 topper_id = request.POST.get(f"topper_id_{i}")
-#                 name = request.POST.get(f"name_{i}")
-#
-#                 if not name:
-#                     continue
-#
-#                 if topper_id:
-#                     topper = get_object_or_404(Topper, id=topper_id)
-#                 else:
-#                     topper = Topper()
-#
-#                 topper.name = name
-#                 topper.score = request.POST.get(f"score_{i}") or 0
-#
-#                 if request.FILES.get(f"image_{i}"):
-#                     topper.image = request.FILES[f"image_{i}"]
-#
-#                 topper.save()
-#
-#             messages.success(request, "Top scorers saved successfully!")
-#
-#         return redirect("edit_results")
-#
-#     context = {
-#         "yearly_results": yearly_results,
-#         "toppers": toppers,
-#     }
-#     return render(request, "edit_results.html", context)
-#
-
-#
-# @login_required
-# def show_calenders(request):
-#     months = MonthInfo.MONTH_CHOICES
-#
-#     return render(request, "show_calenders.html",{"months": months})
-#
-# @login_required
-# def show_calender(request,month_id):
-#     month = MonthInfo.objects.prefetch_related("events").get(month=month_id)
-#
-#     if month:
-#         return render(request, "show_calender.html", {
-#             "server_data": {
-#                 "hasData": True,
-#                 "monthName": month.get_month_display(),
-#                 "daysInMonth": month.month_days or 31,
-#                 "firstDay": (month.month_start_day or 1) - 1,
-#                 "events": {
-#                     str(e.event_date): {"label": e.event_name, "type": e.event_type}
-#                     for e in month.events.all()
-#                 },
-#             },
-#         })
-#
-#     return render(request, "show_calender.html", {"server_data": {"hasData": False}})
-#
-# @login_required
-# @require_POST
-# def update_month(request):
-#     data = json.loads(request.body)
-#     month_name = data.get("monthName", "").strip()
-#     days_in_month = data.get("daysInMonth")
-#     start_day = data.get("startDay")
-#     events = data.get("events", [])
-#
-#     month_choices = {name: num for num, name in MonthInfo.MONTH_CHOICES}
-#     month_number = month_choices.get(month_name)
-#
-#     if month_number is None:
-#         return JsonResponse(
-#             {"success": False, "message": f"Unknown month name: {month_name}"},
-#             status=400,
-#         )
-#
-#     month_info, created = MonthInfo.objects.get_or_create(month=month_number)
-#     month_info.month_days = days_in_month
-#     month_info.month_start_day = start_day + 1
-#     month_info.save()
-#
-#     month_info.events.all().delete()
-#     for ev in events:
-#         MonthEvent.objects.create(
-#             month=month_info,
-#             event_date=ev.get("event_date"),
-#             event_name=ev.get("event_name", ""),
-#             event_type=ev.get("event_type", "event"),
-#         )
-#
-#     return JsonResponse(
-#         {"success": True, "message": "Calendar has been updated !   !"}
-#     )
-#
-
-
-
 
