@@ -1,14 +1,10 @@
+{% load static %}
+
 <footer class="border-t-2 border-black bg-white px-6 py-12" id="contact">
   <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
     <div class="flex flex-col sm:flex-row gap-6">
           <div class="flex-shrink-0">
-              <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-lime-cream border border-black/20 shadow-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="h-8 w-8 text-ink" aria-hidden="true">
-                  <path d="M20 4L6 32h28L20 4z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"></path>
-                  <circle cx="30" cy="12" r="5" fill="currentColor"></circle>
-                  <path d="M20 15l-6 10h12l-6-10z" fill="currentColor"></path>
-                </svg>
-              </div>
+              <img src="{% static 'logo.png' %}" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain">
           </div>
           <div class="flex flex-col gap-2 text-sm text-ink-light">
             <span class="text-xl font-bold text-ink">North Point English Boarding School</span>
