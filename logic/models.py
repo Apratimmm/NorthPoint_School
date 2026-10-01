@@ -347,3 +347,29 @@ class HomePage(models.Model):
         null=True,
         help_text="Image for the homepage"
     )
+
+class FacultyLeader(models.Model):
+    name = models.CharField(max_length=150)
+    designation = models.CharField(max_length=150, blank=True)
+    image = models.ImageField(upload_to="faculty/", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "faculty-leader"
+        verbose_name_plural = "faculty-leaders"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+class FacultyMember(models.Model):
+    name = models.CharField(max_length=150)
+    designation = models.CharField(max_length=150, blank=True)
+    department = models.CharField(max_length=150, blank=True)
+
+    class Meta:
+        verbose_name = "faculty-member"
+        verbose_name_plural = "faculty-members"
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.name} — {self.designation or 'Teacher'}"

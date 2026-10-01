@@ -530,3 +530,71 @@ def update_month(request):
         {"success": True, "message": "Calendar has been updated !   !"}
     )
 
+
+@login_required
+def edit_faculty(request):
+    return render(request, "edit_faculty.html")
+
+@login_required
+def edit_leaders(request):
+    leaders = FacultyLeader.objects.all()
+    if request.method == "POST":
+        form_type = request.POST.get("form_type", "")
+
+        if form_type == "delete_leader":
+            lid = request.POST.get("leader_id")
+            leader = FacultyLeader.objects.filter(id=lid).first()
+            if leader:
+                if leader.image: leader.image.delete(save=False)
+                leader.delete()
+                messages.success(request, "Leader deleted.")
+            return redirect("edit_leaders")
+
+        leader_id = request.POST.get("leader_id")
+        name = request.POST.get("name", "").strip()
+        designation = request.POST.get("designation", "").strip()
+        if leader_id:
+            leader = FacultyLeader.objects.filter(id=leader_id).first()
+            if leader and name:
+                leader.name = name
+                leader.designation = designation
+                if request.FILES.get("image"):
+                    if leader.image: leader.image.delete(save=False)
+                    leader.image = request.FILES["image"]
+                leader.save()
+                messages.success(request, "Leader updated!")
+        else:
+            if name:
+                leader = FacultyLeader.objects.create(name=name, designation=designation)
+                if request.FILES.get("image"):
+                    leader.image = request.FILES["image"]
+                    leader.save()
+                messages.success(request, "Leader added!")
+        return redirect("edit_leaders")
+    return render(request, "edit_leaders.html", {"leaders": leaders})
+
+@login_required
+def edit_table(request):
+    members = FacultyMember.objects.all()
+    if request.method == "POST":
+        form_type = request.POST.get("form_type", "")
+        if form_type == "delete_member":
+            mid = request.POST.get("member_id")
+            member = FacultyMember.objects.filter(id=mid).first()
+            if member: member.delete(); messages.success(request, "Member deleted.")
+            return redirect("edit_table")
+        member_id = request.POST.get("member_id")
+        name = request.POST.get("name", "").strip()
+        designation = request.POST.get("designation", "").strip()
+        department = request.POST.get("department", "").strip()
+        if member_id:
+            m = FacultyMember.objects.filter(id=member_id).first()
+            if m and name:
+                m.name = name; m.designation = designation; m.department = department; m.save()
+                messages.success(request, "Member updated!")
+        else:
+            if name:
+                FacultyMember.objects.create(name=name, designation=designation, department=department)
+                messages.success(request, "Member added!")
+        return redirect("edit_table")
+    return render(request, "edit_table.html", {"members": members})

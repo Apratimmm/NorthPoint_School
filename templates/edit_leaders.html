@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Edit Leaders - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+    <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12"><a href="{% url 'edit_faculty' %}"
+                                                                                class="text-xl font-bold tracking-tight text-ink">Back</a><a
+            href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a></div>
+</header>
+<main class="max-w-5xl mx-auto px-6 py-12"><h1 class="text-4xl font-bold tracking-tight mb-8">Edit Leaders</h1>
+
+    {% if messages %}
+          <div class="mb-6 space-y-3">
+            {% for message in messages %}
+              <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+    <form method="post" enctype="multipart/form-data"
+          class="bg-white rounded-3xl border-2 border-ink p-8 shadow-xl mb-10">{% csrf_token %}<input type="hidden"
+                                                                                                      name="form_type"
+                                                                                                      value="leader">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div><label class="block text-sm font-medium mb-1">Name</label><input name="name"
+                                                                                  class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans"
+                                                                                  required></div>
+            <div><label class="block text-sm font-medium mb-1">Designation</label><input name="designation"
+                                                                                         class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+            </div>
+        </div>
+        <div class="mb-4"><label class="block text-sm font-medium mb-1">Photo</label><input type="file" name="image"
+                                                                                            accept="image/*"
+                                                                                            class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+        </div>
+        <div class="flex justify-end">
+            <button type="submit"
+                    onclick="this.textContent='Adding...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
+                    class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 font-semibold px-8 py-3 rounded-xl transition">
+                Add Leader
+            </button>
+        </div>
+    </form>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">{% for leader in leaders %}
+        <div class="bg-white rounded-3xl border-2 border-ink p-6 shadow-xl">
+            <div class="flex items-center gap-4 mb-3"><img src="
+                    {% if leader.image %}{{ leader.image.url }}{% else %}https://ui-avatars.com/api/?name={{ leader.name|urlencode }}&background=fde047&color=0f172a&size=256{% endif %}"
+                                                           alt="{{ leader.name }}"
+                                                           class="h-16 w-16 rounded-xl object-cover border-2 border-ink">
+            </div>
+            <h3 class="font-bold text-xl">{{ leader.name }}</h3>
+            <p class="text-sm text-ink-light">{{ leader.designation }}</p>
+            <form method="post" enctype="multipart/form-data" class="mt-4 space-y-2">
+                {% csrf_token %}                                                            <input type="hidden"
+                                                                                            name="form_type"
+                                                                                            value="leader"><input
+                    type="hidden" name="leader_id" value="{{ leader.id }}"><input name="name" value="{{ leader.name }}"
+                                                                                  class="w-full border-2 border-ink rounded-lg px-3 py-2 text-sm"><input
+                    name="designation" value="{{ leader.designation }}"
+                    class="w-full border-2 border-ink rounded-lg px-3 py-2 text-sm"><input type="file" name="image"
+                                                                                           accept="image/*"
+                                                                                           class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+                <div class="flex gap-2">
+                    <button type="submit" onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();" class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 font-semibold px-4 py-2 rounded-xl text-sm">Update</button>
+                    <button type="submit" onclick="if(!confirm('Delete {{ leader.name }}?')) return false; this.textContent='Deleting...'; this.classList.add('opacity-75','cursor-not-allowed');" name="form_type" value="delete_leader" class="bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 font-semibold px-4 py-2 rounded-xl text-sm">Delete Leader</button>
+                </div>
+            </form>
+        </div>{% empty %}<p class="text-ink-light">No leaders added yet.</p>{% endfor %}</div>
+</main></body></html>

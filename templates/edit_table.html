@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Edit Table - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+    <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12"><a href="{% url 'edit_faculty' %}"
+                                                                                class="text-xl font-bold tracking-tight text-ink">Back</a><a
+            href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a></div>
+</header>
+<main class="max-w-5xl mx-auto px-6 py-12"><h1 class="text-4xl font-bold tracking-tight mb-8">Edit Teaching Faculty</h1>
+    {% if messages %}
+        <div class="mb-6 space-y-3">{% for m in messages %}
+            <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">{{ m }}</div>{% endfor %}
+        </div>{% endif %}
+    <form method="post" class="bg-white rounded-3xl border-2 border-ink p-8 shadow-xl mb-10">{% csrf_token %}<input
+            type="hidden" name="form_type" value="member">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div><label class="block text-sm font-medium mb-1">Name</label><input name="name"
+                                                                                  class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans"
+                                                                                  required></div>
+            <div><label class="block text-sm font-medium mb-1">Designation</label><input name="designation"
+                                                                                         class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+            </div>
+            <div><label class="block text-sm font-medium mb-1">Department</label><input name="department"
+                                                                                        class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">
+            </div>
+        </div>
+        <div class="flex justify-end">
+            <button type="submit" onclick="this.textContent='Adding...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
+                    class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 font-semibold px-8 py-3 rounded-xl transition">
+                Add Member
+            </button>
+        </div>
+    </form>
+    <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none">
+        <table class="w-full text-left border-collapse">
+            <thead>
+            <tr class="border-b-2 border-black">
+                <th class="py-3 font-bold text-ink">Name</th>
+                <th class="py-3 font-bold text-ink">Designation</th>
+                <th class="py-3 font-bold text-ink">Department</th>
+                <th class="py-3 font-bold text-ink">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for member in members %}
+                <tr class="border-b border-black/10">
+                    <td class="py-3 font-bold">{{ member.name }}</td>
+                    <td class="py-3 text-sm text-ink-light">{{ member.designation }}</td>
+                    <td class="py-3 text-sm text-ink-light">{{ member.department }}</td>
+                    <td class="py-3">
+                        <form method="post" class="flex gap-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="delete_member"><input type="hidden"
+                                                                                                   name="member_id"
+                                                                                                   value="{{ member.id }}">
+                            <button type="submit" onclick="if(!confirm('Delete {{ member.name }}?')) return false; this.textContent='Deleting...'; this.classList.add('opacity-75','cursor-not-allowed');"
+                                    class="bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 text-xs font-semibold px-3 py-1 rounded-lg">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>{% empty %}
+                <tr>
+                    <td colspan="4" class="py-4 text-ink-light">No members added yet.</td>
+                </tr>{% endfor %}
+            </tbody></table></div>
+</main></body></html>

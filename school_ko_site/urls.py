@@ -30,11 +30,11 @@ urlpatterns = [
     path('edit_school_video/', edit_school_video, name='edit_school_video'),
     path('edit_homepage/',edit_homepage, name='edit_homepage'),
     path('edit_results/', edit_results, name='edit_results'),
+    path('edit_faculty/', edit_faculty, name='edit_faculty'),
+    path('edit_leaders/', edit_leaders, name='edit_leaders'),
+    path('edit_table/', edit_table, name='edit_table'),
     path('show_months/', show_months, name='show_months'),
     path('show_calendar/<int:month_id>', show_calendar, name='show_calendar'),
     path('update_month/', update_month, name='update_month'),
     path('send_email/', send_email, name='send_mail'),
-
-
-
 ]

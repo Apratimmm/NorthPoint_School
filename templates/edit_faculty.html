@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Edit Faculty - Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">@theme{ --color-lime-cream:#f7fce8; --color-ink:#0f172a; --color-ink-light:#334155; --color-canary:#fde047; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black"><div class="flex w-full items-center justify-between px-6 py-4 lg:px-12"><a href="{% url 'dashboard' %}" class="text-xl font-bold tracking-tight text-ink">Back to Dashboard</a><a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a></div></header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+  <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Faculty</h1></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <a href="{% url 'edit_leaders' %}" class="block bg-white rounded-3xl border-2 border-ink p-8 shadow-xl hover:shadow-2xl transition hover:-translate-y-1">
+      <h2 class="text-2xl font-bold mb-2">Edit Leaders</h2>
+      <p class="text-sm text-ink-light">Manage school leadership cards (photos, names, designations).</p>
+    </a>
+    <a href="{% url 'edit_table' %}" class="block bg-white rounded-3xl border-2 border-ink p-8 shadow-xl hover:shadow-2xl transition hover:-translate-y-1">
+      <h2 class="text-2xl font-bold mb-2">Edit Table</h2>
+      <p class="text-sm text-ink-light">Manage teaching faculty table (names, designations, departments).</p>
+    </a>
+  </div>
+</main>
+</body>
+</html>
