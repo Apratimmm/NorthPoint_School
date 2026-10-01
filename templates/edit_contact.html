@@ -15,6 +15,10 @@
 <main class="max-w-3xl mx-auto px-6 py-12">
   <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Contact Information</h1></div>
 
+<p class="text-sm text-black-500 pb-5">
+            To change the logo, first delete the current one.
+          </p>
+
         {% if messages %}
           <div class="mb-6 space-y-3">
             {% for message in messages %}
@@ -25,9 +29,7 @@
           </div>
         {% endif %}
 
-        <p class="text-sm text-black-500 pb-5">
-            To change the logo, first delete the current one.
-          </p>
+
 
 
         <form method="post" enctype="multipart/form-data" action="/edit_contact/" class="space-y-12">
