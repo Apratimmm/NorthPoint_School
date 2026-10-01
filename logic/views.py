@@ -468,3 +468,65 @@ def send_email(request):
             "message": "Failed - please retry."
         }, status=500)
 
+@login_required
+def show_months(request):
+    months = MonthInfo.MONTH_CHOICES
+
+    return render(request, "show_months.html", {"months": months})
+
+@login_required
+def show_calendar(request,month_id):
+    month = MonthInfo.objects.prefetch_related("events").get(month=month_id)
+
+    if month:
+        return render(request, "show_calendar.html", {
+            "server_data": {
+                "hasData": True,
+                "monthName": month.get_month_display(),
+                "daysInMonth": month.month_days or 31,
+                "firstDay": (month.month_start_day or 1) - 1,
+                "events": {
+                    str(e.event_date): {"label": e.event_name, "type": e.event_type}
+                    for e in month.events.all()
+                },
+            },
+        })
+
+    return render(request, "show_calendar.html", {"server_data": {"hasData": False}})
+
+@login_required
+@require_POST
+def update_month(request):
+    data = json.loads(request.body)
+    month_name = data.get("monthName", "").strip()
+    days_in_month = data.get("daysInMonth")
+    start_day = data.get("startDay")
+    events = data.get("events", [])
+
+    month_choices = {name: num for num, name in MonthInfo.MONTH_CHOICES}
+    month_number = month_choices.get(month_name)
+
+    if month_number is None:
+        return JsonResponse(
+            {"success": False, "message": f"Unknown month name: {month_name}"},
+            status=400,
+        )
+
+    month_info, created = MonthInfo.objects.get_or_create(month=month_number)
+    month_info.month_days = days_in_month
+    month_info.month_start_day = start_day + 1
+    month_info.save()
+
+    month_info.events.all().delete()
+    for ev in events:
+        MonthEvent.objects.create(
+            month=month_info,
+            event_date=ev.get("event_date"),
+            event_name=ev.get("event_name", ""),
+            event_type=ev.get("event_type", "event"),
+        )
+
+    return JsonResponse(
+        {"success": True, "message": "Calendar has been updated !   !"}
+    )
+

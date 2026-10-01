@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Show Months - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'dashboard' %}" class="text-xl font-bold tracking-tight text-ink">Back to Dashboard</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="text-4xl font-bold tracking-tight">Edit Calendar</h1>
+    </div>
+
+    <p class="mt-2 text-sm text-ink-light mb-8">
+        Select a month to view and manage school events and holidays for that month.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for month_id, month_name in months %}
+            <a href="{% url 'show_calendar' month_id %}"
+               class="group block rounded-2xl border-2 border-ink bg-white p-6 shadow-none transition-shadow hover:shadow-xl">
+              <h2 class="text-xl font-semibold text-ink">{{ month_name }}</h2>
+            </a>
+        {% endfor %}
+    </div>
+</main>
+</body>
+</html>
