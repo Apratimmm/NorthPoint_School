@@ -78,7 +78,7 @@
                 {% if home_images %}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {% for img in home_images %}
-                  <div class="overflow-hidden rounded-2xl border-2 border-black shadow-md {% if home_images|length|divisibleby:2 == False and forloop.first %}md:col-span-2 h-64 md:h-80{% else %}h-48{% endif %}">
+                   <div onclick="openLightbox(this.querySelector('img').src)" class="overflow-hidden rounded-2xl border-2 border-black shadow-md {% if home_images|length|divisibleby:2 == False and forloop.first %}md:col-span-2 h-64 md:h-80{% else %}h-48{% endif %} cursor-zoom-in">
                     <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="w-full h-full object-cover" loading="lazy" width="800" height="450">
                   </div>
                   {% endfor %}
@@ -159,6 +159,27 @@
         </div>
       </section>
     </main>
+
+    <div id = "lb" onclick = "closeLightbox()"
+         class = "fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4" role = "dialog"
+         aria-modal = "true" ><img id = "lb-img" src = "" class = "max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-2 border-white/20" ></div >
+    <script >
+        function openLightbox(src) {
+            document.getElementById('lb-img').src = src;
+            document.getElementById('lb').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'
+            ;
+        }
+
+        function closeLightbox() {
+            document.getElementById('lb').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script >
     {% include 'footer.html' %}
 </body>
 </html>
