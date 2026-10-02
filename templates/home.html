@@ -74,19 +74,17 @@
             <div class="space-y-10">
 
               <!-- Image Gallery Grid -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                 {% if home_images %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {% for img in home_images %}
-                  <div class="{% if forloop.first %}md:col-span-2{% endif %} overflow-hidden rounded-2xl border-2 border-black shadow-md {% if forloop.first %}h-64 md:h-80{% else %}h-48{% endif %}">
+                  <div class="overflow-hidden rounded-2xl border-2 border-black shadow-md {% if home_images|length|divisibleby:2 == False and forloop.first %}md:col-span-2 h-64 md:h-80{% else %}h-48{% endif %}">
                     <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="w-full h-full object-cover" loading="lazy" width="800" height="450">
                   </div>
                   {% endfor %}
-                {% else %}
-                  <div class="md:col-span-2 overflow-hidden rounded-2xl border-2 border-black shadow-md h-64 md:h-80 bg-ink flex items-center justify-center">
-                    <p class="text-white text-sm">No homepage images uploaded yet.</p>
-                  </div>
+                    </div>
                 {% endif %}
-              </div>
+
 
               <!-- Who we are Text -->
               <div>
@@ -161,7 +159,6 @@
         </div>
       </section>
     </main>
-
     {% include 'footer.html' %}
 </body>
 </html>

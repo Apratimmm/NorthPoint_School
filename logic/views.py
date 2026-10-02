@@ -376,9 +376,6 @@ def edit_homepage(request):
 
         if form_type == "add_image":
             images = request.FILES.getlist("home_image")
-            if len(images) > 3:
-                messages.error(request, "You can upload a maximum of 3 images.")
-                return redirect("edit_homepage")
             if images:
                 HomePage.objects.bulk_create([
                     HomePage(section="image", home_image=img) for img in images

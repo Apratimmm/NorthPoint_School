@@ -57,13 +57,11 @@
     <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb">
         <h2 class="text-xl font-bold mb-6">Homepage Images</h2>
 
-        {% if images|length < 3 %}
         <form method="post" action="/edit_homepage/" class="space-y-4" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="form_type" value="add_image">
             <div><label class="block text-sm font-medium mb-1">Add Image</label><input type="file" name="home_image" accept="image/*" multiple
                                                                                                     id="homeImgInput"
-                                                                                                    onchange="if(this.files.length>3){alert('Max 3 images');this.value='';}"
                                                                                                     class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3"></div>
             <div class="flex justify-end">
                 <button type="submit" onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
@@ -72,7 +70,6 @@
                 </button>
             </div>
         </form>
-        {% endif %}
 
         <div class="mt-8 space-y-4">
             {% if images %}
