@@ -6,7 +6,13 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.cache import never_cache
 def home(request):
-    return render(request, "home.html")
+    welcome = HomePage.objects.filter(section="text").first()
+    images = list(HomePage.objects.filter(section="image"))
+    context = {
+        "welcome": welcome,
+        "home_images": images,
+    }
+    return render(request, "home.html", context)
 
 def about_us(request):
     return render(request, "about_us.html")

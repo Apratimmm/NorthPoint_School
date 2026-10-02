@@ -75,31 +75,36 @@
 
               <!-- Image Gallery Grid -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="md:col-span-2 overflow-hidden rounded-2xl border-2 border-black shadow-md h-64 md:h-80">
-                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" alt="Students in Classroom" class="w-full h-full object-cover" loading="lazy" width="800" height="450">
-                </div>
-                <div class="overflow-hidden rounded-2xl border-2 border-black shadow-md h-48">
-                  <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop" alt="Sports Ground" class="w-full h-full object-cover" loading="lazy" width="600" height="300">
-                </div>
-                <div class="overflow-hidden rounded-2xl border-2 border-black shadow-md h-48">
-                  <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop" alt="Library Study" class="w-full h-full object-cover" loading="lazy" width="600" height="300">
-                </div>
+                {% if home_images %}
+                  {% for img in home_images %}
+                  <div class="{% if forloop.first %}md:col-span-2{% endif %} overflow-hidden rounded-2xl border-2 border-black shadow-md {% if forloop.first %}h-64 md:h-80{% else %}h-48{% endif %}">
+                    <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="w-full h-full object-cover" loading="lazy" width="800" height="450">
+                  </div>
+                  {% endfor %}
+                {% else %}
+                  <div class="md:col-span-2 overflow-hidden rounded-2xl border-2 border-black shadow-md h-64 md:h-80 bg-ink flex items-center justify-center">
+                    <p class="text-white text-sm">No homepage images uploaded yet.</p>
+                  </div>
+                {% endif %}
               </div>
 
               <!-- Who we are Text -->
               <div>
+                {% if welcome and welcome.welcome_message %}
+                  <p class="text-ink-light leading-relaxed text-base">{{ welcome.welcome_message|linebreaksbr }}</p>
+                {% else %}
                   <p class="text-ink-light leading-relaxed text-base">
                     Since its humble beginning in Itahari, North Point English Boarding School has grown to become a respected institution for school education, built through the hard work, dedication, and vision of its founders, teachers, and staff.
-
-                  <p class="mt-4 text-ink-light leading-relaxed text-base">
-                    Today, North Point provides quality education from the primary level through high school, offering students a supportive environment where they can develop academically, socially, and personally. Our dedicated teachers and staff work together to provide students with the knowledge, skills, and values they need to succeed in their future.</p>
-                  <p class="mt-4 text-ink-light leading-relaxed text-base">
+                  </p><br>
+                    <p class="text-ink-light leading-relaxed text-base">
+                    Today, North Point provides quality education from the primary level through high school, offering students a supportive environment where they can develop academically, socially, and personally. Our dedicated teachers and staff work together to provide students with the knowledge, skills, and values they need to succeed in their future.
+                    </p><br><p class="text-ink-light leading-relaxed text-base">
                     We are proud of the achievements of our students in academics and extracurricular activities, as well as the trust and support we have received from parents and the wider community over the years.
-
-              <p class="mt-4 text-ink-light leading-relaxed text-base">
-                    We warmly welcome you to explore our website and learn more about North Point English Boarding School.</div>
-
-              </path>
+                </p><br><p class="text-ink-light leading-relaxed text-base">
+                    We warmly welcome you to explore our website and learn more about North Point English Boarding School.
+                  </p>
+                {% endif %}
+              </div>
 
 
               <!-- Feature Highlights / Cards -->
