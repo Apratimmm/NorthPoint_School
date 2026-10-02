@@ -30,19 +30,19 @@
 
   <!-- Overall Section -->
   <section class="mx-auto max-w-4xl bg-white rounded-3xl border-2 border-black p-10 shadow-xl mb-10">
-    <h2 class="text-3xl font-bold text-ink mb-2">SEE 2025 </h2>
+    <h2 class="text-3xl font-bold text-ink mb-2">SEE {{ SEE.year }}</h2>
     <span class="font-semibold uppercase tracking-wide text-ink-light">Last Year at a Glance</span>
     <div class="w-full h-0.5 bg-black/20 my-6"></div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">312</p><p class="text-ink-light">Candidate Count</p></div>
-      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">94%</p><p class="text-ink-light">Pass Rate</p></div>
-      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">3.42</p><p class="text-ink-light">Average GPA</p></div>
+      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">{{ SEE.candidate_count|default:0 }}</p><p class="text-ink-light">Candidate Count</p></div>
+      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">{{ SEE.pass_rate|default:0 }}%</p><p class="text-ink-light">Pass Rate</p></div>
+      <div class="bg-lime-cream rounded-2xl border-2 border-black p-6 text-center"><p class="text-4xl font-bold text-ink">{{ SEE.average_gpa|default:0 }}</p><p class="text-ink-light">Average GPA</p></div>
     </div>
   </section>
 
   <!-- Toppers Section -->
   <section class="mx-auto max-w-5xl">
-        <h2 class="text-3xl font-bold text-ink mb-6">Top 5 Toppers - SEE 2025</h2>
+        <h2 class="text-3xl font-bold text-ink mb-6">Top 5 Toppers - {{ SEE.year }}</h2>
     <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
       {% for t in toppers %}
       <div class="md:col-span-2 bg-white rounded-3xl border-2 border-black p-8 shadow-xl">

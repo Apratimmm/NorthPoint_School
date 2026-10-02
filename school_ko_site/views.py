@@ -31,9 +31,9 @@ def notices(request):
     return render(request, "notices.html")
 
 def results(request):
-    from logic.models import Topper
+    SEE = SEEResults.objects.filter(id=1).first()
     toppers = Topper.objects.all()[:5]
-    return render(request, "results.html", {"toppers": toppers})
+    return render(request, "results.html", {"SEE": SEE, "toppers": toppers})
 
 def contact(request):
     return render(request, "contact.html")
