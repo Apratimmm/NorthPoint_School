@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,21 +27,26 @@
 <body class="bg-lime-cream text-ink antialiased flex flex-col min-h-screen">
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
       <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
-        <div class="flex items-center gap-3 group">
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-lime-cream border-2 border-black transition-colors group-hover:bg-canary/20">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="h-7 w-7 text-ink" aria-hidden="true">
-                <path d="M20 4L6 32h28L20 4z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"></path>
-                <circle cx="30" cy="12" r="5" fill="currentColor"></circle>
-                <path d="M20 15l-6 10h12l-6-10z" fill="currentColor"></path>
-              </svg>
-            </div>
+        <a href="{% url 'home' %}" class="flex items-center gap-3 group">
+            {% if logo_url %}
+              <img src="{{ logo_url }}?f_auto,q_auto" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56">
+            {% else %}
+              <picture>
+                <source srcset="{% static 'logo.webp' %}" type="image/webp">
+                <img src="{% static 'logo.png' %}" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56">
+              </picture>
+            {% endif %}
           <div class="leading-tight">
             <span class="block text-lg font-bold tracking-tight text-ink">North Point</span>
             <span class="block text-xs font-medium uppercase tracking-wider text-ink-light">English Boarding School</span>
           </div>
-        </div>
+        </a>
+
+        <div class="flex items-center gap-8">
           <a href="{% url 'home' %}"><span class="text-xl font-bold tracking-tight text-ink">Home</span></a>
+        </div>
       </div>
+
     </header>
     <main class="flex-grow flex flex-col items-center px-4 pt-8 pb-16 lg:pt-12 lg:pb-24">
 
