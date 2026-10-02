@@ -398,6 +398,23 @@ def edit_homepage(request):
 
 @login_required
 def edit_results(request):
+    return render(request,'edit_results.html')
+
+@login_required
+def edit_SEE(request):
+    SEE, _ = SEEResults.objects.get_or_create(id=1)
+    if request.method == "POST":
+        SEE.year = int(request.POST.get("year", "") or 0)
+        SEE.candidate_count = int(request.POST.get("candidate_count", 0) or 0)
+        SEE.pass_rate = float(request.POST.get("pass_rate", 0) or 0)
+        SEE.average_gpa = float(request.POST.get("average_gpa", 0) or 0)
+        SEE.save()
+        messages.success(request, "SEE information updated!")
+        return redirect("edit_SEE")
+    return render(request, "edit_SEE.html", {"SEE": SEE})
+
+@login_required
+def edit_toppers(request):
     toppers = list(Topper.objects.all()[:5])
 
     for i in range(5):
@@ -415,7 +432,7 @@ def edit_results(request):
                 topper.image = None
                 topper.save()
                 messages.success(request, "Image deleted.")
-            return redirect("edit_results")
+            return redirect("edit_toppers")
 
         if form_type == "topper":
             topper_id = request.POST.get("topper_id")
@@ -430,8 +447,8 @@ def edit_results(request):
                     topper.image = request.FILES["image"]
                 topper.save()
                 messages.success(request, "Topper updated!")
-            return redirect("edit_results")
-    return render(request, "edit_results.html", {"toppers": toppers})
+            return redirect("edit_toppers")
+    return render(request, "edit_toppers.html", {"toppers": toppers})
 
 @require_POST
 def send_email(request):
@@ -595,3 +612,4 @@ def edit_table(request):
                 messages.success(request, "Member added!")
         return redirect("edit_table")
     return render(request, "edit_table.html", {"members": members})
+

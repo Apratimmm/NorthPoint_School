@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang = "en" >
+<head >
+    <meta charset = "UTF-8" >
+    <meta name = "viewport" content = "width=device-width,initial-scale=1.0" >
+    <title >Edit SEE - Admin</title >
+    <link href = "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+          rel = "stylesheet" >
+    <script src = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" ></script >
+    <style type = "text/tailwindcss" >@theme{
+        --color-lime-cream: #f7fce8;
+        --color-ink: #0f172a;
+        --color-ink-light: #334155;
+        --color-canary: #fde047;
+        --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    }</style >
+</head >
+<body class = "bg-lime-cream text-ink antialiased" >
+<header class = "sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black" >
+    <div class = "flex w-full items-center justify-between px-6 py-4 lg:px-12" ><a href = "{% url 'edit_results' %}"
+                                                                                   class = "text-xl font-bold tracking-tight text-ink" >Back</a ><a
+            href = "{% url 'logout' %}" class = "text-xl font-bold tracking-tight text-ink" >Log Out</a ></div >
+</header >
+<main class = "max-w-3xl mx-auto px-6 py-12" >
+    <h1 class = "text-4xl font-bold tracking-tight mb-8" >Edit SEE Results</h1 >
+
+    {% if messages %}
+      <div class="mb-6 space-y-3">
+        {% for message in messages %}
+          <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method = "post" class = "bg-white rounded-3xl border-2 border-black p-8 shadow-xl space-y-6" >
+        {% csrf_token %}
+        <div class = "grid grid-cols-1 md:grid-cols-2 gap-6" >
+            <div >
+                <label for = "year" class = "block font-bold mb-2" >Year</label >
+                <input id = "year" name = "year" type = "number" value = "{{ SEE.year }}"
+                       class = "w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary" />
+            </div >
+            <div >
+                <label for = "candidate_count" class = "block font-bold mb-2" >Candidate Count</label >
+                <input id = "candidate_count" name = "candidate_count" type = "number"
+                       value = "{{ SEE.candidate_count }}"
+                       class = "w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary" />
+            </div >
+            <div >
+                <label for = "pass_rate" class = "block font-bold mb-2" >Pass Rate (no need to add '%' symbol)</label >
+                <input id = "pass_rate" name = "pass_rate" type = "number" step = "0.01" value = "{{ SEE.pass_rate }}"
+                       class = "w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary" />
+            </div >
+            <div >
+                <label for = "average_gpa" class = "block font-bold mb-2" >Average GPA</label >
+                <input id = "average_gpa" name = "average_gpa" type = "number" step = "0.01"
+                       value = "{{ SEE.average_gpa }}"
+                       class = "w-full rounded-xl bg-white border-2 border-black/10 px-4 py-3 text-ink focus:outline-none focus:border-canary" />
+            </div >
+        </div >
+        <div class="flex justify-end">
+        <button type="submit" onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
+                    Update
+        </button></div>
+    </form >
+</main >
+</body >
+</html>

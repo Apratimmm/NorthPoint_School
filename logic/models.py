@@ -373,3 +373,12 @@ class FacultyMember(models.Model):
 
     def __str__(self):
         return f"{self.name} — {self.designation or 'Teacher'}"
+
+class SEEResults(models.Model):
+    year = models.IntegerField(default=0)
+    candidate_count = models.PositiveIntegerField(default=0)
+    pass_rate = models.FloatField(default=0.0)
+    average_gpa = models.FloatField(default=0.0)
+
+    class Meta:
+        verbose_name = "SEE Results"

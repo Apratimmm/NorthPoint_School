@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Edit Results - Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">@theme{ --color-lime-cream:#f7fce8; --color-ink:#0f172a; --color-ink-light:#334155; --color-canary:#fde047; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }</style>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+  <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
+    <a href="{% url 'edit_results' %}" class="text-xl font-bold tracking-tight text-ink">Back</a>
+    <a href="{% url 'logout' %}" class="text-xl font-bold tracking-tight text-ink">Log Out</a>
+  </div>
+</header>
+<main class="max-w-3xl mx-auto px-6 py-12">
+<div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Toppers</h1></div>
+
+{% if messages %}
+  <div class="mb-6 space-y-3">
+    {% for message in messages %}
+      <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% for topper in toppers %}
+<div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-8">
+  <h2 class="text-xl font-bold mb-4">Topper {{ forloop.counter }}</h2>
+  <form method="post" action="/edit_results/" enctype="multipart/form-data" class="space-y-4">
+    {% csrf_token %}
+    <input type="hidden" name="form_type" value="topper">
+    <input type="hidden" name="topper_id" value="{{ topper.id }}">
+
+    <div class="grid grid-cols-2 gap-4">
+      <div><label class="block text-sm font-medium mb-1">Name</label><input name="name" value="{{ topper.name|default:'' }}" class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans"></div>
+      <div><label class="block text-sm font-medium mb-1">Score</label><input name="score" type="number" step="0.01" value="{{ topper.score|default:'' }}" class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans"></div>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium mb-1">Photo</label>
+      {% if topper.image %}
+        <img src="{{ topper.image.url }}?f_auto,q_auto" alt="Topper" class="h-32 mb-3 rounded" loading="lazy">
+        <form method="post" action="/edit_results/" class="inline">
+          {% csrf_token %}
+          <input type="hidden" name="form_type" value="delete_topper_image">
+          <input type="hidden" name="topper_id" value="{{ topper.id }}">
+          <button type="submit" class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 text-sm font-semibold px-4 py-2 rounded-xl transition">Delete photo</button>
+        </form>
+      {% else %}
+        <input type="file" name="image" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 rounded-xl border-2 border-ink bg-white font-semibold hover:bg-canary/20 cursor-pointer mb-3">
+      {% endif %}
+    </div>
+
+    <div class="flex justify-end">
+      <button type="submit" class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 font-semibold px-8 py-3 rounded-xl transition" onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();">Update</button>
+    </div>
+  </form>
+</div>
+{% endfor %}
+</main>
+<script>
+  document.querySelectorAll(".js-delete-image").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+      if (!confirm("Delete this image?")) { e.preventDefault(); return; }
+      this.textContent = "Deleting..."; this.disabled = true;
+      this.closest("form").submit();
+    });
+  });
+</script>
+</body>
+</html>
