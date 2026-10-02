@@ -75,7 +75,7 @@
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-1">Image</label>
                 {% if primary.image %}
-                  <img src="{{ primary.image.url }}?f_auto,q_auto" alt="Current image" class="h-32 mb-3 rounded" loading="lazy">
+                  <img src="{{ primary.image.url }}?f_auto,q_auto" alt="Current image" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128">
                   <button type="button"
                           data-form-type="delete_primary_image"
                           class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-800 text-sm font-semibold px-4 py-2 rounded-xl transition">
@@ -134,7 +134,7 @@
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-1">Image</label>
                 {% if secondary.image %}
-                  <img src="{{ secondary.image.url }}?f_auto,q_auto" alt="Current image" class="h-32 mb-3 rounded" loading="lazy">
+                  <img src="{{ secondary.image.url }}?f_auto,q_auto" alt="Current image" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128">
                   <button type="button"
                           data-form-type="delete_secondary_image"
                           class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-800 text-sm font-semibold px-4 py-2 rounded-xl transition">

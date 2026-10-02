@@ -62,7 +62,7 @@
             <div class="flex items-center gap-4 mb-3"><img src="
                     {% if leader.image %}{{ leader.image.url }}{% else %}https://ui-avatars.com/api/?name={{ leader.name|urlencode }}&background=fde047&color=0f172a&size=256{% endif %}"
                                                            alt="{{ leader.name }}"
-                                                           class="h-16 w-16 rounded-xl object-cover border-2 border-ink">
+                                                           class="h-16 w-16 rounded-xl object-cover border-2 border-ink" loading="lazy" width="64" height="64">
             </div>
             <h3 class="font-bold text-xl">{{ leader.name }}</h3>
             <p class="text-sm text-ink-light">{{ leader.designation }}</p>
