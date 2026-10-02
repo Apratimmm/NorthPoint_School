@@ -31,7 +31,9 @@ def notices(request):
     return render(request, "notices.html")
 
 def results(request):
-    return render(request, "results.html")
+    from logic.models import Topper
+    toppers = Topper.objects.all()[:5]
+    return render(request, "results.html", {"toppers": toppers})
 
 def contact(request):
     return render(request, "contact.html")
