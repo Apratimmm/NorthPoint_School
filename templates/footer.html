@@ -15,10 +15,10 @@
           </div>
           <div class="flex flex-col gap-2 text-sm text-ink-light">
             <span class="text-xl font-bold text-ink">North Point English Boarding School</span>
-              <p>Itahari-1, Halgada, Itahari, Nepal</p>
-              <p>985-2087286</p>
-              <p>northpoint222@gmail.com</p>
-              <p>Facebook: <a href="https://www.facebook.com/npointschool" target="_blank" rel="noopener noreferrer">npointschool</a></p>
+              <p>Halgada, Itahari-1, Nepal</p>
+              {% for num in contact_numbers %}<p>{{ num }}</p>{% endfor %}
+              <p>{{ email_address }}</p>
+              <p>Facebook: <a href="{{ facebook_link }}" target="_blank" rel="noopener noreferrer">npointschool</a></p>
           </div>
         </div>
 
