@@ -76,6 +76,12 @@
     <p class="text-ink text-lg leading-relaxed">Every teacher at North Point holds at least a bachelor’s degree with a teaching qualification, and each department meets twice a term to review student progress together.</p>
   </section>
 </main>
+<div id="lb" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true"><img id="lb-img" src="" class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-2 border-white/20"></div>
+<script>
+  function openLightbox(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.remove('hidden'); document.body.style.overflow='hidden'; }
+  function closeLightbox(){ document.getElementById('lb').classList.add('hidden'); document.body.style.overflow=''; }
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+</script>
 {% include 'footer.html' %}
 </body>
 </html>

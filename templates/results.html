@@ -49,10 +49,16 @@
         <h3 class="text-2xl font-bold text-ink">{{ t.name }}</h3>
         <span class="text-canary font-bold text-xl">{{ t.score }} GPA</span>
         <div class="w-full h-0.5 bg-black/20 my-4"></div>
-        <img src="{% if t.image %}{{ t.image.url }}{% else %}https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800{% endif %}" class="rounded-2xl border-2 border-black w-full h-56 object-cover" alt="{{ t.name }}" loading="lazy" width="800" height="533">
+        <img onclick="openLightbox(this.src)" src="{% if t.image %}{{ t.image.url }}{% else %}https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800{% endif %}" class="rounded-2xl border-2 border-black w-full h-56 object-cover cursor-zoom-in" alt="{{ t.name }}" loading="lazy" width="800" height="533">
       </div>
       {% endfor %}
     </div>
 </main>
+<div id="lb" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true"><img id="lb-img" src="" class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-2 border-white/20"></div>
+<script>
+  function openLightbox(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.remove('hidden'); document.body.style.overflow='hidden'; }
+  function closeLightbox(){ document.getElementById('lb').classList.add('hidden'); document.body.style.overflow=''; }
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+</script>
 {% include 'footer.html' %}
 </body>
