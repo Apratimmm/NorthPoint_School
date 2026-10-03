@@ -40,7 +40,9 @@ def contact(request):
     return render(request, "contact.html")
 
 def academics(request):
-    return render(request, "academics.html")
+    primary = Academic.objects.filter(school="primary").first()
+    secondary = Academic.objects.filter(school="secondary").first()
+    return render(request, "academics.html", {"primary": primary, "secondary": secondary})
 
 def faculty(request):
     return render(request, "faculty.html")
