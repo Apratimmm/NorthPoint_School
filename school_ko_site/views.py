@@ -15,7 +15,18 @@ def home(request):
     return render(request, "home.html", context)
 
 def about_us(request):
-    return render(request, "about_us.html")
+    sections = {s.section: s for s in AboutSection.objects.all()}
+    messages = list(Messages.objects.all()[:2])
+    message_1 = messages[0]
+    message_2 = messages[1]
+    return render(request, "about_us.html", {
+        "history": sections.get("history"),
+        "vision": sections.get("vision"),
+        "mission": sections.get("mission"),
+        "goal": sections.get("goal"),
+        "message_1": message_1,
+        "message_2": message_2,
+    })
 
 def gallery(request):
     return render(request, "gallery.html")
