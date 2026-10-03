@@ -21,25 +21,21 @@
   <!-- Leadership -->
   <section class="mx-auto max-w-5xl mb-14">
     <h2 class="text-xl font-bold tracking-widest uppercase text-ink mb-6">School Leadership</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <article class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-        <h3 class="text-2xl font-bold text-ink mb-1">Mrs. Sunita Gurung</h3>
-        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">Principal</p>
+    <div class="flex flex-wrap justify-center gap-6">
+      {% for leader in leaders %}
+      <article class="w-full max-w-[18rem] bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
+        <h3 class="text-2xl font-bold text-ink mb-1">{{ leader.name }}</h3>
+        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">{{ leader.designation }}</p>
         <div class="w-full h-0.5 bg-black/20 my-6"></div>
-        <img src="https://ui-avatars.com/api/?name=Sunita+Gurung&background=fde047&color=0f172a&size=256" alt="Sunita Gurung" class="rounded-3xl border-2 border-black w-full aspect-square object-cover" loading="lazy" width="256" height="256">
+        {% if leader.image %}
+          <img src="{{ leader.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256">
+        {% else %}
+          <img src="https://ui-avatars.com/api/?name={{ leader.name|default:'Faculty' }}&background=fde047&color=0f172a&size=256" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256">
+        {% endif %}
       </article>
-      <article class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-        <h3 class="text-2xl font-bold text-ink mb-1">Mr. Bishnu Adhikari</h3>
-        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">Vice Principal</p>
-        <div class="w-full h-0.5 bg-black/20 my-6"></div>
-        <img src="https://ui-avatars.com/api/?name=Bishnu+Adhikari&background=fde047&color=0f172a&size=256" alt="Bishnu Adhikari" class="rounded-3xl border-2 border-black w-full aspect-square object-cover" loading="lazy" width="256" height="256">
-      </article>
-      <article class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-        <h3 class="text-2xl font-bold text-ink mb-1">Ms. Nisha Karki</h3>
-        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">Academic Coordinator</p>
-        <div class="w-full h-0.5 bg-black/20 my-6"></div>
-        <img src="https://ui-avatars.com/api/?name=Nisha+Karki&background=fde047&color=0f172a&size=256" alt="Nisha Karki" class="rounded-3xl border-2 border-black w-full aspect-square object-cover" loading="lazy" width="256" height="256">
-      </article>
+      {% empty %}
+      <p class="text-ink-light">No leadership members available.</p>
+      {% endfor %}
     </div>
   </section>
 
@@ -55,19 +51,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Deepak Shrestha</td><td class="py-3 text-sm text-ink-light">Head of Department</td><td class="py-3 text-sm text-ink-light">English</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Pooja Thapa</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">English Literature</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Anil Gurung</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">History & Social Studies</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Sabina Lama</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Nepali & Literature</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mrs. Kamala Bhattarai</td><td class="py-3 text-sm text-ink-light">Head of Department</td><td class="py-3 text-sm text-ink-light">Mathematics</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Sujan Maharjan</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Physics</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Reecha Poudel</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Chemistry</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Kiran Yadav</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Biology</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Anita Bhandari</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Computer Science</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Prakash Rai</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Physical Education</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Ms. Tashi Sherpa</td><td class="py-3 text-sm text-ink-light">Teacher</td><td class="py-3 text-sm text-ink-light">Fine Arts & Music</td></tr>
-        <tr class="border-b border-black/10"><td class="py-3 font-bold">Mr. Manoj Tamang</td><td class="py-3 text-sm text-ink-light">Coordinator</td><td class="py-3 text-sm text-ink-light">Primary Stage</td></tr>
-        <tr><td class="py-3 font-bold">Ms. Gita Poudel</td><td class="py-3 text-sm text-ink-light">Librarian</td><td class="py-3 text-sm text-ink-light">Library & Research</td></tr>
+        {% for m in members %}
+        <tr class="border-b border-black/10"><td class="py-3 font-bold">{{ m.name }}</td><td class="py-3 text-sm text-ink-light">{{ m.designation }}</td><td class="py-3 text-sm text-ink-light">{{ m.department }}</td></tr>
+        {% empty %}
+        <tr><td class="py-3 text-ink-light" colspan="3">No faculty members available.</td></tr>
+        {% endfor %}
       </tbody>
     </table>
   </section>

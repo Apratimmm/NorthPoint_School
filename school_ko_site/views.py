@@ -57,7 +57,9 @@ def academics(request):
     return render(request, "academics.html", {"primary": primary, "secondary": secondary})
 
 def faculty(request):
-    return render(request, "faculty.html")
+    leaders = FacultyLeader.objects.all()
+    members = FacultyMember.objects.all()
+    return render(request, "faculty.html", {"leaders": leaders, "members": members})
 
 # def academics(request):
 #     schools = {
