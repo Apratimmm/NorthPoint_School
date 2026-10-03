@@ -45,7 +45,7 @@
                                                                                         class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans">{{ welcome.welcome_message|default:'' }}</textarea>
             </div>
             <div class="flex justify-end">
-                <button type="submit"
+                <button type="submit" onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
                         class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 hover:border-green-900 hover:text-green-900 font-semibold px-8 py-3 rounded-xl transition">
                     Update
                 </button>
