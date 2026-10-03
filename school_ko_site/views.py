@@ -28,7 +28,8 @@ def user_login(request):
     return render(request, 'login.html')
 
 def notices(request):
-    return render(request, "notices.html")
+    notice_list = Notice.objects.all()
+    return render(request, "notices.html", {"notices": notice_list})
 
 def results(request):
     SEE = SEEResults.objects.filter(id=1).first()

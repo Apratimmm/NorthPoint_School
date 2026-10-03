@@ -1,5 +1,3 @@
-import pprint
-
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -543,7 +541,6 @@ def update_month(request):
     return JsonResponse(
         {"success": True, "message": "Calendar has been updated !   !"}
     )
-
 
 @login_required
 def edit_faculty(request):
