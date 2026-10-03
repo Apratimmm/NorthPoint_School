@@ -13,6 +13,7 @@
       --color-lime-cream: #f7fce8;
       --color-lime-cream-dark: #eef7d3;
       --color-canary: #fde047;
+      --color-canary-dark: #facc15;
       --color-ink: #0f172a;
       --color-ink-light: #334155;
       --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
@@ -23,88 +24,75 @@
 {% include 'header.html' %}
 <main class="bg-lime-cream px-4 py-12">
 
-    <div class="mx-auto max-w-5xl text-center mb-14">
+  <div class="mx-auto max-w-5xl text-center mb-14">
     <h1 class="text-5xl font-bold text-ink tracking-tight">School Gallery</h1>
     <p class="mt-4 text-xl text-ink-light">Moments from across the school year.</p>
   </div>
 
-  <section class="mx-auto max-w-5xl bg-white rounded-3xl border-2 border-black p-10 mb-14 shadow-xl">
-    <div class="flex flex-col lg:flex-row gap-8">
-      <div class="lg:w-1/3 flex flex-col justify-start py-2">
-        <h2 class="text-3xl font-bold text-canary-dark leading-tight">Annual Day & Prize Distribution</h2>
-        <span class="text-xl font-medium text-canary mt-3">SATURDAY, 13 DECEMBER 2025</span>
-        <div class="w-full h-0.5 bg-black/20 my-6"></div>
-        <p class="text-ink-light text-base leading-relaxed">An evening of music, dance and drama on the main stage, followed by the presentation of medals, certificates and the overall championship shield.</p>
-      </div>
-      <div class="hidden lg:block w-0.5 bg-black/20 self-stretch mx-4"></div>
-      <div class="lg:w-2/3 relative">
-        <div id="gallery-slide-1" class="gallery-slide relative h-72 lg:h-96">
-          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Gallery 1" loading="lazy" width="800" height="450">
-        </div>
-        <div id="gallery-slide-2" class="gallery-slide hidden relative h-72 lg:h-96">
-          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Gallery 2" loading="lazy" width="800" height="450">
-        </div>
-        <div id="gallery-slide-3" class="gallery-slide hidden relative h-72 lg:h-96">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Gallery 3" loading="lazy" width="800" height="450">
-        </div>
-        <div id="gallery-slide-4" class="gallery-slide hidden relative h-72 lg:h-96">
-          <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Gallery 4" loading="lazy" width="800" height="450">
-        </div>
-        <button onclick="prevSlide(1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8249;</button>
-        <button onclick="nextSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8250;</button>
-              </div>
-    </div>
-  </section>
+  {% for event in events %}
+  <section class="mx-auto max-w-6xl mb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <!-- Left Card: Event Info -->
+      <div class="lg:col-span-5 relative overflow-hidden rounded-[2.5rem] border-2 border-black bg-canary text-ink shadow-xl p-8 lg:p-12 flex flex-col justify-between">
+        <div class="my-auto">
 
-  <section class="mx-auto max-w-5xl bg-white rounded-3xl border-2 border-black p-8 shadow-xl">
-    <div class="flex flex-col lg:flex-row gap-8">
-      <div class="lg:w-1/3 flex flex-col justify-start py-2">
-        <h2 class="text-3xl font-bold text-canary-dark leading-tight">Inter-House Sports Meet</h2>
-        <span class="text-xl font-medium text-canary mt-3">FRIDAY & SATURDAY, 21–22 NOVEMBER 2025</span>
-        <div class="w-full h-0.5 bg-black/20 my-6"></div>
-        <p class="text-ink-light text-base leading-relaxed">Two days of track events, relays and field competitions on the main ground, closing with the march-past and the trophy presentation.</p>
+          <blockquote class="text-2xl lg:text-3xl font-medium text-ink leading-snug">{{ event.event_name }}</blockquote>
+            <div class="w-full h-0.5 bg-black/20 my-6"></div>
+          <p class="font-bold text-ink text-lg text-right">{{ event.event_date }}</p>
+        </div>
       </div>
-      <div class="hidden lg:block w-0.5 bg-black/20 self-stretch mx-4"></div>
-      <div class="lg:w-2/3 relative">
-        <div id="gallery-slide-5" class="gallery-slide relative h-72 lg:h-96"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Sports 1" loading="lazy" width="800" height="450"></div>
-        <div id="gallery-slide-6" class="gallery-slide hidden relative h-72 lg:h-96"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Sports 2" loading="lazy" width="800" height="450"></div>
-        <div id="gallery-slide-7" class="gallery-slide hidden relative h-72 lg:h-96"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Sports 3" loading="lazy" width="800" height="450"></div>
-        <div id="gallery-slide-8" class="gallery-slide hidden relative h-72 lg:h-96"><img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Sports 4" loading="lazy" width="800" height="450"></div>
-        <button onclick="prevSlide(2)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8249;</button>
-        <button onclick="nextSlide(2)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8250;</button>
+
+      <!-- Right Card: Event Images -->
+      <div class="lg:col-span-7 relative overflow-hidden rounded-[2.5rem] border-2 border-black bg-white text-ink shadow-xl p-8 lg:p-12 flex flex-col justify-between">
+        <div class="relative z-10">
+          {% with images=event.images.all %}
+          {% if images %}
+            <div id="gallery-{{ forloop.counter }}" class="relative">
+              {% for img in images %}
+              <div class="gallery-slide {% if forloop.first %}relative h-72 lg:h-96{% else %}hidden relative h-72 lg:h-96{% endif %}">
+                <img src="{{ img.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="{{ event.event_name }}" loading="lazy" width="800" height="450">
               </div>
+              {% endfor %}
+              {% if images|length > 1 %}
+              <button onclick="cycleEvent({{ forloop.counter }}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8249;</button>
+              <button onclick="cycleEvent({{ forloop.counter }}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8250;</button>
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="h-72 lg:h-96 rounded-3xl border-2 border-black bg-black/5 flex items-center justify-center text-ink-light">
+              No images yet.
+            </div>
+          {% endif %}
+          {% endwith %}
+        </div>
+      </div>
     </div>
   </section>
+  {% empty %}
+  <div class="mx-auto max-w-5xl bg-white rounded-3xl border-2 border-black p-10 shadow-xl text-center text-ink-light">
+    No gallery events available.
+  </div>
+  {% endfor %}
 </main>
 {% include 'footer.html' %}
 </body>
 </html>
 <script>
-let current = [1,1];
-function showSlide(n, idx){
-  let base = idx===2 ? 5 : 1;
-  for(let i=0;i<4;i++){ document.getElementById('gallery-slide-'+(base+i)).classList.add('hidden'); }
-  document.getElementById('gallery-slide-'+n).classList.remove('hidden');
-  current[idx-1] = n - (idx===2 ? 5 : 1) + 1;
-}
-function nextSlide(idx){
-  let c = current[idx-1];
-  c = c % 4 + 1;
-  current[idx-1]=c;
-  showSlide((idx===2?5:1)+(c-1), idx);
-}
-function prevSlide(idx){
-  let c = current[idx-1];
-  c = (c+2)%4+1;
-  current[idx-1]=c;
-  showSlide((idx===2?5:1)+(c-1), idx);
-}
-</script>
-
-<div id="lb" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true"><img id="lb-img" src="" class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-2 border-white/20"></div>
-<script>
   function openLightbox(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.remove('hidden'); document.body.style.overflow='hidden'; }
+
+  let eventSlides = {};
+  function cycleEvent(idx, dir){
+    const container = document.getElementById('gallery-'+idx);
+    if(!container) return;
+    const slides = container.querySelectorAll('.gallery-slide');
+    let current = 0; for(let i=0;i<slides.length;i++){ if(!slides[i].classList.contains('hidden')) current=i; }
+    slides[current].classList.add('hidden'); slides[current].classList.remove('relative');
+    let next = (current + dir + slides.length) % slides.length;
+    slides[next].classList.remove('hidden'); slides[next].classList.add('relative');
+  }
+
   function closeLightbox(){ document.getElementById('lb').classList.add('hidden'); document.body.style.overflow=''; }
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
 </script>
+<div id="lb" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true"><img id="lb-img" src="" class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-2 border-white/20"></div>
 </body></html>

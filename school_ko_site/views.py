@@ -29,7 +29,8 @@ def about_us(request):
     })
 
 def gallery(request):
-    return render(request, "gallery.html")
+    events = GalleryEvent.objects.prefetch_related("images").all()
+    return render(request, "gallery.html", {"events": events})
 
 def calendar(request):
     return render(request,"calendar.html")
@@ -108,21 +109,6 @@ def faculty(request):
 # def month_data(request, month_id):
 #     month_data = get_month_data(month_id)
 #     return JsonResponse(month_data)
-
-# def contact(request):
-#     contact_info = get_contact_info()
-#     context = {
-#         "contact": contact_info,
-#     }
-#     return render(request, 'contact.html', context)
-
-# def gallery(request):
-#     events = GalleryEvent.objects.prefetch_related("images").all()
-#
-#     context = {
-#         "events": events,
-#     }
-#     return render(request, "gallery.html", context)
 
 # def results(request):
 #     yearly_results = YearlyResult.objects.all()[:3]
