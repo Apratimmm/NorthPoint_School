@@ -265,6 +265,7 @@ def edit_notice(request, notice_id):
             })
 
         notice.title = title
+        notice.body = body
         notice.date = date
         notice.save()
         messages.success(request, "Notice updated successfully!")
