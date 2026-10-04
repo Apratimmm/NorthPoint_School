@@ -30,7 +30,9 @@
         {% if leader.image %}
           <img src="{{ leader.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256">
         {% else %}
-          <img src="https://ui-avatars.com/api/?name={{ leader.name|default:'Faculty' }}&background=fde047&color=0f172a&size=256" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256">
+          <div class="rounded-3xl border-2 border-black w-full aspect-square bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
+            no image yet
+          </div>
         {% endif %}
       </article>
       {% empty %}

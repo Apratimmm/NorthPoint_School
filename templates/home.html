@@ -43,10 +43,13 @@
       <!-- Hero Section -->
       <section class="relative overflow-hidden px-2 pt-4 pb-12 lg:pt-6 lg:pb-16 bg-gradient-to-b from-lime-cream-dark/50 to-transparent">
         <div class="mx-auto max-w-[85rem] mb-12">
-          <div class="relative w-full aspect-video rounded-3xl border-2 border-black overflow-hidden shadow-xl bg-ink flex items-center justify-center">
-            <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover" aria-label="School video">
+          <div class="relative w-full aspect-video rounded-3xl border-2 border-black overflow-hidden shadow-xl bg-ink">
+            <video id="school-video" autoplay loop muted playsinline class="w-full h-full object-cover" aria-label="School video" onloadeddata="this.nextElementSibling.style.opacity='0'">
               <source src="{% if video_url %}{{ video_url }}{% else %}{% static 'school-video/school.mp4' %}{% endif %}" type="video/mp4">
             </video>
+            <div class="absolute inset-0 flex items-center justify-center text-white/70 text-lg font-medium tracking-wide pointer-events-none opacity-100 transition-opacity duration-500">
+              Loading school video…
+            </div>
           </div>
         </div>
         <div class="mx-auto max-w-4xl text-center">

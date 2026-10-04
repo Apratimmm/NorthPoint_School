@@ -152,7 +152,7 @@
             {% if message_1 and message_1.person_image %}
               <img src="{{ message_1.person_image.url }}" alt="message_1" class="w-full h-full object-cover" loading="lazy" width="400" height="500">
             {% else %}
-                <img src="https://ui-avatars.com/api/?name={{ message_1.person_name|default:'NP' }}&background=fde047&color=0f172a&size=256" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256">
+              <span class="text-ink-light text-lg font-medium tracking-wide">no image yet</span>
             {% endif %}
           </div>
         </div>
@@ -171,7 +171,7 @@
             {% if message_2 and message_2.person_image %}
                 <img src="{{ message_2.person_image.url }}" alt="Principal" class="w-full h-full object-cover" loading="lazy" width="400" height="500">
             {% else %}
-                <img src="https://ui-avatars.com/api/?name={{ message_2.person_name|default:'NP' }}&background=fde047&color=0f172a&size=256" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256">
+                <span class="text-ink-light text-lg font-medium tracking-wide">no image yet</span>
             {% endif %}
           </div>
         </div>

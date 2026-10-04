@@ -43,7 +43,9 @@
             {% if primary.image %}
               <img src="{{ primary.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Primary learning" loading="lazy" width="800" height="500">
             {% else %}
-              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Primary learning" loading="lazy" width="800" height="500">
+              <div class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
+                no image yet
+              </div>
             {% endif %}
           </div>
         </div>
@@ -84,7 +86,9 @@
             {% if secondary.image %}
               <img src="{{ secondary.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Secondary learning" loading="lazy" width="800" height="500">
             {% else %}
-              <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Secondary learning" loading="lazy" width="800" height="500">
+              <div class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
+                no image yet
+              </div>
             {% endif %}
           </div>
             <div class="xl:w-1/2">

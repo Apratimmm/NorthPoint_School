@@ -49,7 +49,13 @@
         <h3 class="text-2xl font-bold text-ink">{{ t.name }}</h3>
         <span class="text-canary font-bold text-xl">{{ t.score }} GPA</span>
         <div class="w-full h-0.5 bg-black/20 my-4"></div>
-        <img onclick="openLightbox(this.src)" src="{% if t.image %}{{ t.image.url }}{% else %}https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800{% endif %}" class="rounded-2xl border-2 border-black w-full h-56 object-cover cursor-zoom-in" alt="{{ t.name }}" loading="lazy" width="800" height="533">
+        {% if t.image %}
+        <img onclick="openLightbox(this.src)" src="{{ t.image.url }}?f_auto,q_auto" class="rounded-2xl border-2 border-black w-full h-56 object-cover cursor-zoom-in" alt="{{ t.name }}" loading="lazy" width="800" height="533">
+        {% else %}
+        <div class="rounded-2xl border-2 border-black w-full h-56 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
+          No image yet
+        </div>
+        {% endif %}
       </div>
       {% endfor %}
     </div>
