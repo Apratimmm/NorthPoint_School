@@ -4,7 +4,8 @@ from logic.models import *
 from logic.context_processors import get_contact_info
 from django.contrib import messages
 from django.http import JsonResponse
-from django.views.decorators.cache import never_cache
+from django.db.models import Prefetch
+from django.views.decorators.cache import never_cache, cache_page
 def home(request):
     welcome = HomePage.objects.filter(section="text").first()
     images = list(HomePage.objects.filter(section="image"))
@@ -35,9 +36,6 @@ def gallery(request):
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
     return render(request, "gallery.html", {"page_obj": page_obj})
-
-def calendar(request):
-    return render(request,"calendar.html")
 
 @never_cache
 def user_login(request):
@@ -72,93 +70,61 @@ def faculty(request):
     members = FacultyMember.objects.all()
     return render(request, "faculty.html", {"leaders": leaders, "members": members})
 
-# def academics(request):
-#     schools = {
-#         s.school: s for s in Academic.objects.all()
-#     }
-#
-#     context = {
-#         "primary": schools.get("primary"),
-#         "secondary": schools.get("secondary"),
-#     }
-#     return render(request, 'academics.html', context)
+@cache_page(300)
+def calendar(request):
+    from datetime import date
+    default_month = (date.today().month + 8) % 12 + 1
+    raw = request.GET.get("month")
+    try:
+        month_id = int(raw) if raw else default_month
+    except (TypeError, ValueError):
+        month_id = default_month
+    if month_id < 1 or month_id > 12:
+        month_id = default_month
 
-# MONTH_NAMES = [name for _, name in MonthInfo.MONTH_CHOICES]
-# MONTH_NAMES_BY_ID = dict(MonthInfo.MONTH_CHOICES)
-#
-# def get_month_data(month_id):
-#     try:
-#         m = MonthInfo.objects.prefetch_related("events").get(month=month_id)
-#         return {
-#             "month": m.month,
-#             "monthName": m.get_month_display(),
-#             "daysInMonth": m.month_days or 31,
-#             "firstDay": (m.month_start_day or 1) - 1,
-#             "events": {
-#                 str(e.event_date): {"label": e.event_name, "type": e.event_type}
-#                 for e in m.events.all()
-#             },
-#         }
-#     except MonthInfo.DoesNotExist:
-#         idx = month_id - 1
-#         return {
-#             "month": month_id,
-#             "monthName": MONTH_NAMES_BY_ID.get(month_id, "Unknown"),
-#             "daysInMonth": 31,
-#             "firstDay": 0,
-#             "events": {},
-#         }
+    month_info = (
+        MonthInfo.objects
+        .prefetch_related(
+            Prefetch("events", queryset=MonthEvent.objects.only("id", "month_id", "event_date", "event_name", "event_type").order_by("event_date"))
+        )
+        .only("id", "month", "month_days", "month_start_day")
+        .filter(month=month_id)
+        .first()
+    )
 
-# def calendar(request):
-#     month_data = get_month_data(1)
-#     return render(request, "calendar.html", {
-#         "server_data": {
-#             "hasData": True,
-#             "currentMonth": 1,
-#             "month": month_data,
-#         }
-#     })
+    events = list(month_info.events.all()) if month_info else []
+    events_by_day = {}
+    for e in events:
+        events_by_day.setdefault(e.event_date, []).append(e)
 
-# def month_data(request, month_id):
-#     month_data = get_month_data(month_id)
-#     return JsonResponse(month_data)
+    days = month_info.month_days if month_info and month_info.month_days else 31
+    start = (month_info.month_start_day - 1) if month_info and month_info.month_start_day else 0
 
-# def results(request):
-#     yearly_results = YearlyResult.objects.all()[:3]
-#     toppers = Topper.objects.all()[:5]
-#
-#     context = {
-#         "yearly_results": yearly_results,
-#         "toppers": toppers,
-#     }
-#     return render(request, "results.html", context)
+    grid = []
+    week = []
+    for _ in range(start):
+        week.append({"day": None, "events": []})
+    for d in range(1, days + 1):
+        week.append({"day": d, "events": events_by_day.get(d, [])})
+        if len(week) == 7:
+            grid.append(week)
+            week = []
+    if week:
+        while len(week) < 7:
+            week.append({"day": None, "events": []})
+        grid.append(week)
 
-# def committee(request):
-#     committees = Committee.objects.prefetch_related("people").all()
-#     for c in committees:
-#         members_by_post = {}
-#         for p in c.people.all():
-#             members_by_post.setdefault(p.post, []).append(p)
-#         c.posts_with_members = [
-#             (key, label, members_by_post.get(key, []))
-#             for key, label in Committee.POST_FIELDS
-#             if members_by_post.get(key)
-#         ]
-#     return render(request, "committee.html", {"committees": committees})
-#
-#  def notices(request):
-#    notice_list = Notice.objects.all()
-#    return render(request, "notices.html", {"notices": notice_list})
-#
-# NEPALI_CHROME = {
-#     "notice_word": "सूचना",
-#     "date_word": "मिति",
-#     "subject_word": "विषय",
-#     "principal_word": "प्रिन्सिपल",
-# }
+    prev_month = month_id - 1 if month_id > 1 else 12
+    next_month = month_id + 1 if month_id < 12 else 1
+    MONTH_NAMES = {num: name for num, name in MonthInfo.MONTH_CHOICES}
 
-# def view_notice(request, notice_id):
-#     notice = get_object_or_404(Notice, id=notice_id)
-#     signature, _ = PrincipalSignature.objects.get_or_create(id=1)
-#     chrome = NEPALI_CHROME if notice.language == "ne" else {}
-#     return render(request, "base_notice.html", {"notice": notice, "signature": signature, "chrome": chrome})
+    return render(request, "calendar.html", {
+        "month_info": month_info,
+        "month_id": month_id,
+        "month_name": (month_info.get_month_display() if month_info
+                       else MONTH_NAMES.get(month_id, "")),
+        "grid": grid,
+        "events": events,
+        "prev_month": prev_month,
+        "next_month": next_month,
+    })

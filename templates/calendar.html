@@ -7,740 +7,80 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style type="text/tailwindcss">
-@theme { --color-lime-cream:#f7fce8; --color-canary:#fde047; --color-ink:#0f172a; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }
+@theme { --color-lime-cream:#f7fce8; --color-canary:#fde047; --color-ink:#0f172a; --color-ink-light:#334155; --font-sans:'Outfit',ui-sans-serif,system-ui,sans-serif; }
 </style>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 {% include 'header.html' %}
-<main class="px-4 py-12">
-    <div class="mx-auto max-w-5xl text-center mb-14">
+<main class="py-8">
+  <div class="mx-auto max-w-7xl text-center mb-6">
     <h1 class="text-5xl font-bold text-ink tracking-tight">Academic Calendar</h1>
-    <p class="mt-4 text-xl text-ink-light">All twelve months at a glance — school holidays and events are highlighted in color, and today's month stands out.</p>
+    <p class="text-xl text-ink-light">School holidays and events - one month at a time.</p>
   </div>
 
-    <div class="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- January -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Baishakh</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1">
-                <span></span><span></span><span></span><span></span><span></span><span></span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">1</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">31</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>1</strong> — Nepali New Year</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>11</strong> — Loktantra Diwas</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>18</strong> — Buddha Jayanti</span>
-                </li>
-            </ul>
-        </div>
-        <!-- February -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Jestha</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1"><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>1</strong> — International Workers' Day</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>15</strong> — Republic Day</span>
-                </li>
-            </ul>
-        </div>
-        <!-- March -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Ashadh</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>15</strong> — Dahi Chiura / National Paddy Day</span>
-                </li>
-            </ul>
-        </div>
-        <!-- April -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Shrawan</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1"><span></span><span></span><span></span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>5</strong> — Nag Panchami</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>15</strong> — Kheer Khane Din</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>27</strong> — Janai Purnima</span>
-                </li>
-            </ul>
-        </div>
-        <!-- May -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Bhadra</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1">
-                <span></span><span></span><span></span><span></span><span></span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">31</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>10</strong> — Krishna Janmashtami</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>21</strong> — Teej</span>
-                </li>
-            </ul>
-        </div>
-        <!-- June -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Ashwin</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1">
-                <span></span><span></span><span></span><span></span><span></span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>1</strong> — Constitution Day</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>10</strong> — Ghatasthapana</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>17</strong> — Maha Ashtami</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>18</strong> — Maha Navavi</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>19</strong> — Bijaya Dashami</span>
-                </li>
-            </ul>
-        </div>
-        <!-- July -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Kartik</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1"><span></span><span></span><span></span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">4</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">31</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>3</strong> — Laxmi Puja</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>4</strong> — Govardhan Puja</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>5</strong> — Bhai Tika</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>10</strong> — Chhath</span>
-                </li>
-            </ul>
-        </div>
-        <!-- August -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Mangsir</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1"><span></span><span></span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">30</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">31</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>15</strong> — Udhauli</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>30</strong> — Yomari Punhi</span>
-                </li>
-            </ul>
-        </div>
-        <!-- September (current month highlight) -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Poush</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1">
-                <span></span><span></span><span></span><span></span><span></span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>10</strong> — Christmas Day</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>15</strong> — Tamu Lhosar</span>
-                </li>
-            </ul>
-        </div>
-        <!-- October -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Magh</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1"><span></span><span></span><span></span><span></span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">31</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>1</strong> — Maghe Sankranti</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>5</strong> — Sonam Lhosar</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>16</strong> — Martyrs' Day</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>21</strong> — Shree Panchami</span>
-                </li>
-            </ul>
+  <!-- Month selector -->
+  <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+    {% if month_id > 1 %}<a href="?month={{ prev_month }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+      <span aria-hidden="true">&#8249;</span> Prev
+    </a>{% endif %}
+    <span class="text-2xl font-bold text-ink px-2 underline">{{ month_name }}</span>
+    {% if month_id < 12 %}<a href="?month={{ next_month }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+      Next <span aria-hidden="true">&#8250;</span>
+    </a>{% endif %}
+  </div>
 
+  <!-- Calendar grid -->
+  <div class="mx-auto max-w-6xl bg-white rounded-3xl border-2 border-black shadow-xl overflow-hidden pt-2">
+    <div class="grid grid-cols-7 text-[18px] font-thin text-ink-light bg-lime-cream-dark">
+      <div class="p-2 text-center">Sunday</div>
+      <div class="p-2 text-center">Monday</div>
+      <div class="p-2 text-center">Tuesday</div>
+      <div class="p-2 text-center">Wednesday</div>
+      <div class="p-2 text-center">Thursday</div>
+      <div class="p-2 text-center">Friday</div>
+      <div class="p-2 text-center">Saturday</div>
+    </div>
+    {% for week in grid %}
+    <div class="grid grid-cols-7">
+      {% for cell in week %}
+      <div class="min-h-[5rem] border-t border-l border-black/10 p-1 text-sm hover:bg-canary/40 flex items-center justify-center {% if cell.events and cell.events.0.event_type == 'holiday' %}bg-red-500/20{% endif %}{% if cell.events and cell.events.0.event_type != 'holiday' %}bg-blue-500/20{% endif %}{% if cell.day and forloop.counter == 1 %}bg-red-500/20{% endif %}{% if cell.day and forloop.counter == 7 %}bg-red-500/20{% endif %}">
+        {% if cell.day %}
+        <div class="font-bold text-ink">{{ cell.day }}</div>
+        {% for ev in cell.events %}
+        <div class="mt-0.5">
+          <span class="
+            {% if ev.event_type == 'holiday' %}bg-red-500/2{% else %}bg-blue-500/2{% endif %}"></span>
         </div>
-        <!-- November -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Falgun</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span> <span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">30</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>6</strong> — Maha Shivaratri</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>15</strong> — Gyalpo Lhosar</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>29</strong> — Holi</span>
-                </li>
-            </ul>
+        {% endfor %}
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
 
-        </div>
-        <!-- December -->
-        <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-            <div class="flex justify-between items-center mb-3"><h3 class="font-bold text-xl">Chaitra</h3><span
-                    class="text-xs font-semibold text-ink-light">2026</span></div>
-            <div class="grid grid-cols-7 text-[10px] font-bold text-ink-light mb-1 pl-1"><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">MO</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TU</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">WE</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">TH</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">FR</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">SA</span></div>
-            <div class="grid grid-cols-7 text-sm gap-y-1">
-                <span></span><span></span><span></span><span></span><span></span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">1</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">2</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">3</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">4</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">5</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">6</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">7</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">8</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">9</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">10</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">11</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">12</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">13</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">14</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">15</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">16</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">17</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">18</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">19</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">20</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">21</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">22</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">23</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">24</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">25</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">26</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">27</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">28</span><span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">29</span><span
-                    class="bg-red-100 rounded-full w-6 h-6 flex items-center justify-center mx-auto">30</span> <span
-                    class="w-6 h-6 flex items-center justify-center mx-auto">31</span></div>
-            <div class="w-full h-px bg-black/10 my-3"></div>
-            <div class="mt-1 flex gap-3 text-xs"><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-red-500"></span> Holiday</span><span class="flex items-center gap-1"><span
-                    class="w-2 h-2 rounded-full bg-blue-500"></span> Event</span></div>
-            <ul class="mt-2 space-y-1 text-xs text-ink">
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>1</strong> — Ghode Jatra</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>15</strong> — Ram Navami</span>
-                </li>
-                <li class="flex items-start gap-2 text-xs"><span
-                        class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1 shrink-0"></span><span><strong>30</strong> — Chaite Dashain</span>
-                </li>
-            </ul>
-        </div>
-  </main>
+  <!-- Event list -->
+  {% if events %}
+  <div class="mx-auto max-w-3xl mt-12">
+    <h2 class="text-2xl font-bold text-ink mb-3">Events in {{ month_name }}</h2>
+    <div class="bg-white rounded-3xl border-2 border-black px-6 py-6 shadow-xl space-y-2">
+      {% for ev in events %}
+      <div class="flex items-start gap-3 border-b border-black/10 pb-2 last:border-0 last:pb-0">
+        <span class="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white
+          {% if ev.event_type == 'holiday' %}bg-red-500{% else %}bg-blue-500{% endif %}">{{ ev.event_date }}</span>
+        <div class="min-w-0">
+          <p class="font-bold text-ink">{{ ev.event_name }}</p>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="mx-auto max-w-3xl mt-12 bg-white rounded-3xl border-2 border-black p-10 shadow-xl text-center text-ink-light">
+    No events or holidays recorded for {{ month_name }} yet.
+  </div>
+  {% endif %}
+</main>
 {% include 'footer.html' %}
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
 </body>
 </html>
