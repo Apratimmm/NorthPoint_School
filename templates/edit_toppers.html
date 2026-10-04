@@ -42,7 +42,7 @@
     <div class="mb-4">
       <label class="block text-sm font-medium mb-1">Photo</label>
       {% if topper.image %}
-        <img src="{{ topper.image.url }}?f_auto,q_auto" alt="Topper" class="h-32 mb-3 rounded" loading="lazy">
+        <img src="{{ topper.image.url }}?f_auto,q_auto" alt="Topper" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128">
         <form method="post" action="/edit_results/" class="inline">
           {% csrf_token %}
           <input type="hidden" name="form_type" value="delete_topper_image">
