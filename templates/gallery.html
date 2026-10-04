@@ -29,7 +29,7 @@
     <p class="mt-4 text-xl text-ink-light">Moments from across the school year.</p>
   </div>
 
-  {% for event in events %}
+  {% for event in page_obj %}
   <section class="mx-auto max-w-6xl mb-16">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
       <!-- Left Card: Event Info -->
@@ -47,15 +47,15 @@
         <div class="relative z-10">
           {% with images=event.images.all %}
           {% if images %}
-            <div id="gallery-{{ forloop.counter }}" class="relative">
+            <div id="gallery-{{ event.id }}" class="relative">
               {% for img in images %}
               <div class="gallery-slide {% if forloop.first %}relative h-72 lg:h-96{% else %}hidden relative h-72 lg:h-96{% endif %}">
                 <img src="{{ img.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="{{ event.event_name }}" loading="lazy" width="800" height="450">
               </div>
               {% endfor %}
               {% if images|length > 1 %}
-              <button onclick="cycleEvent({{ forloop.counter }}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8249;</button>
-              <button onclick="cycleEvent({{ forloop.counter }}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8250;</button>
+              <button onclick="cycleEvent({{ event.id }}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8249;</button>
+              <button onclick="cycleEvent({{ event.id }}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8250;</button>
               {% endif %}
             </div>
           {% else %}
@@ -73,6 +73,21 @@
     No gallery events available.
   </div>
   {% endfor %}
+
+  {% if page_obj.has_previous or page_obj.has_next %}
+  <div class="mx-auto max-w-6xl flex justify-center items-center gap-4 mt-10">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+        <span aria-hidden="true">&#8249;</span> Prev
+      </a>
+    {% endif %}
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+        Next <span aria-hidden="true">&#8250;</span>
+      </a>
+    {% endif %}
+  </div>
+  {% endif %}
 </main>
 {% include 'footer.html' %}
 </body>

@@ -19,30 +19,45 @@
   </div>
 
     <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6">
-  {% for n in notices %}
+  {% for n in page_obj %}
   <section class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
     <h2 class="text-3xl font-bold text-ink mb-3">{{ n.title }}</h2>
     <span class="font-semibold uppercase tracking-wide text-canary-dark text-sm">{{ n.date }}</span>
     <div class="w-full h-0.5 bg-black/20 my-6"></div>
     <p class="text-ink-light leading-relaxed">{{ n.body }}</p>
     {% if n.images.all %}
-    <div class="mt-4 relative h-48" id="notice-gallery-{{ forloop.counter }}">
+    <div class="mt-4 relative h-48" id="notice-gallery-{{ n.id }}">
       {% for img in n.images.all %}
       <div class="gallery-slide {% if forloop.first %}relative h-full{% else %}hidden relative h-full{% endif %}">
         <img onclick="openLightbox(this.src)" src="{{ img.image.url }}?f_auto,q_auto" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Notice" loading="lazy" width="800" height="450">
       </div>
       {% endfor %}
       {% if n.images.all|length > 1 %}
-      <button onclick="cycleNotice({{ forloop.counter }}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8249;</button>
-      <button onclick="cycleNotice({{ forloop.counter }}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8250;</button>
+      <button onclick="cycleNotice({{ n.id }}, -1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8249;</button>
+      <button onclick="cycleNotice({{ n.id }}, 1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 border-2 border-black rounded-full p-2 shadow-lg hover:bg-canary">&#8250;</button>
       {% endif %}
     </div>
     {% endif %}
   </section>
   {% empty %}
-  <p class="text-ink-light">No notices available.</p>
+  <p class="text-ink-light md:col-span-2">No notices available.</p>
   {% endfor %}
   </div>
+
+  {% if page_obj.has_previous or page_obj.has_next %}
+  <div class="mx-auto max-w-5xl flex justify-center items-center gap-4 mt-10">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+        <span aria-hidden="true">&#8249;</span> Prev
+      </a>
+    {% endif %}
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+        Next <span aria-hidden="true">&#8250;</span>
+      </a>
+    {% endif %}
+  </div>
+  {% endif %}
 </main>
 <div id="lb" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true"><img id="lb-img" src="" class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-2 border-white/20"></div>
 <script>

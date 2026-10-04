@@ -304,10 +304,9 @@ class Notice(models.Model):
         help_text="Free-form date, e.g. Baisakh 20, 2083 OR 23 Baisakh, 2083",
     )
     body = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-id"]
         verbose_name = "notice"
         verbose_name_plural = "notices"
 

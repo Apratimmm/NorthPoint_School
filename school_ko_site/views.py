@@ -29,8 +29,12 @@ def about_us(request):
     })
 
 def gallery(request):
-    events = GalleryEvent.objects.prefetch_related("images").all()
-    return render(request, "gallery.html", {"events": events})
+    from django.core.paginator import Paginator
+    events = GalleryEvent.objects.prefetch_related("images").only("id", "event_name", "event_date")
+    paginator = Paginator(events, 4)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+    return render(request, "gallery.html", {"page_obj": page_obj})
 
 def calendar(request):
     return render(request,"calendar.html")
@@ -40,8 +44,15 @@ def user_login(request):
     return render(request, 'login.html')
 
 def notices(request):
-    notice_list = Notice.objects.all()
-    return render(request, "notices.html", {"notices": notice_list})
+    from django.core.paginator import Paginator
+    notice_list = (
+        Notice.objects.prefetch_related("images")
+        .only("id", "title", "date", "body")
+    )
+    paginator = Paginator(notice_list, 4)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+    return render(request, "notices.html", {"page_obj": page_obj})
 
 def results(request):
     SEE = SEEResults.objects.filter(id=1).first()
