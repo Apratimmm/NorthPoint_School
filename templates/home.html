@@ -45,10 +45,10 @@
         <div class="mx-auto max-w-[85rem] mb-12">
           <div class="relative w-full aspect-video rounded-3xl border-2 border-black overflow-hidden shadow-xl bg-ink">
             <video id="school-video" autoplay loop muted playsinline class="w-full h-full object-cover" aria-label="School video" onloadeddata="this.nextElementSibling.style.opacity='0'">
-              <source src="{% if video_url %}{{ video_url }}{% else %}{% static 'school-video/school.mp4' %}{% endif %}" type="video/mp4">
+              {% if video_url %}<source src="{{ video_url }}" type="video/mp4">{% endif %}
             </video>
             <div class="absolute inset-0 flex items-center justify-center text-white/70 text-lg font-medium tracking-wide pointer-events-none opacity-100 transition-opacity duration-500">
-              Loading school video…
+              Loading school video.....
             </div>
           </div>
         </div>
