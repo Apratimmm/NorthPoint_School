@@ -59,11 +59,13 @@
     </form>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">{% for leader in leaders %}
         <div class="bg-white rounded-3xl border-2 border-ink p-6 shadow-xl">
-            <div class="flex items-center gap-4 mb-3"><img src="
-                    {% if leader.image %}{{ leader.image.url }}{% else %}https://ui-avatars.com/api/?name={{ leader.name|urlencode }}&background=fde047&color=0f172a&size=256{% endif %}"
-                                                           alt="{{ leader.name }}"
-                                                           class="h-16 w-16 rounded-xl object-cover border-2 border-ink" loading="lazy" width="64" height="64">
-            </div>
+            <div class="flex items-center gap-4 mb-3">
+            {% if leader.image %}
+              <img src="{{ leader.image.url }}" alt="{{ leader.name }}" class="h-16 w-16 rounded-xl object-cover border-2 border-ink" loading="lazy" width="64" height="64">
+            {% else %}
+              <span class="text-ink-light text-sm font-medium tracking-wide border-black border-2 m-2 p-2 rounded-3xl">no image</span>
+            {% endif %}
+          </div>
             <h3 class="font-bold text-xl">{{ leader.name }}</h3>
             <p class="text-sm text-ink-light">{{ leader.designation }}</p>
             <form method="post" enctype="multipart/form-data" class="mt-4 space-y-2">
