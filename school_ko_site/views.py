@@ -6,6 +6,10 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Prefetch
 from django.views.decorators.cache import never_cache, cache_page
+
+PAGE_CACHE_SECONDS = 300
+
+@cache_page(PAGE_CACHE_SECONDS)
 def home(request):
     welcome = HomePage.objects.filter(section="text").first()
     images = list(HomePage.objects.filter(section="image"))
@@ -15,6 +19,7 @@ def home(request):
     }
     return render(request, "home.html", context)
 
+@cache_page(PAGE_CACHE_SECONDS)
 def about_us(request):
     sections = {s.section: s for s in AboutSection.objects.all()}
     messages = list(Messages.objects.all()[:2])
@@ -29,6 +34,7 @@ def about_us(request):
         "message_2": message_2,
     })
 
+@cache_page(PAGE_CACHE_SECONDS)
 def gallery(request):
     from django.core.paginator import Paginator
     events = GalleryEvent.objects.prefetch_related("images").only("id", "event_name", "event_date")
@@ -41,6 +47,7 @@ def gallery(request):
 def user_login(request):
     return render(request, 'login.html')
 
+@cache_page(PAGE_CACHE_SECONDS)
 def notices(request):
     from django.core.paginator import Paginator
     notice_list = (
@@ -52,25 +59,29 @@ def notices(request):
     page_obj = paginator.get_page(page_number)
     return render(request, "notices.html", {"page_obj": page_obj})
 
+@cache_page(PAGE_CACHE_SECONDS)
 def results(request):
     SEE = SEEResults.objects.filter(id=1).first()
     toppers = Topper.objects.all()[:5]
     return render(request, "results.html", {"SEE": SEE, "toppers": toppers})
 
+@cache_page(PAGE_CACHE_SECONDS)
 def contact(request):
     return render(request, "contact.html")
 
+@cache_page(PAGE_CACHE_SECONDS)
 def academics(request):
     primary = Academic.objects.filter(school="primary").first()
     secondary = Academic.objects.filter(school="secondary").first()
     return render(request, "academics.html", {"primary": primary, "secondary": secondary})
 
+@cache_page(PAGE_CACHE_SECONDS)
 def faculty(request):
     leaders = FacultyLeader.objects.all()
     members = FacultyMember.objects.all()
     return render(request, "faculty.html", {"leaders": leaders, "members": members})
 
-@cache_page(300)
+@cache_page(PAGE_CACHE_SECONDS)
 def calendar(request):
     from datetime import date
     default_month = (date.today().month + 8) % 12 + 1
