@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary',
     'django.contrib.staticfiles',
-    'logic'
+    'logic.apps.LogicConfig',
 ]
 
 MIDDLEWARE = [
