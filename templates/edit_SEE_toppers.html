@@ -28,7 +28,7 @@
 {% for topper in toppers %}
 <div class="bg-white rounded-2xl border-2 border-ink p-8 shadow-none mb-8">
   <h2 class="text-xl font-bold mb-4">Topper {{ forloop.counter }}</h2>
-  <form method="post" action="/edit_results/" enctype="multipart/form-data" class="space-y-4">
+  <form method="post" action="/edit_SEE_toppers/" enctype="multipart/form-data" class="space-y-4">
     {% csrf_token %}
     <input type="hidden" name="form_type" value="topper">
     <input type="hidden" name="topper_id" value="{{ topper.id }}">
@@ -42,14 +42,14 @@
       <label class="block text-sm font-medium mb-1">Photo</label>
       {% if topper.image %}
         <img src="{{ topper.image.url }}?f_auto,q_auto" alt="Topper" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128">
-        <form method="post" action="/edit_results/" class="inline">
+        <form method="post" action="/edit_SEE_toppers/" class="inline">
           {% csrf_token %}
           <input type="hidden" name="form_type" value="delete_topper_image">
           <input type="hidden" name="topper_id" value="{{ topper.id }}">
           <button type="submit" class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 text-sm font-semibold px-4 py-2 rounded-xl transition">Delete photo</button>
         </form>
       {% else %}
-        <input type="file" name="image" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 rounded-xl border-2 border-ink bg-white font-semibold hover:bg-canary/20 cursor-pointer mb-3">
+          <input type="file" name="image" accept="image/*" class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
       {% endif %}
     </div>
 

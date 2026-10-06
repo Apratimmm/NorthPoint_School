@@ -167,15 +167,15 @@ class ContactInfo(models.Model):
         numbers = self.telephone.replace(",", "\n").splitlines()
         return [num.strip() for num in numbers if num.strip()]
 
-class Topper(models.Model):
+class SEEToppers(models.Model):
     name = models.CharField(max_length=150)
     score = models.DecimalField(max_digits=5, decimal_places=2)
     image = models.ImageField(upload_to="toppers/", blank=True, null=True)
 
     class Meta:
         ordering = ["-score"]
-        verbose_name = "topper"
-        verbose_name_plural = "toppers"
+        verbose_name = "seetopper"
+        verbose_name_plural = "seetoppers"
 
     def __str__(self):
         return f"{self.name} - {self.score}"
@@ -381,3 +381,36 @@ class SEEResults(models.Model):
 
     class Meta:
         verbose_name = "SEE Results"
+
+class Plus2Results(models.Model):
+    year = models.IntegerField(default=0)
+    candidate_count = models.PositiveIntegerField(default=0)
+    pass_rate = models.FloatField(default=0.0)
+    average_gpa = models.FloatField(default=0.0)
+
+    class Meta:
+        verbose_name = "Plus2 Results"
+
+class Plus2Toppers(models.Model):
+    STREAM_CHOICES = [
+        ("science", "Science"),
+        ("management", "Management"),
+        ("arts", "Arts"),
+        ("combined","Combined"),
+    ]
+    stream = models.CharField(
+        max_length=20,
+        choices=STREAM_CHOICES,
+        help_text="Which stream this result belongs to"
+    )
+    name = models.CharField(max_length=150)
+    score = models.DecimalField(max_digits=5, decimal_places=2)
+    image = models.ImageField(upload_to="toppers/", blank=True, null=True)
+
+    class Meta:
+        ordering = ["-score"]
+        verbose_name = "plus2topper"
+        verbose_name_plural = "plus2toppers"
+
+    def __str__(self):
+        return f"{self.name} - {self.score}"

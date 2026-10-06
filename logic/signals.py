@@ -8,7 +8,7 @@ CONTENT_MODELS = (
     models.Messages,
     models.Academic,
     models.ContactInfo,
-    models.Topper,
+    models.SEEToppers,
     models.GalleryEvent,
     models.GalleryImage,
     models.MonthInfo,
@@ -19,6 +19,8 @@ CONTENT_MODELS = (
     models.FacultyLeader,
     models.FacultyMember,
     models.SEEResults,
+    models.Plus2Results,
+    models.Plus2Toppers,
 )
 
 def clear_site_cache(**kwargs):

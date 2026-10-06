@@ -62,8 +62,42 @@ def notices(request):
 @cache_page(PAGE_CACHE_SECONDS)
 def results(request):
     SEE = SEEResults.objects.filter(id=1).first()
-    toppers = Topper.objects.all()[:5]
-    return render(request, "results.html", {"SEE": SEE, "toppers": toppers})
+    toppers = SEEToppers.objects.all()[:5]
+    PLUS2 = Plus2Results.objects.filter(id=1).first()
+    plus2_toppers_by_stream = []
+    fallback_used = False
+    for stream_value, stream_label in Plus2Toppers.STREAM_CHOICES:
+        stream_toppers = list(Plus2Toppers.objects.filter(stream=stream_value)[:5])
+        plus2_toppers_by_stream.append({
+            "label": stream_label,
+            "value": stream_value,
+            "toppers": stream_toppers,
+            "display": True,
+        })
+
+    main_streams = {"science", "management", "arts"}
+
+    def _stream_has_data(toppers):
+        return any(t.name for t in toppers)
+
+    main_has_data = any(
+        _stream_has_data(next(s["toppers"] for s in plus2_toppers_by_stream if s["value"] == v))
+        for v in main_streams
+    )
+    for s in plus2_toppers_by_stream:
+        if s["value"] in main_streams:
+            s["display"] = _stream_has_data(s["toppers"])
+        else:
+            s["display"] = (not main_has_data)
+            if not main_has_data:
+                fallback_used = True
+    return render(request, "results.html", {
+        "SEE": SEE,
+        "toppers": toppers,
+        "PLUS2": PLUS2,
+        "plus2_toppers_by_stream": plus2_toppers_by_stream,
+        "plus2_fallback_used": fallback_used,
+    })
 
 @cache_page(PAGE_CACHE_SECONDS)
 def contact(request):

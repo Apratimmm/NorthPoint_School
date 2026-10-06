@@ -18,15 +18,25 @@
     <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Results</h1>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <a href="{% url 'edit_SEE' %}"
+        <a href="{% url 'edit_SEE_results' %}"
            class="block bg-white rounded-3xl border-2 border-ink p-8 shadow-xl hover:shadow-2xl transition hover:-translate-y-1">
             <h2 class="text-2xl font-bold mb-2">Edit SEE results</h2>
             <p class="text-sm text-ink-light">Manage the numbers of your last SEE examination.</p>
         </a>
-        <a href="{% url 'edit_toppers' %}"
+        <a href="{% url 'edit_SEE_toppers' %}"
            class="block bg-white rounded-3xl border-2 border-ink p-8 shadow-xl hover:shadow-2xl transition hover:-translate-y-1">
             <h2 class="text-2xl font-bold mb-2">Edit Toppers</h2>
             <p class="text-sm text-ink-light">Manage the information of the toppers of your last SEE examination</p>
+        </a>
+        <a href="{% url 'edit_Plus2_results' %}"
+           class="block bg-white rounded-3xl border-2 border-ink p-8 shadow-xl hover:shadow-2xl transition hover:-translate-y-1">
+            <h2 class="text-2xl font-bold mb-2">Edit Plus2 results</h2>
+            <p class="text-sm text-ink-light">Manage the numbers of your last +12 examination.</p>
+        </a>
+        <a href="{% url 'show_streams' %}"
+           class="block bg-white rounded-3xl border-2 border-ink p-8 shadow-xl hover:shadow-2xl transition hover:-translate-y-1">
+            <h2 class="text-2xl font-bold mb-2">Edit Plus2 Toppers</h2>
+            <p class="text-sm text-ink-light">Manage the information of the toppers of your last +12 examination</p>
         </a>
     </div>
 </main>
