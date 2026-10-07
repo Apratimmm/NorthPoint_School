@@ -182,11 +182,11 @@ def edit_event(request, event_id):
 @login_required
 def delete_event(request, event_id):
     event = get_object_or_404(GalleryEvent, id=event_id)
-    first_name = event.first_name
+    event_pk = event.id
     event_name = event.event_name
     event.delete()
     try:
-        cloudinary.api.delete_folder(f"gallery/{first_name}")
+        cloudinary.api.delete_folder(f"gallery/{event_pk}")
     except Exception:
         pass
     messages.success(request, f'Event "{event_name}" deleted successfully!')

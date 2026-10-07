@@ -199,8 +199,7 @@ class GalleryEvent(models.Model):
         return super().delete(*args, **kwargs)
 
 def gallery_image_upload_path(instance, filename):
-    name = (instance.event.event_name or "unnamed").strip().replace(" ", "_").replace("/", "")
-    return os.path.join("gallery", name, filename)
+    return os.path.join("gallery", str(instance.event.id), filename)
 
 class GalleryImage(models.Model):
     event = models.ForeignKey(
@@ -393,10 +392,10 @@ class Plus2Results(models.Model):
 
 class Plus2Toppers(models.Model):
     STREAM_CHOICES = [
-        ("science", "Science"),
+        ("humanities", "Humanities"),
         ("management", "Management"),
-        ("arts", "Arts"),
-        ("combined","Combined"),
+        ("computer_science", "Computer Science"),
+        ("combined", "Combined"),
     ]
     stream = models.CharField(
         max_length=20,
