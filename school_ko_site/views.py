@@ -75,7 +75,7 @@ def results(request):
             "display": True,
         })
 
-    main_streams = {"science", "management", "arts"}
+    main_streams = {"humanities", "management", "computer_science"}
 
     def _stream_has_data(toppers):
         return any(t.name for t in toppers)
