@@ -590,7 +590,7 @@ def show_months(request):
 
 @login_required
 def show_calendar(request,month_id):
-    month = MonthInfo.objects.prefetch_related("events").get(month=month_id)
+    month = MonthInfo.objects.prefetch_related("events").filter(month=month_id).first()
 
     if month:
         return render(request, "show_calendar.html", {
