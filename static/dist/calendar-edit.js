@@ -44,7 +44,12 @@ function renderMonth(monthName, daysInMonth, firstDay, extraByDay) {
   for (let i = 0; i < firstDay; i++) cells.push('<div class="aspect-square"></div>');
   for (let d = 1; d <= daysInMonth; d++) {
     const ev = eventFor(d);
-    const tone = ev ? (ev.type === "holiday" ? "bg-red-100 text-red-700 rounded-full" : "bg-blue-100 text-blue-700 rounded-full") : "text-ink/70";
+    const isWeekend = weekendDays.has(d);
+    // Weekends always stay red; an event placed on a weekend does not
+    // override the weekend highlight.
+    const tone = isWeekend
+      ? "bg-red-100 text-red-700 rounded-full"
+      : (ev ? (ev.type === "holiday" ? "bg-red-100 text-red-700 rounded-full" : "bg-blue-100 text-blue-700 rounded-full") : "text-ink/70");
     const title = ev ? ev.label : "Click to add an event";
     cells.push(`<div data-day="${d}" title="${title}" class="day-cell flex aspect-square cursor-pointer items-center justify-center rounded-lg text-sm ${tone} transition hover:bg-canary/20">`+d+`</div>`);
   }

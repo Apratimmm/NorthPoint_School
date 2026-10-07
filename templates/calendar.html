@@ -40,7 +40,7 @@
     {% for week in grid %}
     <div class="grid grid-cols-7">
       {% for cell in week %}
-      <div class="min-h-[5rem] border-t border-l border-black/10 p-1 text-sm hover:bg-canary/40 flex items-center justify-center {% if cell.events and cell.events.0.event_type == 'holiday' %}bg-red-500/20{% endif %}{% if cell.events and cell.events.0.event_type != 'holiday' %}bg-blue-500/20{% endif %}{% if cell.day and forloop.counter == 1 %}bg-red-500/20{% endif %}{% if cell.day and forloop.counter == 7 %}bg-red-500/20{% endif %}">
+      <div class="min-h-[5rem] border-t border-l border-black/10 p-1 text-sm hover:bg-canary/40 flex items-center justify-center {% if cell.day and forloop.counter == 1 %}bg-red-500/20{% elif cell.day and forloop.counter == 7 %}bg-red-500/20{% elif cell.events and cell.events.0.event_type == 'holiday' %}bg-red-500/20{% elif cell.events and cell.events.0.event_type != 'holiday' %}bg-blue-500/20{% endif %}">
         {% if cell.day %}
         <div class="font-bold text-ink">{{ cell.day }}</div>
         {% for ev in cell.events %}
