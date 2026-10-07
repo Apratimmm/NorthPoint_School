@@ -64,16 +64,22 @@ def results(request):
     SEE = SEEResults.objects.filter(id=1).first()
     toppers = SEEToppers.objects.all()[:5]
     PLUS2 = Plus2Results.objects.filter(id=1).first()
-    plus2_toppers_by_stream = []
     fallback_used = False
+    by_stream = {}
+    for t in Plus2Toppers.objects.all():
+        by_stream.setdefault(t.stream, []).append(t)
+
+    plus2_toppers_by_stream = []
+    streams_by_value = {}
     for stream_value, stream_label in Plus2Toppers.STREAM_CHOICES:
-        stream_toppers = list(Plus2Toppers.objects.filter(stream=stream_value)[:5])
-        plus2_toppers_by_stream.append({
+        entry = {
             "label": stream_label,
             "value": stream_value,
-            "toppers": stream_toppers,
+            "toppers": by_stream.get(stream_value, [])[:5],
             "display": True,
-        })
+        }
+        plus2_toppers_by_stream.append(entry)
+        streams_by_value[stream_value] = entry
 
     main_streams = {"humanities", "management", "computer_science"}
 
@@ -81,7 +87,7 @@ def results(request):
         return any(t.name for t in toppers)
 
     main_has_data = any(
-        _stream_has_data(next(s["toppers"] for s in plus2_toppers_by_stream if s["value"] == v))
+        _stream_has_data(streams_by_value[v]["toppers"])
         for v in main_streams
     )
     for s in plus2_toppers_by_stream:
