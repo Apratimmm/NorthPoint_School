@@ -312,15 +312,32 @@ def edit_about_us(request):
         if form_type == "message":
             message_id = request.POST.get("message_id")
             msg = Messages.objects.filter(id=message_id).first() if message_id else None
+
+            message_title = request.POST.get("message_title", "")
+            message_body = request.POST.get("message_body", "")
+            person_name = request.POST.get("person_name", "")
+            person_position = request.POST.get("person_position", "")
+
             if msg:
-                msg.message_title = request.POST.get("message_title", "")
-                msg.message_body = request.POST.get("message_body", "")
-                msg.person_name = request.POST.get("person_name", "")
-                msg.person_position = request.POST.get("person_position", "")
+                msg.message_title = message_title
+                msg.message_body = message_body
+                msg.person_name = person_name
+                msg.person_position = person_position
                 if request.FILES.get("person_image"):
                     msg.person_image = request.FILES["person_image"]
                 msg.save()
                 messages.success(request, "Message updated successfully!")
+            else:
+                new_msg = Messages.objects.create(
+                    message_title=message_title,
+                    message_body=message_body,
+                    person_name=person_name,
+                    person_position=person_position,
+                )
+                if request.FILES.get("person_image"):
+                    new_msg.person_image = request.FILES["person_image"]
+                    new_msg.save()
+                messages.success(request, "Message added successfully!")
             return redirect("edit_about_us")
 
         if form_type == "history":
