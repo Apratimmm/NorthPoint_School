@@ -132,6 +132,8 @@ def add_event(request):
             [GalleryImage(event=event, image=img) for img in images]
         )
 
+        cache.clear()
+
         messages.success(request, "Event created successfully!")
         return redirect("show_events")
 
@@ -163,6 +165,7 @@ def edit_event(request, event_id):
             GalleryImage.objects.bulk_create(
                 [GalleryImage(event=event, image=img) for img in images]
             )
+            cache.clear()
 
             messages.success(request, "Images added successfully!")
             return redirect("edit_event", event_id=event.id)
@@ -223,6 +226,7 @@ def  add_notice(request):
         NoticeImage.objects.bulk_create(
             [NoticeImage(notice=notice, image=img) for img in images]
         )
+        cache.clear()
 
         messages.success(request, "Notice created successfully!")
         return redirect("show_notices")
@@ -396,6 +400,7 @@ def edit_homepage(request):
                 HomePage.objects.bulk_create([
                     HomePage(section="image", home_image=img) for img in images
                 ])
+                cache.clear()
                 messages.success(request, f"{len(images)} homepage image(s) added successfully!")
             return redirect("edit_homepage")
 
