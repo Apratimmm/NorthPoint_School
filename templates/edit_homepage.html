@@ -7,6 +7,8 @@
     <title>Edit Homepage - Admin</title>
     
     <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
@@ -67,7 +69,7 @@
             {% if images %}
                 {% for img in images %}
                 <div class="flex items-center gap-4 rounded-xl border-2 border-ink p-4">
-                    <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="h-20 w-20 object-cover rounded-lg" loading="lazy">
+                    <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="h-20 w-20 object-cover rounded-lg" loading="lazy" decoding="async">
                     <form method="post" action="/edit_homepage/" class="inline">
                         {% csrf_token %}
                         <input type="hidden" name="form_type" value="delete_home_image">

@@ -7,6 +7,8 @@
     <title>Edit Event - Admin</title>
     
     <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
@@ -83,7 +85,7 @@
               {% for img in event.images.all %}
                 <div class="relative group">
                   <img src="{{ img.image.url }}?f_auto,q_auto" alt="Gallery image"
-                       class="w-full h-48 object-cover rounded-xl shadow" loading="lazy" width="600" height="300">
+                       class="w-full h-48 object-cover rounded-xl shadow" loading="lazy" width="600" height="300" decoding="async">
 
                   <form method="POST" class="absolute top-2 right-2">
                     {% csrf_token %}

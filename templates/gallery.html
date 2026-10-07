@@ -8,6 +8,8 @@
   
   
   <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 {% include 'header.html' %}
@@ -39,7 +41,7 @@
             <div id="gallery-{{ event.id }}" class="relative">
               {% for img in images %}
               <div class="gallery-slide {% if forloop.first %}relative h-72 lg:h-96{% else %}hidden relative h-72 lg:h-96{% endif %}">
-                <img src="{{ img.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="{{ event.event_name }}" loading="lazy" width="800" height="450">
+                <img src="{{ img.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="{{ event.event_name }}" loading="lazy" width="800" height="450" decoding="async">
               </div>
               {% endfor %}
               {% if images|length > 1 %}

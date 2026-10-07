@@ -7,6 +7,8 @@
     <title>Edit Leaders - Admin</title>
     
     <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
@@ -53,7 +55,7 @@
         <div class="bg-white rounded-3xl border-2 border-ink p-6 shadow-xl">
             <div class="flex items-center gap-4 mb-3">
             {% if leader.image %}
-              <img src="{{ leader.image.url }}" alt="{{ leader.name }}" class="h-16 w-16 rounded-xl object-cover border-2 border-ink" loading="lazy" width="64" height="64">
+              <img src="{{ leader.image.url }}" alt="{{ leader.name }}" class="h-16 w-16 rounded-xl object-cover border-2 border-ink" loading="lazy" width="64" height="64" decoding="async">
             {% else %}
               <span class="text-ink-light text-sm font-medium tracking-wide border-black border-2 m-2 p-2 rounded-3xl">no image</span>
             {% endif %}

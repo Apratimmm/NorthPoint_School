@@ -6,6 +6,8 @@
 <title>Edit Results - Admin</title>
 
 <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
@@ -40,7 +42,7 @@
     <div class="mb-4">
       <label class="block text-sm font-medium mb-1">Photo</label>
       {% if topper.image %}
-        <img src="{{ topper.image.url }}?f_auto,q_auto" alt="Topper" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128">
+        <img src="{{ topper.image.url }}?f_auto,q_auto" alt="Topper" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128" decoding="async">
         <form method="post" action="/edit_SEE_toppers/" class="inline">
           {% csrf_token %}
           <input type="hidden" name="form_type" value="delete_topper_image">

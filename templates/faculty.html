@@ -6,13 +6,15 @@
 <title>Faculty - North Point</title>
 
 <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 {% include 'header.html' %}
 <main class="px-4 py-12">
   <div class="mx-auto max-w-5xl text-center mb-14">
      <h1 class="text-5xl font-bold text-ink tracking-tight">The people who teach</h1>
-    <p class="mt-4 text-xl text-ink-light">Our leadership team and the subject teachers who guide students from grade one to the SEE — qualified, experienced, and always approachable.</p>
+    <p class="mt-4 text-xl text-ink-light">Our leadership team and the subject teachers who guide students from grade one to the SEE - qualified, experienced, and always approachable.</p>
   </div>
 
   <!-- Leadership -->
@@ -25,7 +27,7 @@
         <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">{{ leader.designation }}</p>
         <div class="w-full h-0.5 bg-black/20 my-6"></div>
         {% if leader.image %}
-          <img src="{{ leader.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256">
+          <img src="{{ leader.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256" decoding="async">
         {% else %}
           <div class="rounded-3xl border-2 border-black w-full aspect-square bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
             no image yet

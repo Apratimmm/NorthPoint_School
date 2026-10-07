@@ -10,17 +10,19 @@
     
     
     <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased flex flex-col min-h-screen">
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
       <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12">
         <a href="{% url 'home' %}" class="flex items-center gap-3 group">
             {% if logo_url %}
-              <img src="{{ logo_url }}?f_auto,q_auto" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56">
+              <img src="{{ logo_url }}?f_auto,q_auto" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56" decoding="async">
             {% else %}
               <picture>
                 <source srcset="{% static 'logo.webp' %}" type="image/webp">
-                <img src="{% static 'logo.png' %}" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56">
+                <img src="{% static 'logo.png' %}" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56" decoding="async">
               </picture>
             {% endif %}
           <div class="leading-tight">

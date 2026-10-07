@@ -14,6 +14,8 @@
     
     
     <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 
@@ -63,7 +65,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {% for img in home_images %}
                    <div onclick="openLightbox(this.querySelector('img').src)" class="overflow-hidden rounded-2xl border-2 border-black shadow-md {% if home_images|length|divisibleby:2 == False and forloop.first %}md:col-span-2 h-64 md:h-80{% else %}h-48{% endif %} cursor-zoom-in">
-                    <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="w-full h-full object-cover" loading="lazy" width="800" height="450">
+                    <img src="{{ img.home_image.url }}?f_auto,q_auto" alt="Homepage image" class="w-full h-full object-cover" loading="lazy" width="800" height="450" decoding="async">
                   </div>
                   {% endfor %}
                     </div>

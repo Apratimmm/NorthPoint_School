@@ -5,11 +5,11 @@
     <div class="flex flex-col sm:flex-row gap-6">
           <div class="flex-shrink-0">
               {% if logo_url %}
-                <img src="{{ logo_url }}?f_auto,q_auto" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56">
+                <img src="{{ logo_url }}?f_auto,q_auto" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56" decoding="async">
               {% else %}
                 <picture>
                 <source srcset="{% static 'logo.webp' %}" type="image/webp">
-                <img src="{% static 'logo.png' %}" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56">
+                <img src="{% static 'logo.png' %}" alt="North Point Logo" class="h-14 w-14 rounded-xl object-contain" loading="lazy" width="56" height="56" decoding="async">
               </picture>
               {% endif %}
           </div>

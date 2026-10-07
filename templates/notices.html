@@ -6,6 +6,8 @@
 <title>Notices - North Point</title>
 
 <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 {% include 'header.html' %}
@@ -26,7 +28,7 @@
     <div class="mt-4 relative h-48" id="notice-gallery-{{ n.id }}">
       {% for img in n.images.all %}
       <div class="gallery-slide {% if forloop.first %}relative h-full{% else %}hidden relative h-full{% endif %}">
-        <img onclick="openLightbox(this.src)" src="{{ img.image.url }}?f_auto,q_auto" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Notice" loading="lazy" width="800" height="450">
+        <img onclick="openLightbox(this.src)" src="{{ img.image.url }}?f_auto,q_auto" class="rounded-3xl border-2 border-black w-full h-full object-cover cursor-zoom-in" alt="Notice" loading="lazy" width="800" height="450" decoding="async">
       </div>
       {% endfor %}
       {% if n.images.all|length > 1 %}

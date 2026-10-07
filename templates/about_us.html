@@ -10,6 +10,8 @@
     
     
     <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 
@@ -131,7 +133,7 @@
           </div>
           <div class="flex-1 bg-white rounded-2xl border-2 border-black overflow-hidden shadow-sm flex items-center justify-center">
             {% if message_1 and message_1.person_image %}
-              <img src="{{ message_1.person_image.url }}" onclick="openLightbox(this.src)" alt="message_1" class="w-full h-full object-cover" loading="lazy" width="400" height="500">
+              <img src="{{ message_1.person_image.url }}" onclick="openLightbox(this.src)" alt="message_1" class="w-full h-full object-cover" loading="lazy" width="400" height="500" decoding="async">
             {% else %}
               <span class="text-ink-light text-lg font-medium tracking-wide">no image yet</span>
             {% endif %}
@@ -150,7 +152,7 @@
           </div>
           <div class="flex-1 bg-white rounded-2xl border-2 border-black overflow-hidden shadow-sm flex items-center justify-center">
             {% if message_2 and message_2.person_image %}
-                <img src="{{ message_2.person_image.url }}" onclick="openLightbox(this.src)" alt="Principal" class="w-full h-full object-cover" loading="lazy" width="400" height="500">
+                <img src="{{ message_2.person_image.url }}" onclick="openLightbox(this.src)" alt="Principal" class="w-full h-full object-cover" loading="lazy" width="400" height="500" decoding="async">
             {% else %}
                 <span class="text-ink-light text-lg font-medium tracking-wide">no image yet</span>
             {% endif %}

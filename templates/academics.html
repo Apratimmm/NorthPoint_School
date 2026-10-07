@@ -8,6 +8,8 @@
 
 
 <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 {% include 'header.html' %}
@@ -30,7 +32,7 @@
           </div>
           <div class="xl:w-1/2 w-full">
             {% if primary.image %}
-              <img src="{{ primary.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Primary learning" loading="lazy" width="800" height="500">
+              <img src="{{ primary.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Primary learning" loading="lazy" width="800" height="500" decoding="async">
             {% else %}
               <div class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
                 no image yet
@@ -73,7 +75,7 @@
         <div class="relative z-10 flex flex-col xl:flex-row gap-8 lg:gap-10 items-center h-full justify-between">
           <div class="xl:w-1/2 w-full">
             {% if secondary.image %}
-              <img src="{{ secondary.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Secondary learning" loading="lazy" width="800" height="500">
+              <img src="{{ secondary.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 object-cover cursor-zoom-in" alt="Secondary learning" loading="lazy" width="800" height="500" decoding="async">
             {% else %}
               <div class="rounded-3xl border-2 border-black shadow-xl w-full h-64 lg:h-80 xl:h-96 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
                 no image yet

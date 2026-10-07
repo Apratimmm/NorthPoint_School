@@ -3,6 +3,8 @@
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Edit Contact - Admin</title>
 <link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="bg-lime-cream text-ink antialiased">
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
@@ -59,7 +61,7 @@
             <div class="mb-4">
               <label class="block text-sm font-medium mb-1">Logo</label>
               {% if contact.logo %}
-                <img src="{{ contact.logo.url }}?f_auto,q_auto" alt="Current logo" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128">
+                <img src="{{ contact.logo.url }}?f_auto,q_auto" alt="Current logo" class="h-32 mb-3 rounded" loading="lazy" width="128" height="128" decoding="async">
                 <button type="button"
                         data-form-type="delete_logo"
                         class="js-delete-image bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700 hover:text-red-800 text-sm font-semibold px-4 py-2 rounded-xl transition">
