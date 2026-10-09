@@ -571,7 +571,7 @@ def send_email(request):
     try:
         resend.Emails.send({
             "from": "onboarding@resend.dev",
-            "to": "apratimkhadkaaa99@gmail.com",
+            "to": "northpoint222@gmail.com",
             "reply_to": email,
             "subject": f"Mail received from the school's website",
             "html": actual_message})
