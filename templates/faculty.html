@@ -24,7 +24,7 @@
       {% for leader in leaders %}
       <article class="w-full max-w-[18rem] bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
         <h3 class="text-2xl font-bold text-ink mb-1">{{ leader.name }}</h3>
-        <p class="font-semibold uppercase tracking-wide text-canary-dark text-sm">{{ leader.designation }}</p>
+        <p class="font-semibold uppercase tracking-wide text-ink text-sm">{{ leader.designation }}</p>
         <div class="w-full h-0.5 bg-black/20 my-6"></div>
         {% if leader.image %}
           <img src="{{ leader.image.url }}?f_auto,q_auto" onclick="openLightbox(this.src)" alt="{{ leader.name }}" class="rounded-3xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" loading="lazy" width="256" height="256" decoding="async">
@@ -61,7 +61,7 @@
     </table>
   </section>
 
-  <section class="mx-auto max-w-5xl bg-[#fdfce5] rounded-3xl border-2 border-black p-8 lg:p-10 shadow-sm mb-12">
+  <section class="mx-auto max-w-5xl bg-canary rounded-3xl border-2 border-black p-8 lg:p-10 shadow-sm mb-12">
     <p class="text-ink text-lg leading-relaxed">Every teacher at North Point holds at least a bachelor’s degree with a teaching qualification, and each department meets twice a term to review student progress together.</p>
   </section>
 </main>
