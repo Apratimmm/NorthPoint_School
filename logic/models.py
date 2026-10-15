@@ -358,7 +358,7 @@ class FacultyLeader(models.Model):
     class Meta:
         verbose_name = "faculty-leader"
         verbose_name_plural = "faculty-leaders"
-        ordering = ["name"]
+        ordering = ["id"]
 
     def __str__(self):
         return self.name
@@ -371,7 +371,7 @@ class FacultyMember(models.Model):
     class Meta:
         verbose_name = "faculty-member"
         verbose_name_plural = "faculty-members"
-        ordering = ["name"]
+        ordering = ["id"]
 
     def __str__(self):
         return f"{self.name} — {self.designation or 'Teacher'}"
