@@ -81,6 +81,10 @@ class Messages(models.Model):
         null=True,
         help_text="Optional image for this section"
     )
+    class Meta:
+        verbose_name = "message"
+        verbose_name_plural = "messages"
+        ordering = ["id"]
 
 class Academic(models.Model):
     SCHOOL_CHOICES = [
