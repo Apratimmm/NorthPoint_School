@@ -1,4 +1,5 @@
 {% load static %}
+{% load query_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,26 +34,40 @@
   </section>
 
   <!-- SEE Candidates Section -->
-  <section class="mx-auto max-w-5xl mb-10">
+  <section class="mx-auto max-w-6xl mb-16" id="see-candidates">
         <h2 class="text-3xl font-bold text-ink mb-6">SEE Candidates</h2>
-     <div class="flex flex-wrap justify-center gap-6">
+     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
       {% for c in candidates %}
-      <div class="w-full max-w-[18rem] bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-        <h3 class="text-2xl font-bold text-ink">{{ c.name }}</h3>
-        <span class="text-ink font-bold text-xl">{{ c.score }} GPA</span>
-        <div class="w-full h-0.5 bg-black/20 my-4"></div>
+      <div class="bg-white rounded-2xl border-2 border-black p-4 shadow-md text-center flex flex-col">
         {% if c.image %}
-        <img onclick="openLightbox(this.src)" src="{{ c.image.url }}?f_auto,q_auto" class="rounded-2xl border-2 border-black w-full h-56 object-cover cursor-zoom-in" alt="{{ c.name }}" loading="lazy" width="800" height="533" decoding="async">
+        <img onclick="openLightbox(this.dataset.full || this.src)" data-full="{{ c.image.url }}?f_auto,q_auto,w_1200" src="{{ c.image.url }}?f_auto,q_auto,w_400,h_400,c_fill" class="rounded-xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" alt="{{ c.name }}" loading="lazy" width="400" height="400" decoding="async">
         {% else %}
-        <div class="rounded-2xl border-2 border-black w-full h-56 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
+        <div class="rounded-xl border-2 border-black w-full aspect-square bg-black/5 flex items-center justify-center text-ink-light text-sm font-medium tracking-wide">
           No image yet
         </div>
         {% endif %}
+        <h3 class="mt-3 text-base sm:text-lg font-bold text-ink leading-tight">{{ c.name }}</h3>
+        <span class="mt-1 text-ink font-semibold text-sm sm:text-base">{{ c.score }} GPA</span>
       </div>
       {% endfor %}
     </div>
     {% if not candidates %}
     <p class="text-center text-ink-light">No candidates added yet.</p>
+    {% endif %}
+    {% if see_page_obj.paginator.num_pages > 1 %}
+    <div class="flex justify-center items-center gap-4 mt-8">
+      {% if see_page_obj.has_previous %}
+      <a href="?{% set_query 'see_page' see_page_obj.previous_page_number %}#see-candidates" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+        <span aria-hidden="true">&#8249;</span> Prev
+      </a>
+      {% endif %}
+      <span class="text-sm font-semibold uppercase tracking-wider text-ink-light">Page {{ see_page_obj.number }} of {{ see_page_obj.paginator.num_pages }}</span>
+      {% if see_page_obj.has_next %}
+      <a href="?{% set_query 'see_page' see_page_obj.next_page_number %}#see-candidates" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+        Next <span aria-hidden="true">&#8250;</span>
+      </a>
+      {% endif %}
+    </div>
     {% endif %}
   </section>
   {% endif %}
@@ -72,25 +87,41 @@
 
   {% if plus2_has_candidates %}
   <!-- Plus2 Candidates Section -->
-  <section class="mx-auto max-w-5xl">
+  <section class="mx-auto max-w-6xl">
     {% for stream in plus2_candidates_by_stream %}
       {% if stream.display %}
-      <h2 class="text-3xl font-bold text-ink mb-6">{{ stream.label }} Candidates</h2>
-      <div class="flex flex-wrap justify-center gap-6 mb-8">
-        {% for t in stream.candidates %}
-        <div class="w-full max-w-[18rem] bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-          <h3 class="text-2xl font-bold text-ink">{{ t.name }}</h3>
-          <span class="text-ink font-bold text-xl">{{ t.score }} GPA</span>
-          <div class="w-full h-0.5 bg-black/20 my-4"></div>
-          {% if t.image %}
-          <img onclick="openLightbox(this.src)" src="{{ t.image.url }}?f_auto,q_auto" class="rounded-2xl border-2 border-black w-full h-56 object-cover cursor-zoom-in" alt="{{ t.name }}" loading="lazy" width="800" height="533" decoding="async">
-          {% else %}
-          <div class="rounded-2xl border-2 border-black w-full h-56 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
-            No image yet
+      <div id="plus2-{{ stream.value }}" class="mb-16">
+        <h2 class="text-3xl font-bold text-ink mb-6">{{ stream.label }} Candidates</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {% for t in stream.candidates %}
+          <div class="bg-white rounded-2xl border-2 border-black p-4 shadow-md text-center flex flex-col">
+            {% if t.image %}
+            <img onclick="openLightbox(this.dataset.full || this.src)" data-full="{{ t.image.url }}?f_auto,q_auto,w_1200" src="{{ t.image.url }}?f_auto,q_auto,w_400,h_400,c_fill" class="rounded-xl border-2 border-black w-full aspect-square object-cover cursor-zoom-in" alt="{{ t.name }}" loading="lazy" width="400" height="400" decoding="async">
+            {% else %}
+            <div class="rounded-xl border-2 border-black w-full aspect-square bg-black/5 flex items-center justify-center text-ink-light text-sm font-medium tracking-wide">
+              No image yet
+            </div>
+            {% endif %}
+            <h3 class="mt-3 text-base sm:text-lg font-bold text-ink leading-tight">{{ t.name }}</h3>
+            <span class="mt-1 text-ink font-semibold text-sm sm:text-base">{{ t.score }} GPA</span>
           </div>
+          {% endfor %}
+        </div>
+        {% if stream.page_obj.paginator.num_pages > 1 %}
+        <div class="flex justify-center items-center gap-4 mt-8">
+          {% if stream.page_obj.has_previous %}
+          <a href="?{% set_query stream.page_param stream.page_obj.previous_page_number %}#plus2-{{ stream.value }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+            <span aria-hidden="true">&#8249;</span> Prev
+          </a>
+          {% endif %}
+          <span class="text-sm font-semibold uppercase tracking-wider text-ink-light">Page {{ stream.page_obj.number }} of {{ stream.page_obj.paginator.num_pages }}</span>
+          {% if stream.page_obj.has_next %}
+          <a href="?{% set_query stream.page_param stream.page_obj.next_page_number %}#plus2-{{ stream.value }}" class="inline-flex items-center gap-2 rounded-full bg-ink text-white px-6 py-3 text-sm font-bold uppercase tracking-wider hover:scale-105 hover:bg-ink-light transition">
+            Next <span aria-hidden="true">&#8250;</span>
+          </a>
           {% endif %}
         </div>
-        {% endfor %}
+        {% endif %}
       </div>
       {% endif %}
     {% endfor %}

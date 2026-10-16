@@ -8,6 +8,7 @@ from django.db.models import Prefetch
 from django.views.decorators.cache import never_cache, cache_page
 
 PAGE_CACHE_SECONDS = 300
+CANDIDATES_PER_PAGE = 12
 
 @cache_page(PAGE_CACHE_SECONDS)
 def home(request):
@@ -61,29 +62,43 @@ def notices(request):
 
 @cache_page(PAGE_CACHE_SECONDS)
 def results(request):
+    from django.core.paginator import Paginator
+
     visibility = ResultsVisibility.objects.filter(id=1).first()
     show_see = visibility.show_see if visibility else True
     show_plus2 = visibility.show_plus2 if visibility else True
 
     SEE = SEEResults.objects.filter(id=1).first()
-    candidates = SEECandidate.objects.all()
     PLUS2 = Plus2Results.objects.filter(id=1).first()
-    by_stream = {}
-    for t in Plus2Candidate.objects.all():
-        by_stream.setdefault(t.stream, []).append(t)
+
+    see_page_obj = None
+    if show_see:
+        see_page_obj = Paginator(
+            SEECandidate.objects.all(), CANDIDATES_PER_PAGE
+        ).get_page(request.GET.get("see_page"))
 
     plus2_candidates_by_stream = []
-    for stream_value, stream_label in Plus2Candidate.STREAM_CHOICES:
-        stream_candidates = by_stream.get(stream_value, [])
-        plus2_candidates_by_stream.append({
-            "label": stream_label,
-            "value": stream_value,
-            "candidates": stream_candidates,
-            "display": any(c.name for c in stream_candidates),
-        })
+    if show_plus2:
+        for stream_value, stream_label in Plus2Candidate.STREAM_CHOICES:
+            paginator = Paginator(
+                Plus2Candidate.objects.filter(stream=stream_value),
+                CANDIDATES_PER_PAGE,
+            )
+            page_param = f"plus2_{stream_value}_page"
+            page_obj = paginator.get_page(request.GET.get(page_param))
+            plus2_candidates_by_stream.append({
+                "label": stream_label,
+                "value": stream_value,
+                "page_param": page_param,
+                "page_obj": page_obj,
+                "candidates": page_obj.object_list,
+                "display": paginator.count > 0,
+            })
+
     return render(request, "results.html", {
         "SEE": SEE,
-        "candidates": candidates,
+        "see_page_obj": see_page_obj,
+        "candidates": see_page_obj.object_list if see_page_obj else [],
         "PLUS2": PLUS2,
         "plus2_candidates_by_stream": plus2_candidates_by_stream,
         "plus2_has_candidates": any(s["display"] for s in plus2_candidates_by_stream),
