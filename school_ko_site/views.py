@@ -64,45 +64,24 @@ def results(request):
     SEE = SEEResults.objects.filter(id=1).first()
     candidates = SEECandidate.objects.all()
     PLUS2 = Plus2Results.objects.filter(id=1).first()
-    fallback_used = False
     by_stream = {}
     for t in Plus2Toppers.objects.all():
         by_stream.setdefault(t.stream, []).append(t)
 
     plus2_toppers_by_stream = []
-    streams_by_value = {}
     for stream_value, stream_label in Plus2Toppers.STREAM_CHOICES:
-        entry = {
+        toppers = by_stream.get(stream_value, [])
+        plus2_toppers_by_stream.append({
             "label": stream_label,
             "value": stream_value,
-            "toppers": by_stream.get(stream_value, [])[:5],
-            "display": True,
-        }
-        plus2_toppers_by_stream.append(entry)
-        streams_by_value[stream_value] = entry
-
-    main_streams = {"humanities", "management", "computer_science"}
-
-    def _stream_has_data(toppers):
-        return any(t.name for t in toppers)
-
-    main_has_data = any(
-        _stream_has_data(streams_by_value[v]["toppers"])
-        for v in main_streams
-    )
-    for s in plus2_toppers_by_stream:
-        if s["value"] in main_streams:
-            s["display"] = _stream_has_data(s["toppers"])
-        else:
-            s["display"] = (not main_has_data)
-            if not main_has_data:
-                fallback_used = True
+            "toppers": toppers,
+            "display": any(t.name for t in toppers),
+        })
     return render(request, "results.html", {
         "SEE": SEE,
         "candidates": candidates,
         "PLUS2": PLUS2,
         "plus2_toppers_by_stream": plus2_toppers_by_stream,
-        "plus2_fallback_used": fallback_used,
     })
 
 @cache_page(PAGE_CACHE_SECONDS)

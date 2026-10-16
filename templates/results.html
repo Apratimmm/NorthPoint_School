@@ -68,11 +68,11 @@
     </div>
   </section>
 
-  <!-- Plus2 Toppers Section -->
+  <!-- Plus2 Candidates Section -->
   <section class="mx-auto max-w-5xl">
     {% for stream in plus2_toppers_by_stream %}
       {% if stream.display %}
-      <h2 class="text-3xl font-bold text-ink mb-6">{% if stream.value != 'combined' %}Top 5 Toppers - {{ stream.label }}{% else %}Top 5 Toppers{% endif %}</h2>
+      <h2 class="text-3xl font-bold text-ink mb-6">{{ stream.label }} Candidates</h2>
       <div class="flex flex-wrap justify-center gap-6 mb-8">
         {% for t in stream.toppers %}
         <div class="w-full max-w-[18rem] bg-white rounded-3xl border-2 border-black p-6 shadow-xl">

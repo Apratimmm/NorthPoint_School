@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Edit Plus2 Candidates - Admin</title>
+
+<link rel="stylesheet" href="{% static 'dist/tailwind.css' %}">
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="preload" href="{% static 'fonts/outfit-latin.woff2' %}" as="font" type="font/woff2" crossorigin>
+</head>
+<body class="bg-lime-cream text-ink antialiased">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b-2 border-black">
+    <div class="flex w-full items-center justify-between px-6 py-4 lg:px-12"><a href="{% url 'edit_results' %}"
+                                                                                class="text-xl font-bold tracking-tight text-ink">Back</a></div>
+</header>
+<main class="max-w-5xl mx-auto px-6 py-12"><h1 class="text-4xl font-bold tracking-tight mb-8">Edit Plus2 Candidates</h1>
+
+{% if messages %}
+    <div class="mb-6 space-y-3">
+        {% for message in messages %}
+            <div class="rounded-lg border-2 {% if message.tags == 'error' %}border-red-600 bg-red-50 text-red-900{% else %}border-green-600 bg-green-50 text-green-900{% endif %} p-4">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+<form method="post" action="{% url 'edit_Plus2_candidate' %}" enctype="multipart/form-data"
+      class="bg-white rounded-3xl border-2 border-black p-8 shadow-xl mb-10">{% csrf_token %}
+    <input type="hidden" name="form_type" value="add_candidate">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div><label class="block text-sm font-medium mb-1">Stream</label>
+            <select name="stream" class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans bg-white">
+                {% for value, label in streams %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select></div>
+        <div><label class="block text-sm font-medium mb-1">Name</label>
+            <input name="name" required class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans"></div>
+        <div><label class="block text-sm font-medium mb-1">Score</label>
+            <input name="score" type="number" step="0.01" required class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans"></div>
+    </div>
+    <div class="mb-4"><label class="block text-sm font-medium mb-1">Photo</label>
+        <input type="file" name="image" accept="image/*"
+               class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3"></div>
+    <div class="flex justify-end">
+        <button type="submit"
+                onclick="this.textContent='Adding...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
+                class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 font-semibold px-8 py-3 rounded-xl transition">
+            Add candidate
+        </button>
+    </div>
+</form>
+
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+{% for candidate in candidates %}
+    <div class="bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
+        <div class="flex items-center gap-4 mb-3">
+        {% if candidate.image %}
+            <img src="{{ candidate.image.url }}?f_auto,q_auto" alt="{{ candidate.name }}"
+                 class="h-16 w-16 rounded-xl object-cover border-2 border-ink" loading="lazy" width="64" height="64" decoding="async">
+        {% else %}
+            <span class="text-ink-light text-sm font-medium tracking-wide border-black border-2 m-2 p-2 rounded-3xl">no image</span>
+        {% endif %}
+        </div>
+        <h3 class="font-bold text-xl">{{ candidate.name }}</h3>
+        <p class="text-sm text-ink-light">{{ candidate.get_stream_display }} &middot; {{ candidate.score }}</p>
+
+        <form method="post" action="{% url 'edit_Plus2_candidate' %}" enctype="multipart/form-data" class="mt-4 space-y-2">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="update_candidate">
+            <input type="hidden" name="candidate_id" value="{{ candidate.id }}">
+            <select name="stream" class="w-full border-2 border-ink rounded-lg px-3 py-2 text-sm bg-white">
+                {% for value, label in streams %}
+                <option value="{{ value }}" {% if candidate.stream == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            <input name="name" value="{{ candidate.name }}"
+                   class="w-full border-2 border-ink rounded-lg px-3 py-2 text-sm">
+            <input name="score" type="number" step="0.01" value="{{ candidate.score }}"
+                   class="w-full border-2 border-ink rounded-lg px-3 py-2 text-sm">
+            {% if not candidate.image %}
+            <input type="file" name="image" accept="image/*"
+                   class="block w-full text-sm text-ink file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-2 file:border-ink file:bg-white file:text-ink file:font-semibold hover:file:bg-canary/20 cursor-pointer mb-3">
+            {% endif %}
+            <div class="flex gap-2">
+                <button type="submit"
+                        onclick="this.textContent='Updating...'; this.disabled=true; this.classList.add('opacity-75', 'cursor-not-allowed'); this.form.submit();"
+                        class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 font-semibold px-4 py-2 rounded-xl text-sm">Update</button>
+                <button type="submit"
+                        onclick="if(!confirm('Delete {{ candidate.name }}?')) return false; this.textContent='Deleting...'; this.classList.add('opacity-75','cursor-not-allowed');"
+                        name="form_type" value="delete_candidate"
+                        class="bg-transparent border-2 border-red-600 text-red-600 hover:bg-red-50 font-semibold px-4 py-2 rounded-xl text-sm">Delete</button>
+            </div>
+        </form>
+        {% if candidate.image %}
+        <form method="post" action="{% url 'edit_Plus2_candidate' %}" class="mt-2">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="delete_candidate_image">
+            <input type="hidden" name="candidate_id" value="{{ candidate.id }}">
+            <button type="submit"
+                    onclick="if(!confirm('Delete this photo?')) return false; this.textContent='Deleting...'; this.classList.add('opacity-75','cursor-not-allowed');"
+                    class="text-sm font-medium text-red-600 hover:text-red-800 underline">Delete photo</button>
+        </form>
+        {% endif %}
+    </div>
+{% empty %}
+    <p class="text-ink-light">No candidates added yet. Use the form above to add the first one.</p>
+{% endfor %}
+</div>
+</main>
+</body>
+</html>

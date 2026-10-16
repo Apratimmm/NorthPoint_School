@@ -399,7 +399,6 @@ class Plus2Toppers(models.Model):
         ("humanities", "Humanities"),
         ("management", "Management"),
         ("computer_science", "Computer Science"),
-        ("combined", "Combined"),
     ]
     stream = models.CharField(
         max_length=20,
@@ -408,7 +407,7 @@ class Plus2Toppers(models.Model):
     )
     name = models.CharField(max_length=150)
     score = models.DecimalField(max_digits=5, decimal_places=2)
-    image = models.ImageField(upload_to="toppers/", blank=True, null=True)
+    image = models.ImageField(upload_to="plus2-candidates/", blank=True, null=True)
 
     class Meta:
         ordering = ["-score"]

@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import *
 from .context_processors import CACHE_KEY
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 import os
 import resend
@@ -500,74 +500,72 @@ def edit_Plus2_results(request):
     return render(request, "edit_Plus2_results.html", {"PLUS2": PLUS2})
 
 @login_required
-def show_streams(request):
-    return render(request, "show_streams.html", {"streams": Plus2Toppers.STREAM_CHOICES})
-
-@login_required
-def edit_Plus2_toppers(request, stream):
-    stream_labels = dict(Plus2Toppers.STREAM_CHOICES)
-    if stream not in stream_labels:
-        raise Http404("Unknown stream")
+def edit_Plus2_candidate(request):
+    streams = Plus2Toppers.STREAM_CHOICES
+    stream_values = {value for value, _ in streams}
 
     if request.method == "POST":
-        form_type = request.POST.get("form_type") or request.POST.get("about")
+        form_type = request.POST.get("form_type")
 
-        if form_type == "delete_topper_image":
-            topper_id = request.POST.get("topper_id")
-            topper = Plus2Toppers.objects.filter(id=topper_id).first()
-            if topper and topper.image:
-                topper.image.delete(save=False)
-                topper.image = None
-                topper.save()
-                messages.success(request, "Image deleted.")
-            return redirect("edit_Plus2_toppers", stream=stream)
-
-        if form_type == "topper":
-            topper_id_raw = request.POST.get("topper_id", "").strip()
+        if form_type == "add_candidate":
+            stream = request.POST.get("stream", "").strip()
+            if stream not in stream_values:
+                stream = streams[0][0]
             name = request.POST.get("name", "").strip()
-            score_raw = request.POST.get("score", "0").strip()
-            try:
-                wanted_score = float(score_raw) if score_raw not in ("", "None", "nan") else 0.0
-            except (TypeError, ValueError):
-                wanted_score = 0.0
+            if name:
+                try:
+                    score = float(request.POST.get("score", 0) or 0)
+                except ValueError:
+                    score = 0
+                Plus2Toppers.objects.create(
+                    name=name,
+                    score=score,
+                    stream=stream,
+                    image=request.FILES.get("image"),
+                )
+                messages.success(request, f"Candidate '{name}' added!")
+            else:
+                messages.error(request, "Name is required.")
+            return redirect("edit_Plus2_candidate")
 
-            if not topper_id_raw:
-                messages.error(request, "No topper ID submitted.")
-                return redirect("edit_Plus2_toppers", stream=stream)
+        if form_type == "update_candidate" and request.POST.get("candidate_id"):
+            candidate = Plus2Toppers.objects.filter(id=request.POST.get("candidate_id")).first()
+            if candidate:
+                candidate.name = request.POST.get("name", "").strip() or candidate.name
+                posted_stream = request.POST.get("stream", "").strip()
+                if posted_stream in stream_values:
+                    candidate.stream = posted_stream
+                try:
+                    candidate.score = float(request.POST.get("score", candidate.score or 0))
+                except ValueError:
+                    pass
+                if request.FILES.get("image"):
+                    candidate.image = request.FILES["image"]
+                candidate.save()
+                messages.success(request, f"Candidate '{candidate.name}' updated!")
+            return redirect("edit_Plus2_candidate")
 
-            try:
-                topper_id = int(topper_id_raw)
-            except (TypeError, ValueError):
-                messages.error(request, f"Invalid topper ID: {topper_id_raw!r}")
-                return redirect("edit_Plus2_toppers", stream=stream)
+        if form_type == "delete_candidate":
+            candidate = Plus2Toppers.objects.filter(id=request.POST.get("candidate_id")).first()
+            if candidate:
+                if candidate.image:
+                    candidate.image.delete(save=False)
+                messages.success(request, f"Candidate '{candidate.name}' deleted.")
+                candidate.delete()
+            return redirect("edit_Plus2_candidate")
 
-            topper = Plus2Toppers.objects.filter(id=topper_id).first()
-            if not topper:
-                messages.error(request, f"Topper id={topper_id} not found in stream {stream!r}.")
-                return redirect("edit_Plus2_toppers", stream=stream)
+        if form_type == "delete_candidate_image":
+            candidate = Plus2Toppers.objects.filter(id=request.POST.get("candidate_id")).first()
+            if candidate and candidate.image:
+                candidate.image.delete(save=False)
+                candidate.image = None
+                candidate.save()
+                messages.success(request, "Photo deleted.")
+            return redirect("edit_Plus2_candidate")
 
-            topper.name = name
-            posted_stream = request.POST.get("stream", "").strip()
-            if posted_stream in stream_labels:
-                topper.stream = posted_stream
-            topper.score = wanted_score
-            if request.FILES.get("image"):
-                topper.image = request.FILES["image"]
-            topper.save()
-            after = Plus2Toppers.objects.get(id=topper.id)
-            messages.success(
-                request,
-                "Topper data updated!")
-            return redirect("edit_Plus2_toppers", stream=stream)
-
-    rows = list(Plus2Toppers.objects.filter(stream=stream))
-    for _ in range(len(rows), 5):
-        rows.append(Plus2Toppers.objects.create(score=0, stream=stream))
-    return render(request, "edit_Plus2_toppers.html", {
-        "stream": stream,
-        "stream_label": stream_labels[stream],
-        "toppers": rows,
-        "streams": Plus2Toppers.STREAM_CHOICES,
+    return render(request, "edit_Plus2_candidate.html", {
+        "candidates": Plus2Toppers.objects.all(),
+        "streams": streams,
     })
 
 @require_POST
