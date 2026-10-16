@@ -57,7 +57,7 @@
   </section>
   {% endif %}
 
-  {% if show_plus2 and PLUS2 %}
+  {% if show_plus2 %}
   <!-- Plus2 Overall Section -->
   <section class="mx-auto max-w-4xl bg-white rounded-3xl border-2 border-black p-10 shadow-xl mb-16">
     <h2 class="text-3xl font-bold text-ink mb-2">Plus2 {{ PLUS2.year }}</h2>
@@ -70,13 +70,14 @@
     </div>
   </section>
 
+  {% if plus2_has_candidates %}
   <!-- Plus2 Candidates Section -->
   <section class="mx-auto max-w-5xl">
-    {% for stream in plus2_toppers_by_stream %}
+    {% for stream in plus2_candidates_by_stream %}
       {% if stream.display %}
       <h2 class="text-3xl font-bold text-ink mb-6">{{ stream.label }} Candidates</h2>
       <div class="flex flex-wrap justify-center gap-6 mb-8">
-        {% for t in stream.toppers %}
+        {% for t in stream.candidates %}
         <div class="w-full max-w-[18rem] bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
           <h3 class="text-2xl font-bold text-ink">{{ t.name }}</h3>
           <span class="text-ink font-bold text-xl">{{ t.score }} GPA</span>
@@ -94,6 +95,7 @@
       {% endif %}
     {% endfor %}
   </section>
+  {% endif %}
   {% endif %}
 </main>
 <div id="lb" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true"><img id="lb-img" src="" class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-2 border-white/20"></div>

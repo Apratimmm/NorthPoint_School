@@ -394,7 +394,7 @@ class Plus2Results(models.Model):
     class Meta:
         verbose_name = "Plus2 Results"
 
-class Plus2Toppers(models.Model):
+class Plus2Candidate(models.Model):
     STREAM_CHOICES = [
         ("humanities", "Humanities"),
         ("management", "Management"),
@@ -411,8 +411,8 @@ class Plus2Toppers(models.Model):
 
     class Meta:
         ordering = ["-score"]
-        verbose_name = "plus2topper"
-        verbose_name_plural = "plus2toppers"
+        verbose_name = "plus2candidate"
+        verbose_name_plural = "plus2candidates"
 
     def __str__(self):
         return f"{self.name} - {self.score}"

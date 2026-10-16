@@ -69,23 +69,24 @@ def results(request):
     candidates = SEECandidate.objects.all()
     PLUS2 = Plus2Results.objects.filter(id=1).first()
     by_stream = {}
-    for t in Plus2Toppers.objects.all():
+    for t in Plus2Candidate.objects.all():
         by_stream.setdefault(t.stream, []).append(t)
 
-    plus2_toppers_by_stream = []
-    for stream_value, stream_label in Plus2Toppers.STREAM_CHOICES:
-        toppers = by_stream.get(stream_value, [])
-        plus2_toppers_by_stream.append({
+    plus2_candidates_by_stream = []
+    for stream_value, stream_label in Plus2Candidate.STREAM_CHOICES:
+        stream_candidates = by_stream.get(stream_value, [])
+        plus2_candidates_by_stream.append({
             "label": stream_label,
             "value": stream_value,
-            "toppers": toppers,
-            "display": any(t.name for t in toppers),
+            "candidates": stream_candidates,
+            "display": any(c.name for c in stream_candidates),
         })
     return render(request, "results.html", {
         "SEE": SEE,
         "candidates": candidates,
         "PLUS2": PLUS2,
-        "plus2_toppers_by_stream": plus2_toppers_by_stream,
+        "plus2_candidates_by_stream": plus2_candidates_by_stream,
+        "plus2_has_candidates": any(s["display"] for s in plus2_candidates_by_stream),
         "show_see": show_see,
         "show_plus2": show_plus2,
     })

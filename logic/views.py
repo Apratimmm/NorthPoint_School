@@ -513,7 +513,7 @@ def edit_Plus2_results(request):
 
 @login_required
 def edit_Plus2_candidate(request):
-    streams = Plus2Toppers.STREAM_CHOICES
+    streams = Plus2Candidate.STREAM_CHOICES
     stream_values = {value for value, _ in streams}
 
     if request.method == "POST":
@@ -529,7 +529,7 @@ def edit_Plus2_candidate(request):
                     score = float(request.POST.get("score", 0) or 0)
                 except ValueError:
                     score = 0
-                Plus2Toppers.objects.create(
+                Plus2Candidate.objects.create(
                     name=name,
                     score=score,
                     stream=stream,
@@ -541,7 +541,7 @@ def edit_Plus2_candidate(request):
             return redirect("edit_Plus2_candidate")
 
         if form_type == "update_candidate" and request.POST.get("candidate_id"):
-            candidate = Plus2Toppers.objects.filter(id=request.POST.get("candidate_id")).first()
+            candidate = Plus2Candidate.objects.filter(id=request.POST.get("candidate_id")).first()
             if candidate:
                 candidate.name = request.POST.get("name", "").strip() or candidate.name
                 posted_stream = request.POST.get("stream", "").strip()
@@ -558,7 +558,7 @@ def edit_Plus2_candidate(request):
             return redirect("edit_Plus2_candidate")
 
         if form_type == "delete_candidate":
-            candidate = Plus2Toppers.objects.filter(id=request.POST.get("candidate_id")).first()
+            candidate = Plus2Candidate.objects.filter(id=request.POST.get("candidate_id")).first()
             if candidate:
                 if candidate.image:
                     candidate.image.delete(save=False)
@@ -567,7 +567,7 @@ def edit_Plus2_candidate(request):
             return redirect("edit_Plus2_candidate")
 
         if form_type == "delete_candidate_image":
-            candidate = Plus2Toppers.objects.filter(id=request.POST.get("candidate_id")).first()
+            candidate = Plus2Candidate.objects.filter(id=request.POST.get("candidate_id")).first()
             if candidate and candidate.image:
                 candidate.image.delete(save=False)
                 candidate.image = None
@@ -576,7 +576,7 @@ def edit_Plus2_candidate(request):
             return redirect("edit_Plus2_candidate")
 
     return render(request, "edit_Plus2_candidate.html", {
-        "candidates": Plus2Toppers.objects.all(),
+        "candidates": Plus2Candidate.objects.all(),
         "streams": streams,
     })
 

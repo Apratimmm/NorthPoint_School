@@ -20,7 +20,7 @@ CONTENT_MODELS = (
     models.FacultyMember,
     models.SEEResults,
     models.Plus2Results,
-    models.Plus2Toppers,
+    models.Plus2Candidate,
     models.ResultsVisibility,
 )
 
