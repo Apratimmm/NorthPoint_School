@@ -61,6 +61,10 @@ def notices(request):
 
 @cache_page(PAGE_CACHE_SECONDS)
 def results(request):
+    visibility = ResultsVisibility.objects.filter(id=1).first()
+    show_see = visibility.show_see if visibility else True
+    show_plus2 = visibility.show_plus2 if visibility else True
+
     SEE = SEEResults.objects.filter(id=1).first()
     candidates = SEECandidate.objects.all()
     PLUS2 = Plus2Results.objects.filter(id=1).first()
@@ -82,6 +86,8 @@ def results(request):
         "candidates": candidates,
         "PLUS2": PLUS2,
         "plus2_toppers_by_stream": plus2_toppers_by_stream,
+        "show_see": show_see,
+        "show_plus2": show_plus2,
     })
 
 @cache_page(PAGE_CACHE_SECONDS)

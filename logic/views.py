@@ -419,7 +419,19 @@ def edit_homepage(request):
 
 @login_required
 def edit_results(request):
-    return render(request,'edit_results.html')
+    visibility, _ = ResultsVisibility.objects.get_or_create(id=1)
+
+    if request.method == "POST":
+        form_type = request.POST.get("form_type")
+
+        if form_type == "visibility":
+            visibility.show_see = request.POST.get("show_see") == "yes"
+            visibility.show_plus2 = request.POST.get("show_plus2") == "yes"
+            visibility.save()
+            messages.success(request, "Results visibility updated successfully!")
+            return redirect("edit_results")
+
+    return render(request, "edit_results.html", {"visibility": visibility})
 
 @login_required
 def edit_SEE_results(request):

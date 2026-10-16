@@ -416,3 +416,20 @@ class Plus2Toppers(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.score}"
+
+class ResultsVisibility(models.Model):
+    show_see = models.BooleanField(
+        default=True,
+        help_text="Show the SEE results section on the public Results page.",
+    )
+    show_plus2 = models.BooleanField(
+        default=False,
+        help_text="Show the Plus2 results section on the public Results page.",
+    )
+
+    class Meta:
+        verbose_name = "results-visibility"
+        verbose_name_plural = "results-visibility"
+
+    def __str__(self):
+        return f"SEE: {'on' if self.show_see else 'off'} | Plus2: {'on' if self.show_plus2 else 'off'}"

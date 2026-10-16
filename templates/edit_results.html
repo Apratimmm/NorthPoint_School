@@ -19,6 +19,42 @@
 <main class="max-w-3xl mx-auto px-6 py-12">
     <div class="flex items-center justify-between mb-8"><h1 class="text-4xl font-bold tracking-tight">Edit Results</h1>
     </div>
+
+    {% if messages %}
+      <div class="mb-6 space-y-3">
+        {% for message in messages %}
+          <div class="rounded-lg border-2 border-green-600 bg-green-50 p-4 text-green-900">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" class="bg-white rounded-3xl border-2 border-ink p-8 shadow-xl mb-10">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="visibility">
+        <h2 class="text-2xl font-bold mb-6">Show on the public Results page</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label for="show_see" class="block text-sm font-medium mb-1">Show SEE results?</label>
+                <select id="show_see" name="show_see" class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans bg-white">
+                    <option value="yes" {% if visibility.show_see %}selected{% endif %}>Yes</option>
+                    <option value="no" {% if not visibility.show_see %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div>
+                <label for="show_plus2" class="block text-sm font-medium mb-1">Show Plus2 results?</label>
+                <select id="show_plus2" name="show_plus2" class="w-full border-2 border-ink rounded-xl px-4 py-2 font-sans bg-white">
+                    <option value="yes" {% if visibility.show_plus2 %}selected{% endif %}>Yes</option>
+                    <option value="no" {% if not visibility.show_plus2 %}selected{% endif %}>No</option>
+                </select>
+            </div>
+        </div>
+        <div class="flex justify-end">
+            <button type="submit"
+                    onclick="this.textContent='Saving...'; this.disabled=true; this.classList.add('opacity-75','cursor-not-allowed'); this.form.submit();"
+                    class="bg-transparent border-2 border-green-700 text-green-700 hover:bg-green-50 font-semibold px-8 py-3 rounded-xl transition">Save</button>
+        </div>
+    </form>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <a href="{% url 'edit_SEE_results' %}"
            class="block bg-white rounded-3xl border-2 border-ink p-8 shadow-xl hover:shadow-2xl transition hover:-translate-y-1">

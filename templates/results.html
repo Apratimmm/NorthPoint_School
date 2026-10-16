@@ -19,6 +19,7 @@
     <p class="mt-4 text-xl text-ink-light">Academic achievements and examination outcomes.</p>
   </div>
 
+  {% if show_see %}
   <!-- Overall Section -->
   <section class="mx-auto max-w-4xl bg-white rounded-3xl border-2 border-black p-10 shadow-xl mb-10">
     <h2 class="text-3xl font-bold text-ink mb-2">SEE {{ SEE.year }}</h2>
@@ -54,8 +55,9 @@
     <p class="text-center text-ink-light">No candidates added yet.</p>
     {% endif %}
   </section>
+  {% endif %}
 
-  {% if PLUS2 %}
+  {% if show_plus2 and PLUS2 %}
   <!-- Plus2 Overall Section -->
   <section class="mx-auto max-w-4xl bg-white rounded-3xl border-2 border-black p-10 shadow-xl mb-16">
     <h2 class="text-3xl font-bold text-ink mb-2">Plus2 {{ PLUS2.year }}</h2>

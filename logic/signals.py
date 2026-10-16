@@ -21,6 +21,7 @@ CONTENT_MODELS = (
     models.SEEResults,
     models.Plus2Results,
     models.Plus2Toppers,
+    models.ResultsVisibility,
 )
 
 def clear_site_cache(**kwargs):
