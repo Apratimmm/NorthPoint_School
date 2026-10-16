@@ -435,41 +435,56 @@ def edit_SEE_results(request):
     return render(request, "edit_SEE_results.html", {"SEE": SEE})
 
 @login_required
-def edit_SEE_toppers(request):
-    toppers = list(SEEToppers.objects.all()[:5])
-
-    for i in range(5):
-        if i >= len(toppers):
-            toppers.append(SEEToppers.objects.create(score=0))
-
+def edit_SEE_candidate(request):
     if request.method == "POST":
-        form_type = request.POST.get("form_type") or request.POST.get("about")
+        form_type = request.POST.get("form_type")
 
-        if form_type == "delete_topper_image":
-            topper_id = request.POST.get("topper_id")
-            topper = SEEToppers.objects.filter(id=topper_id).first()
-            if topper and topper.image:
-                topper.image.delete(save=False)
-                topper.image = None
-                topper.save()
-                messages.success(request, "Image deleted.")
-            return redirect("edit_SEE_toppers")
-
-        if form_type == "topper":
-            topper_id = request.POST.get("topper_id")
-            topper = SEEToppers.objects.filter(id=topper_id).first()
-            if topper:
-                topper.name = request.POST.get("name", "").strip()
+        if form_type == "add_candidate":
+            name = request.POST.get("name", "").strip()
+            if name:
                 try:
-                    topper.score = float(request.POST.get("score", 0) or 0)
-                except:
-                    topper.score = 0
+                    score = float(request.POST.get("score", 0) or 0)
+                except ValueError:
+                    score = 0
+                SEECandidate.objects.create(name=name, score=score, image=request.FILES.get("image"))
+                messages.success(request, f"Candidate '{name}' added!")
+            else:
+                messages.error(request, "Name is required.")
+            return redirect("edit_SEE_candidate")
+
+        if form_type in ("update_candidate", "candidate") and request.POST.get("candidate_id"):
+            candidate = SEECandidate.objects.filter(id=request.POST.get("candidate_id")).first()
+            if candidate:
+                candidate.name = request.POST.get("name", "").strip() or candidate.name
+                try:
+                    candidate.score = float(request.POST.get("score", candidate.score or 0))
+                except ValueError:
+                    pass
                 if request.FILES.get("image"):
-                    topper.image = request.FILES["image"]
-                topper.save()
-                messages.success(request, "Topper updated!")
-            return redirect("edit_SEE_toppers")
-    return render(request, "edit_SEE_toppers.html", {"toppers": toppers})
+                    candidate.image = request.FILES["image"]
+                candidate.save()
+                messages.success(request, f"Candidate '{candidate.name}' updated!")
+            return redirect("edit_SEE_candidate")
+
+        if form_type == "delete_candidate":
+            candidate = SEECandidate.objects.filter(id=request.POST.get("candidate_id")).first()
+            if candidate:
+                if candidate.image:
+                    candidate.image.delete(save=False)
+                messages.success(request, f"Candidate '{candidate.name}' deleted.")
+                candidate.delete()
+            return redirect("edit_SEE_candidate")
+
+        if form_type == "delete_candidate_image":
+            candidate = SEECandidate.objects.filter(id=request.POST.get("candidate_id")).first()
+            if candidate and candidate.image:
+                candidate.image.delete(save=False)
+                candidate.image = None
+                candidate.save()
+                messages.success(request, "Photo deleted.")
+            return redirect("edit_SEE_candidate")
+
+    return render(request, "edit_SEE_candidate.html", {"candidates": SEECandidate.objects.all()})
 
 @login_required
 def edit_Plus2_results(request):

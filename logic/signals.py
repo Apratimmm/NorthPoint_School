@@ -8,7 +8,7 @@ CONTENT_MODELS = (
     models.Messages,
     models.Academic,
     models.ContactInfo,
-    models.SEEToppers,
+    models.SEECandidate,
     models.GalleryEvent,
     models.GalleryImage,
     models.MonthInfo,

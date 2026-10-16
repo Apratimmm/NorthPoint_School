@@ -171,19 +171,6 @@ class ContactInfo(models.Model):
         numbers = self.telephone.replace(",", "\n").splitlines()
         return [num.strip() for num in numbers if num.strip()]
 
-class SEEToppers(models.Model):
-    name = models.CharField(max_length=150)
-    score = models.DecimalField(max_digits=5, decimal_places=2)
-    image = models.ImageField(upload_to="toppers/", blank=True, null=True)
-
-    class Meta:
-        ordering = ["-score"]
-        verbose_name = "seetopper"
-        verbose_name_plural = "seetoppers"
-
-    def __str__(self):
-        return f"{self.name} - {self.score}"
-
 class GalleryEvent(models.Model):
     event_name = models.CharField(max_length=200)
     event_date = models.CharField()
@@ -384,6 +371,19 @@ class SEEResults(models.Model):
 
     class Meta:
         verbose_name = "SEE Results"
+
+class SEECandidate(models.Model):
+    name = models.CharField(max_length=150)
+    score = models.DecimalField(max_digits=7, decimal_places=2)
+    image = models.ImageField(upload_to="see-candidates/", blank=True, null=True)
+
+    class Meta:
+        ordering = ["-score"]
+        verbose_name = "see-candidate"
+        verbose_name_plural = "see-candidates"
+
+    def __str__(self):
+        return f"{self.name} - {self.score}"
 
 class Plus2Results(models.Model):
     year = models.IntegerField(default=0)

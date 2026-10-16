@@ -31,17 +31,17 @@
     </div>
   </section>
 
-  <!-- Toppers Section -->
+  <!-- SEE Candidates Section -->
   <section class="mx-auto max-w-5xl mb-10">
-        <h2 class="text-3xl font-bold text-ink mb-6">Top 5 Toppers</h2>
+        <h2 class="text-3xl font-bold text-ink mb-6">SEE Candidates</h2>
      <div class="flex flex-wrap justify-center gap-6">
-      {% for t in toppers %}
+      {% for c in candidates %}
       <div class="w-full max-w-[18rem] bg-white rounded-3xl border-2 border-black p-6 shadow-xl">
-        <h3 class="text-2xl font-bold text-ink">{{ t.name }}</h3>
-        <span class="text-ink font-bold text-xl">{{ t.score }} GPA</span>
+        <h3 class="text-2xl font-bold text-ink">{{ c.name }}</h3>
+        <span class="text-ink font-bold text-xl">{{ c.score }} GPA</span>
         <div class="w-full h-0.5 bg-black/20 my-4"></div>
-        {% if t.image %}
-        <img onclick="openLightbox(this.src)" src="{{ t.image.url }}?f_auto,q_auto" class="rounded-2xl border-2 border-black w-full h-56 object-cover cursor-zoom-in" alt="{{ t.name }}" loading="lazy" width="800" height="533" decoding="async">
+        {% if c.image %}
+        <img onclick="openLightbox(this.src)" src="{{ c.image.url }}?f_auto,q_auto" class="rounded-2xl border-2 border-black w-full h-56 object-cover cursor-zoom-in" alt="{{ c.name }}" loading="lazy" width="800" height="533" decoding="async">
         {% else %}
         <div class="rounded-2xl border-2 border-black w-full h-56 bg-black/5 flex items-center justify-center text-ink-light text-lg font-medium tracking-wide">
           No image yet
@@ -50,6 +50,9 @@
       </div>
       {% endfor %}
     </div>
+    {% if not candidates %}
+    <p class="text-center text-ink-light">No candidates added yet.</p>
+    {% endif %}
   </section>
 
   {% if PLUS2 %}

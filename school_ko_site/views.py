@@ -62,7 +62,7 @@ def notices(request):
 @cache_page(PAGE_CACHE_SECONDS)
 def results(request):
     SEE = SEEResults.objects.filter(id=1).first()
-    toppers = SEEToppers.objects.all()[:5]
+    candidates = SEECandidate.objects.all()
     PLUS2 = Plus2Results.objects.filter(id=1).first()
     fallback_used = False
     by_stream = {}
@@ -99,7 +99,7 @@ def results(request):
                 fallback_used = True
     return render(request, "results.html", {
         "SEE": SEE,
-        "toppers": toppers,
+        "candidates": candidates,
         "PLUS2": PLUS2,
         "plus2_toppers_by_stream": plus2_toppers_by_stream,
         "plus2_fallback_used": fallback_used,
