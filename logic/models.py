@@ -314,9 +314,6 @@ class NoticeImage(models.Model):
     class Meta:
         ordering = ["-uploaded_at"]
 
-    def __str__(self):
-        return f"{self.title} ({self.date})"
-
 class HomePage(models.Model):
     SECTION_CHOICES = [
         ("text", "Text"),
